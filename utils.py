@@ -1,5 +1,6 @@
 import os
 import re
+import sys
 import datetime
 import flags
 import parseDSEvents
@@ -51,7 +52,11 @@ def getListOfFiles(dirName, reg):
     # create a list of file and sub directories
     # names in the given directory
     exp = re.compile(reg)
-    listOfFile = os.listdir(dirName)
+    try:
+        listOfFile = os.listdir(dirName)
+    except:
+        print("Error -- Unable to find directory --> " + dirName)
+        sys.exit(0)
     allFiles = list()
     # Iterate over all the entries
     for entry in listOfFile:
