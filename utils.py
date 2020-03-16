@@ -6,6 +6,7 @@ import flags
 import parseDSEvents
 import parseDSLogs
 
+
 def doAllDSEvents(path, fileType):
     totalCount = 0
     fileCount = 0
@@ -21,17 +22,16 @@ def doAllDSEvents(path, fileType):
 
 
 def doFiles(files, fileType):
-    global robotType, compiled, version
     totalCount = 0
     fileCount = 0
     for file in files:
         fileCount += 1
         if fileType == "dsevents":
             p = parseDSEvents.parseFile(file)
-        if fileType == "dslogs":
+        if fileType == "dslog":
             p = parseDSLogs.parseFile(file)
         totalCount += p.lineCount
-    print("{} lines for {} ".format(totalCount, fileCount))
+    print("%6d lines found in %d files" % (totalCount-1, fileCount))
 
 
 def getFileInfo(fileName, startLine):
@@ -51,7 +51,11 @@ def getFileInfo(fileName, startLine):
 def getListOfFiles(dirName, reg):
     # create a list of file and sub directories
     # names in the given directory
-    exp = re.compile(reg)
+    try:
+        exp = re.compile(reg)
+    except:
+        print("Error -- Invalid or no paramters entered")
+        sys.exit(0)
     try:
         listOfFile = os.listdir(dirName)
     except:
@@ -96,6 +100,7 @@ def getRegularExpression(year, month, day, monthEntered, dayEntered, fileType):
             return exp
     exp = ".*" + year + ".*" + fileType
     return exp
+
 
 def NationalInstrumentDateToString(seconds):
     # Get base time for National Instrutments software

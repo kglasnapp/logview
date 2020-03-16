@@ -12,15 +12,16 @@ class parseDSLogs:
     lineCount = 0
     fileName = ''
     def __init__(self, file):
-        print("Parse DSLog for file:" + file)
+        if flags.debug:
+            print("Parse DSLog for file:" + file)
         table = os.path.basename(file)
         self.fileName = table
         table = "Logs_" + table.split(' ')[0] + "_" + table.split(' ')[1]
         if flags.makeDB and not flags.allInOne:
             print("Make table in DB for: " + table)
-            main.db.dropTable(table)
-            main.db.createLogDataTable(table)
-            main.db.createConnection('files')
+            db.db.dropTable(table)
+            db.db.createLogDataTable(table)
+            db.db.createConnection('files')
         if flags.CSVFile != "":
             try:
                 csvFileID = open(flags.CSVFile, "w+")
@@ -49,7 +50,6 @@ class parseDSLogs:
         if flags.debug:
             print("Parse file: " + file + " date:" +
                   str(fileDate) + " StartSec:" + str(time))
-        count = 0
         while True:
             hdr = stream.read(35)
             # Check for end of file
@@ -61,24 +61,24 @@ class parseDSLogs:
             current = self.sumCurrents(pdp, False)
             battery = round((hdr[2] + hdr[3] / 256) * 10) / 10
             if flags.showLogs:
-                print(time.strftime("%m/%d %H:%M:%S "), count, " Trip:", hdr[0], " Bat:", battery, " CPU:",
+                print(time.strftime("%m/%d %H:%M:%S "), self.lineCount, " Trip:", hdr[0], " Bat:", battery, " CPU:",
                       hdr[4] / 2, " Trace:", trace, "Current:", current, pdp)
             if csvFileID:
-                s = "\t%s,%d,%d,%d,%.1f,%.1f,%s,%.1f,%.1f,%d,%.1f,%s\n" % (time.strftime("%m/%d %H:%M:%S"), count,
+                s = "\t%s,%d,%d,%d,%.1f,%.1f,%s,%.1f,%.1f,%d,%.1f,%s\n" % (time.strftime("%m/%d %H:%M:%S"), self.lineCount,
                     hdr[0], hdr[1]*4,  battery, hdr[4]/2,  trace, hdr[6]/2, hdr[7]/2, hdr[8], current, self.currentsToString(pdp))
                 csvFileID.write(s)
-            count += 1
+            self.lineCount += 1
             time += datetime.timedelta(seconds=(.02))
-        print("Processed file:%s Last Time:%s Line count:%d" % (file, time.strftime("%H:%M:%S "), count))
+        print("Processed file:%s Last Time:%s Line count:%d" % (file, time.strftime("%H:%M:%S "), self.lineCount))
         if(csvFileID):
             csvFileID.close()
         if flags.makeDB:
             #db.addFileData(file, fileDate, self.lineCount-1, '','','')
-            main.db.connection.commit()
+            db.db.connection.commit()
             if not flags.allInOne:
                 s = table + '_' + str(self.lineCount)
-                main.db.dropTable(s)
-                main.db.renameTable(s)
+                db.db.dropTable(s)
+                db.db.renameTable(s)
 
     def toDec4(self, d, start):
         return d[start+2] * 256 + d[start+3] + (d[start] * 256 + d[start+1]) * 256
