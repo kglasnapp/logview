@@ -118,7 +118,7 @@ class parseDSEvents:
                     utils.getFileInfo(self.fileName, l)
                     self.lineCount += 1
                     if flags.makeDB:
-                        db.db.addData(lineDate, deltaTime,
+                        db.db.addEventData(lineDate, deltaTime,
                                       lineType, l, self.fileNum, self.fileName)
 
 

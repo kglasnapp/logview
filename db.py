@@ -5,12 +5,13 @@ import sqlite3
 from sqlite3 import Error
 import sys
 
+
 class DB:
     connection = None
     cursor = None
     table = ''
     fileTable = ''
-   
+
     def createConnection(self, db_file):
        # create a database connection to a SQLite database
         try:
@@ -44,7 +45,7 @@ class DB:
         except Error as e:
             print(e)
 
-    def createLogDataTable(self, table):
+    def createEventDataTable(self, table):
         print("Create table:" + table)
         self.table = table
         # create a table from the create_table_sql statement
@@ -62,7 +63,7 @@ class DB:
         except Error as e:
             print(e)
 
-    def addData(self, date, deltaTime, recType, data, fileNum, misc):
+    def addEventData(self, date, deltaTime, recType, data, fileNum, misc):
         task = (date, deltaTime, recType, data, fileNum, misc)
         sql = 'INSERT INTO ' + self.table + \
             ' (beginDate, deltaTime, type, logData, fileNum, misc)  VALUES(?,?,?,?,?,?)'
@@ -102,7 +103,8 @@ class DB:
         else:
             fileSize = os.path.getsize(path)
             fileDate = os.path.getmtime(path)
-            fileDate = datetime.datetime.fromtimestamp(fileDate).strftime("%m/%d %H:%M:%S")
+            fileDate = datetime.datetime.fromtimestamp(
+                fileDate).strftime("%m/%d %H:%M:%S")
             task = (date, fileName, fileSize, fileDate,
                     lines, robotType, compiled, version)
             sql = 'INSERT INTO ' + self.fileTable + \
@@ -114,11 +116,45 @@ class DB:
     def getFileNameIndex(self, fileName):
         cur = self.connection.cursor()
         cur.execute(
-            "SELECT id,fileName FROM Files WHERE fileName=?", (fileName, ))
+            "SELECT id,fileName FROM files WHERE fileName=?", (fileName, ))
         rows = cur.fetchall()
         if(len(rows) == 1):
             return rows[0][0]
         return None
+
+    def createLogDataTable(self, table):
+        print("Create table:" + table)
+        self.table = table
+        # create a table from the create_table_sql statement
+        # Time,Count,Trip,Loss,Battery,CPU,Trace,CAN,WiFi,MB,Current,
+        # PDP 0,PDP 1,PDP 2,PDP 3,PDP 4,PDP 5,PDP 6,PDP 7,PDP 8,PDP 9,PDP 10,PDP 11,PDP 12,PDP 13,PDP 14,PDP 15
+        sql = "CREATE TABLE IF NOT EXISTS " + table + """ (
+            id integer PRIMARY KEY AUTOINCREMENT,
+            fileNum integer, time text, count integer, trip numeric,
+            loss numeric, battery numeric, cpu numeric, trace numeric,
+            can numeric, wifi numeric, mb numeric, current numeric,
+            pdp0 numeric, pdp1 numeric, pdp2 numeric, pdp3 numeric,
+            pdp4 numeric, pdp5 numeric, pdp6 numeric, pdp7 numeric,  
+            pdp8 numeric, pdp9 numeric, pdp10 numeric, pdp11 numeric,  
+            pdp12 numeric, pdp13 numeric, pdp14 numeric, pdp15 numeric,           
+            misc text); """
+        try:
+            self.cursor = self.connection.cursor()
+            self.cursor.execute(sql)
+        except Error as e:
+            print("Error creating table:", table, e)
+            
+    s = "(fileNum, time,count,trip,loss,"
+    s += "battery,cpu,trace,can,wifi,mb,current,"
+    s += "pdp0,pdp1,pdp2,pdp3,pdp4,pdp5,pdp6,pdp7,"
+    s += "pdp8,pdp9,pdp10,pdp11,pdp12,pdp13,pdp14,pdp15,misc)"
+    s += "values (?,?,?,?,?,?,?,?,?,?,?,?,"
+    s += "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+
+    def addLogData(self, data):
+        sql = 'INSERT INTO ' + self.table + self.s 
+        self.cursor = self.connection.cursor()
+        self.cursor.execute(sql, data)
 
     def renameTable(self, newName):
         sql = 'ALTER TABLE %s RENAME TO %s;' % (self.table, newName)

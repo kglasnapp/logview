@@ -6,11 +6,14 @@ import struct
 import flags
 import bitstring
 import sys
-import main
+#import main
+import utils
+
 
 class parseDSLogs:
     lineCount = 0
     fileName = ''
+
     def __init__(self, file):
         if flags.debug:
             print("Parse DSLog for file:" + file)
@@ -22,18 +25,20 @@ class parseDSLogs:
             db.db.dropTable(table)
             db.db.createLogDataTable(table)
             db.db.createConnection('files')
+        # Open the csvfile for writing if requested
         if flags.CSVFile != "":
             try:
-                csvFileID = open(flags.CSVFile, "w+")
+                csvFileID = open(flags.CSVFile, "a")
             except:
                 print(
-                    "Error -- Unable to open file %s for writing -- is the file open in another program", flags.CSVFile)
+                    "Error -- Unable to open file %s for writing -- is the file %s open in another program", flags.CSVFile, flags.CSVFile)
                 sys.exit(0)
-            s = ""
-            for i in range(0, 16):
-                s += "PDP %d," % (i)
-            csvFileID.write(
-                "Time,Count,Trip,Loss,Battery,CPU,Trace,CAN,WiFi,MB,Current," + s[:-1] + "\n")
+            if os.path.getsize(flags.CSVFile) == 0:
+                s = ""
+                for i in range(0, 16):
+                    s += "PDP %d," % (i)
+                csvFileID.write(
+                    "Time,Count,Trip,Loss,Battery,CPU,Trace,CAN,WiFi,MB,Current," + s[:-1] + "\n")
         stream = open(file, 'rb')
         ar = os.path.basename(file).split()
         if(len(ar) != 3):
@@ -60,20 +65,31 @@ class parseDSLogs:
             pdp = self.getPDP(hdr, 11)
             current = self.sumCurrents(pdp, False)
             battery = round((hdr[2] + hdr[3] / 256) * 10) / 10
+            if battery > 15:
+                battery = 0
             if flags.showLogs:
                 print(time.strftime("%m/%d %H:%M:%S "), self.lineCount, " Trip:", hdr[0], " Bat:", battery, " CPU:",
                       hdr[4] / 2, " Trace:", trace, "Current:", current, pdp)
             if csvFileID:
                 s = "\t%s,%d,%d,%d,%.1f,%.1f,%s,%.1f,%.1f,%d,%.1f,%s\n" % (time.strftime("%m/%d %H:%M:%S"), self.lineCount,
-                    hdr[0], hdr[1]*4,  battery, hdr[4]/2,  trace, hdr[6]/2, hdr[7]/2, hdr[8], current, self.currentsToString(pdp))
+                                                                           hdr[0], hdr[1]*4,  battery, hdr[4]/2,  trace, hdr[6]/2, hdr[7]/2, hdr[8], current, self.currentsToString(pdp))
                 csvFileID.write(s)
+            if flags.makeDB:
+                #  s = "(fileNum, time,count,trip,loss,battery,cpu,trace,can,wifi,mb,current,"
+                data = [0, time, self.lineCount, hdr[0], hdr[1]*4, battery,
+                        hdr[4]/2,  trace, hdr[6]/2, hdr[7]/2, hdr[8], current]
+                for x in pdp:
+                    data.append(x)
+                data.append("misc")
+                db.db.addLogData(tuple(data))
             self.lineCount += 1
             time += datetime.timedelta(seconds=(.02))
-        print("Processed file:%s Last Time:%s Line count:%d" % (file, time.strftime("%H:%M:%S "), self.lineCount))
+        print("Processed file:%s Last Time:%s Line count:%d" %
+              (file, time.strftime("%H:%M:%S "), self.lineCount-1))
         if(csvFileID):
             csvFileID.close()
         if flags.makeDB:
-            #db.addFileData(file, fileDate, self.lineCount-1, '','','')
+            db.db.addFileData(file, fileDate, self.lineCount-1, '', '', '')
             db.db.connection.commit()
             if not flags.allInOne:
                 s = table + '_' + str(self.lineCount)
@@ -115,16 +131,11 @@ class parseDSLogs:
         dt += datetime.timedelta(seconds=(sec + millisec))
         return dt
 
-    def dump(self, hdr, length):
-        s = ""
-        for i in range(0, length):
-            s += "%x " % (hdr[i])
-        print(s)
-
     # PDP are 10 bit number and the current is obtained by dividing by 8
     # 0, 1, 2, 3, 4, 5	  60 bits + 4 padding	8 bytes
     # 6, 7, 8, 9, 10, 11  60 bits + 4 padding	8 bytes
     # 12, 13, 14, 15	  40 bits	5 bytes
+
     def getPDP(self, hdr, start):
         result = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         self.get4(hdr, 11+0, result, 0)
@@ -197,6 +208,7 @@ class parseDSLogs:
         status_bits = bitstring.Bits(bytes=raw_value)
         # invert them all
         return [not b for b in status_bits]
+
 
 def parseFile(file):
     return parseDSLogs(file)

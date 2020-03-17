@@ -110,3 +110,9 @@ def NationalInstrumentDateToString(seconds):
     # Adjust time for Time in the file
     dt += datetime.timedelta(seconds=(seconds))
     return dt.strftime("%m/%d %H:%M:%S")
+
+def dump(hdr, length):
+    s = ""
+    for i in range(0, length):
+        s += "%x " % (hdr[i])
+    print(s)

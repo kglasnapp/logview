@@ -10,8 +10,9 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            //"args": [ "-d9",  "-D", "-a", "-S", "..//AllLogs"]
-             "args": ["-S", "-D"]
+            "args": ["-S", "-s", "-D", "-a", "-cmydslogdata.csv", "."]
+            //"args": [ "-d8-9", "-S", "-s", "-D", "-a", "-cmydslogdata.csv", "..//AllLogs"]
+            // "args": [ "-D"]
         }
     ]
 }
