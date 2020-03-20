@@ -74,10 +74,14 @@ def processOptions():
         if opt == '-m':
             flags.month = arg
             flags.monthParm = True
-        if opt == '-Pe':
-            flags.dsevents = False
-        if opt == '-pl':
+        if opt == '-P' and arg == 'e':
+            flags.dsevents = True
+        if opt == '-P' and arg == 'l':
             flags.dslogs = True
+        if opt == '-p' and arg == 'e':
+            flags.dsevents = False
+        if opt == '-p' and arg == 'l':
+            flags.dslogs = False
         if opt == '-y':
             flags.year = arg
 
@@ -85,7 +89,8 @@ def processOptions():
 def processFiles(argv,  fileType):
     exp = utils.getRegularExpression(
         flags.year, flags.month, flags.day, flags.monthParm, flags.dayParm, fileType)
-    #flags.path = "."
+    if(len(argv)):
+        flags.path = "."
     files = utils.getListOfFiles(flags.path, exp)
     print("Start argv:%s RegExp:%s Found %d Files" % (argv, exp,  len(files)))
     if flags.debug:
@@ -113,6 +118,7 @@ def main(argv):
         printShortHelp()
     processOptions()
     if flags.dsevents:
+        # Delete previous csv file for Events
         if flags.makeCSVEvents:
             try:
                 os.remove(flags.CSVEventsFile)
@@ -120,6 +126,7 @@ def main(argv):
                 pass
         processFiles(argv, "dsevents")
     if flags.dslogs:
+        # Delete previous csv file for Logs
         if flags.makeCSVLog:
             try:
                 os.remove(flags.CSVLogFile)

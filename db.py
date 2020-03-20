@@ -119,8 +119,12 @@ class DB:
 
     def getFileNameIndex(self, fileName):
         cur = self.connection.cursor()
-        cur.execute(
-            "SELECT id,fileName FROM files WHERE fileName=?", (fileName, ))
+        sql = "SELECT id,fileName FROM files WHERE fileName=?"
+        try:
+            cur.execute(sql, (fileName, ))
+        except: 
+            print("Error: **** " , sql)
+            sys.exit(0)
         rows = cur.fetchall()
         if(len(rows) == 1):
             return rows[0][0]

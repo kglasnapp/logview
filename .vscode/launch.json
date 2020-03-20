@@ -11,7 +11,9 @@
             "program": "${file}",
             "console": "integratedTerminal",
             //"args": ["-S", "-D", "-a", "-cl mydslogdata.csv",  "-ce mydseventdata.csv","."]
-            "args": [ "-d7-9", "-D", "-a", "-cemydseventdata.csv", "..//AllLogs"]
+            "args": ["-D", "-Pe", "-Pl", "-cl mydslogdata.csv",  "-ce mydseventdata.csv","."]
+            //"args": [ "-d7-9", "-D", "-a", "-Pl", "-cemydseventdata.csv", "..//AllLogs"]
+            //"args": [ "-d8",  "-D", "-clcurrents.csv",  "-ceevents.csv", "../AllLogs"]
             // "args": [ "-D"]
         }
     ]

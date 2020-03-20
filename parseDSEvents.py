@@ -22,11 +22,11 @@ class parseDSEvents:
         if flags.debug:
             print("Parse file:" + table)
         table = "Logs_" + table.split(' ')[0] + "_" + table.split(' ')[1]
-        if flags.makeDB and not flags.allInOne:
-            print("Make table in DB for: " + table)
-            db.db.dropTable(table)
-            db.db.createLogDataTable(table)
-            db.db.createConnection('files')
+        # if flags.makeDB and not flags.allInOne:
+        #     print("Make table in DB for: " + table)
+        #     db.db.dropTable(table)
+        #     db.db.createLogDataTable(table)
+        #     db.db.createConnection('files')
         # Open the csvfile for writing if requested
         self.csvFileID = None
         if flags.CSVEventsFile != "":
@@ -82,10 +82,10 @@ class parseDSEvents:
             db.db.addFileData(file, fileDate, self.lineCount-1,
                               flags.robotType, flags.compiled, flags.version)
             db.db.connection.commit()
-            if not flags.allInOne:
-                s = table + '_' + str(self.lineCount)
-                db.db.dropTable(s)
-                db.db.renameTable(s)
+            # if not flags.allInOne:
+            #     s = table + '_' + str(self.lineCount)
+            #     db.db.dropTable(s)
+            #     db.db.renameTable(s)
 
     def toDec4(self, d, start):
         return d[start+2] * 256 + d[start+3] + (d[start] * 256 + d[start+1]) * 256
