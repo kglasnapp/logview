@@ -26,14 +26,15 @@ class parseDSLogs:
             db.db.createLogDataTable(table)
             db.db.createConnection('files')
         # Open the csvfile for writing if requested
-        if flags.CSVFile != "":
+        csvFileID = None
+        if flags.CSVLogFile != "":
             try:
-                csvFileID = open(flags.CSVFile, "a")
+                csvFileID = open(flags.CSVLogFile, "a")
             except:
-                print(
-                    "Error -- Unable to open file %s for writing -- is the file %s open in another program", flags.CSVFile, flags.CSVFile)
+                s = "Error -- Unable to open file %s for writing -- is the file %s open in another program"
+                print(s % (flags.CSVLogFile, flags.CSVLogFile))
                 sys.exit(0)
-            if os.path.getsize(flags.CSVFile) == 0:
+            if os.path.getsize(flags.CSVLogFile) == 0:
                 s = ""
                 for i in range(0, 16):
                     s += "PDP %d," % (i)
@@ -71,8 +72,9 @@ class parseDSLogs:
                 print(time.strftime("%m/%d %H:%M:%S "), self.lineCount, " Trip:", hdr[0], " Bat:", battery, " CPU:",
                       hdr[4] / 2, " Trace:", trace, "Current:", current, pdp)
             if csvFileID:
-                s = "\t%s,%d,%d,%d,%.1f,%.1f,%s,%.1f,%.1f,%d,%.1f,%s\n" % (time.strftime("%m/%d %H:%M:%S"), self.lineCount,
-                                                                           hdr[0], hdr[1]*4,  battery, hdr[4]/2,  trace, hdr[6]/2, hdr[7]/2, hdr[8], current, self.currentsToString(pdp))
+                data = (time.strftime("%m/%d %H:%M:%S"), self.lineCount,
+                     hdr[0], hdr[1]*4,  battery, hdr[4]/2,  trace, hdr[6]/2, hdr[7]/2, hdr[8], current, self.currentsToString(pdp))
+                s = "\t%s,%d,%d,%d,%.1f,%.1f,%s,%.1f,%.1f,%d,%.1f,%s\n" % data
                 csvFileID.write(s)
             if flags.makeDB:
                 #  s = "(fileNum, time,count,trip,loss,battery,cpu,trace,can,wifi,mb,current,"

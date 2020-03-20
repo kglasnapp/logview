@@ -1,4 +1,3 @@
-
 import os
 import re
 import datetime
@@ -15,6 +14,7 @@ class parseDSEvents:
     lineCount = 0
     fileName = ''
     fileNum = 0
+    csvFileID = None
 
     def __init__(self, file):
         table = os.path.basename(file)
@@ -27,7 +27,19 @@ class parseDSEvents:
             db.db.dropTable(table)
             db.db.createLogDataTable(table)
             db.db.createConnection('files')
-
+        # Open the csvfile for writing if requested
+        self.csvFileID = None
+        if flags.CSVEventsFile != "":
+            try:
+                self.csvFileID = open(flags.CSVEventsFile, "a")
+            except:
+                s = "Error -- Unable to open file %s for writing -- is the file %s open in another program"
+                print(s % (flags.CSVEventsFile, flags.CSVEventsFile))
+                sys.exit(0)
+            if os.path.getsize(flags.CSVEventsFile) == 0:
+                # Write Header for the csv file
+                self.csvFileID.write(
+                    "Count,LineDate,DeltaTime,LineType,Data,FileName\n")
         stream = open(file, 'rb')
         ar = os.path.basename(file).split()
         if(len(ar) != 3):
@@ -64,6 +76,8 @@ class parseDSEvents:
             lastSec = sec
         print("%6d lines in file %s type %s compiled %s version %s" %
               (self.lineCount-1, file, flags.robotType, flags.compiled, flags.version))
+        if(self.csvFileID):
+            self.csvFileID.close()
         if flags.makeDB:
             db.db.addFileData(file, fileDate, self.lineCount-1,
                               flags.robotType, flags.compiled, flags.version)
@@ -119,7 +133,10 @@ class parseDSEvents:
                     self.lineCount += 1
                     if flags.makeDB:
                         db.db.addEventData(lineDate, deltaTime,
-                                      lineType, l, self.fileNum, self.fileName)
+                                           lineType, l, self.fileNum, self.fileName)
+                    if(self.csvFileID):
+                        self.csvFileID.write('%d,"\t%s",%d,%s,"%s",%s\n' % (
+                            self.lineCount, lineDate, 0, lineType, l, self.fileName))
 
 
 def parseFile(file):

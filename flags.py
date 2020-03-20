@@ -1,7 +1,11 @@
 # Global flags for the log viewer
 debug = False # flag true when user would like to see debug data
 makeDB = False # flag true when user wants to make a sqlite data base
-makeCSV = False # flag true when user wants to make a .csv file of the data
+makeCSVEvents = False # flag true when user wants to make a .csv file of the event data
+CSVEventsFile = ""
+makeCSVLog = False # flag true when user wants to make a .csv file of the log data
+CSVLogFile = ""
+makeCSV = False 
 CSVFile = 'data.csv' # Default csv file name
 allInOne = False # flag true when user wants to see all data in one database 
 showLogs = False # flag true when user wants to see detailed logs

@@ -9,9 +9,11 @@ import sys
 import getopt
 import utils
 
+
 def printShortHelp():
-     print("python main.py -a -c -d<day> -d9-10 -D -h -l -L" +
+    print("python main.py -a -c -d<day> -d9-10 -D -h -l -L" +
           " -m<month> -r -S -s -y<year> [path to search]")
+
 
 def printLongHelp():
     print()
@@ -27,31 +29,37 @@ def printLongHelp():
     print("-L show data from logs")
     print("-m only process files matching the month parameter")
     print("-r process (recurse) all files in path")
-    print("-S process dslog files -- currents / status")
-    print("-s do not process dsevents files - tools process dsevents by default")
+    print("-Pe do not process dsevents files")
+    print("-pl process dslog files -- default is to not process dslog")
+    print("    dslog show motor currents and general robot status")
     print("-y only process file matching the year parameter -- must be 4 digit")
     print()
+
 
 def processOptions():
     flags.year = datetime.datetime.now().strftime('%Y')
     flags.month = datetime.datetime.now().strftime('%m')
     flags.day = datetime.datetime.now().strftime('%d')
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "aDhlLrsSc:m:d:y:")
+        opts, args = getopt.getopt(sys.argv[1:], "aDhlLrsSc:m:d:p:P:y:")
         if(len(args) >= 1):
             flags.path = args[0]
     except:
-        print("Error: should be  python main.py -a -D -h -l -L -r -s -S -c<csvfile> -m<month> -d<day> -d<start-end> path")
+        print("Error: should be  python main.py -a -D -h -l -L -r  -c<csvfile> -m<month> -d<day> -d<start-end> path")
         sys.exit(2)
     flags.dayParm = False
     flags.monthParm = False
     for opt, arg in opts:
         if opt == '-a':
             flags.allInOne = True
-        if opt == '-c':
-            flags.makeCSV = True
-            if(len(arg) > 0):
-                flags.CSVFile = arg
+        if opt[0:2] == '-c':
+            if len(arg) > 1:
+                if(arg[0:1] == 'e'):
+                    flags.makeCSVEvents = True
+                    flags.CSVEventsFile = arg[1:].strip()
+                if(arg[0:1] == 'l'):
+                    flags.makeCSVLog = True
+                    flags.CSVLogFile = arg[1:].strip()
         if opt == '-d':
             flags.day = arg
             flags.dayParm = True
@@ -66,17 +74,17 @@ def processOptions():
         if opt == '-m':
             flags.month = arg
             flags.monthParm = True
-        if opt == '-s':
+        if opt == '-Pe':
             flags.dsevents = False
-        if opt == '-S':
+        if opt == '-pl':
             flags.dslogs = True
         if opt == '-y':
             flags.year = arg
-   
+
 
 def processFiles(argv,  fileType):
     exp = utils.getRegularExpression(
-            flags.year, flags.month, flags.day, flags.monthParm, flags.dayParm, fileType)
+        flags.year, flags.month, flags.day, flags.monthParm, flags.dayParm, fileType)
     #flags.path = "."
     files = utils.getListOfFiles(flags.path, exp)
     print("Start argv:%s RegExp:%s Found %d Files" % (argv, exp,  len(files)))
@@ -105,9 +113,20 @@ def main(argv):
         printShortHelp()
     processOptions()
     if flags.dsevents:
+        if flags.makeCSVEvents:
+            try:
+                os.remove(flags.CSVEventsFile)
+            except:
+                pass
         processFiles(argv, "dsevents")
     if flags.dslogs:
+        if flags.makeCSVLog:
+            try:
+                os.remove(flags.CSVLogFile)
+            except:
+                pass
         processFiles(argv,  "dslog")
+
 
 if __name__ == "__main__":
     main(sys.argv[1:])

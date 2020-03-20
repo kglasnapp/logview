@@ -31,7 +31,7 @@ def doFiles(files, fileType):
         if fileType == "dslog":
             p = parseDSLogs.parseFile(file)
         totalCount += p.lineCount
-    print("%6d lines found in %d files" % (totalCount-1, fileCount))
+    print("%6d lines found in %d files" % (totalCount, fileCount))
 
 
 def getFileInfo(fileName, startLine):

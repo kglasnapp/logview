@@ -62,6 +62,7 @@ class DB:
             self.cursor.execute(sql)
         except Error as e:
             print(e)
+        self.createIndex("dsEventsFiles", table, "fileNum")
 
     def addEventData(self, date, deltaTime, recType, data, fileNum, misc):
         task = (date, deltaTime, recType, data, fileNum, misc)
@@ -89,6 +90,9 @@ class DB:
             self.cursor.execute(sql)
         except Error as e:
             print(e)
+            return
+        self.createIndex("fileName", fileTable, "fileName")
+        
 
     def addFileData(self, path, date, lines, robotType, compiled, version):
         fileName = os.path.basename(path)
@@ -143,7 +147,8 @@ class DB:
             self.cursor.execute(sql)
         except Error as e:
             print("Error creating table:", table, e)
-            
+        self.createIndex("dslogFiles", table, "fileNum")
+
     s = "(fileNum, time,count,trip,loss,"
     s += "battery,cpu,trace,can,wifi,mb,current,"
     s += "pdp0,pdp1,pdp2,pdp3,pdp4,pdp5,pdp6,pdp7,"
@@ -152,7 +157,7 @@ class DB:
     s += "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
 
     def addLogData(self, data):
-        sql = 'INSERT INTO ' + self.table + self.s 
+        sql = 'INSERT INTO ' + self.table + self.s
         self.cursor = self.connection.cursor()
         self.cursor.execute(sql, data)
 
@@ -175,6 +180,14 @@ class DB:
         self.cursor.execute("SELECT * FROM %s" % table)
         table = self.cursor.fetchall()
         print(table)
+
+    def createIndex(self, name, table, column):
+        sql = "CREATE INDEX IF NOT EXISTS %s ON %s (%s);" % (name, table, column)
+        try:
+            self.cursor = self.connection.cursor()
+            self.cursor.execute(sql)
+        except Error as e:
+            print("Error creating index:", name, e)
 
 
 db = DB()
