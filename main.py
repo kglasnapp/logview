@@ -1,25 +1,24 @@
+import datetime
+import getopt
 import os
 import re
-import datetime
+import sys
+
+import db
 import flags
 import parseDSEvents
 import parseDSLogs
-import db
-import sys
-import getopt
 import utils
 
 
 def printShortHelp():
-    print("python main.py -a -c -d<day> -d9-10 -D -h -l -L" +
-          " -m<month> -r -S -s -y<year> [path to search]")
+    print("python main.py -ce<csvfile> -cl<csvfile> -d9 -d8-9 -D -h -l -L -m3  -pe -pl -y2020 [path to search]")
 
 
 def printLongHelp():
     print()
     printShortHelp()
     print()
-    print("-a put all data in one data base table vs each file to own table")
     print("-c make csv file with all of data")
     print("-d only process files matching the days parameter")
     print("   for the day parameter you can specify a range -d8-10")
@@ -28,24 +27,28 @@ def printLongHelp():
     print("-l show Debug (log) data")
     print("-L show data from logs")
     print("-m only process files matching the month parameter")
-    print("-r process (recurse) all files in path")
-    print("-Pe do not process dsevents files")
-    print("-pl process dslog files -- default is to not process dslog")
+    print("-Pe process dsevents files")
+    print("-pe do not process dsevents files")
+    print("-Pl process dslog files -- default is to not process dslog")
     print("    dslog show motor currents and general robot status")
+    print("-pl do not process dslog files")
     print("-y only process file matching the year parameter -- must be 4 digit")
     print()
 
 
 def processOptions():
+    # get current year, month, day
     flags.year = datetime.datetime.now().strftime('%Y')
     flags.month = datetime.datetime.now().strftime('%m')
     flags.day = datetime.datetime.now().strftime('%d')
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "aDhlLrsSc:m:d:p:P:y:")
+        opts, args = getopt.getopt(sys.argv[1:], "c:d:DhlLm:p:P:y:")
         if(len(args) >= 1):
             flags.path = args[0]
+        else:
+            flags.path = '.'
     except:
-        print("Error: should be  python main.py -a -D -h -l -L -r  -c<csvfile> -m<month> -d<day> -d<start-end> path")
+        printLongHelp()
         sys.exit(2)
     flags.dayParm = False
     flags.monthParm = False
@@ -89,8 +92,6 @@ def processOptions():
 def processFiles(argv,  fileType):
     exp = utils.getRegularExpression(
         flags.year, flags.month, flags.day, flags.monthParm, flags.dayParm, fileType)
-    if(len(argv)):
-        flags.path = "."
     files = utils.getListOfFiles(flags.path, exp)
     print("Start argv:%s RegExp:%s Found %d Files" % (argv, exp,  len(files)))
     if flags.debug:

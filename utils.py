@@ -33,21 +33,6 @@ def doFiles(files, fileType):
         totalCount += p.lineCount
     print("%6d lines found in %d files" % (totalCount, fileCount))
 
-
-def getFileInfo(fileName, startLine):
-    # startLine = "Robot Type Competition Started compiled:03/08/2020 20:06:49 version:0.7"
-    exp = ".*Robot Type (.*) Started compiled:(.*) version:(.*)"
-    result = re.match(exp, startLine)
-    if(result):
-        flags.robotType = result.group(1)
-        flags.compiled = datetime.datetime.strptime(
-            result.group(2), '%m/%d/%Y %H:%M:%S')
-        flags.version = result.group(3)
-        if flags.debug:
-            print("Type:%s Compiled:%s Version:%s" %
-                  (flags.robotType, flags.compiled, flags.version))
-
-
 def getListOfFiles(dirName, reg):
     # create a list of file and sub directories
     # names in the given directory

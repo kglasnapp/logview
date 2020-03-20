@@ -1,14 +1,10 @@
+import datetime
 import os
 import re
-import datetime
-import db
-import struct
-import flags
-import bitstring
 import sys
-import utils
-import main
 
+from db import db
+import flags
 
 class parseDSEvents:
     lineCount = 0
@@ -22,12 +18,6 @@ class parseDSEvents:
         if flags.debug:
             print("Parse file:" + table)
         table = "Logs_" + table.split(' ')[0] + "_" + table.split(' ')[1]
-        # if flags.makeDB and not flags.allInOne:
-        #     print("Make table in DB for: " + table)
-        #     db.db.dropTable(table)
-        #     db.db.createLogDataTable(table)
-        #     db.db.createConnection('files')
-        # Open the csvfile for writing if requested
         self.csvFileID = None
         if flags.CSVEventsFile != "":
             try:
@@ -35,7 +25,7 @@ class parseDSEvents:
             except:
                 s = "Error -- Unable to open file %s for writing -- is the file %s open in another program"
                 print(s % (flags.CSVEventsFile, flags.CSVEventsFile))
-                sys.exit(0)
+                sys.exit(2)
             if os.path.getsize(flags.CSVEventsFile) == 0:
                 # Write Header for the csv file
                 self.csvFileID.write(
@@ -57,7 +47,7 @@ class parseDSEvents:
                   str(fileDate) + " StartSec:" + str(startSec))
         lastSec = 0
         if(flags.makeDB):
-            self.fileNum = db.db.addFileData(
+            self.fileNum = db.addFileData(
                 file, startSec, 0, flags.robotType, flags.compiled, flags.version)
         while True:
             hdr = stream.read(20)
@@ -79,13 +69,9 @@ class parseDSEvents:
         if(self.csvFileID):
             self.csvFileID.close()
         if flags.makeDB:
-            db.db.addFileData(file, fileDate, self.lineCount-1,
+            db.addFileData(file, fileDate, self.lineCount-1,
                               flags.robotType, flags.compiled, flags.version)
-            db.db.connection.commit()
-            # if not flags.allInOne:
-            #     s = table + '_' + str(self.lineCount)
-            #     db.db.dropTable(s)
-            #     db.db.renameTable(s)
+            db.connection.commit()
 
     def toDec4(self, d, start):
         return d[start+2] * 256 + d[start+3] + (d[start] * 256 + d[start+1]) * 256
@@ -129,14 +115,28 @@ class parseDSEvents:
                     if flags.showLogs:
                         d = "{:%m/%d}".format(lineDate)
                         print(d + "** " + l)
-                    utils.getFileInfo(self.fileName, l)
+                    self.getFileInfo(self.fileName, l)
                     self.lineCount += 1
                     if flags.makeDB:
-                        db.db.addEventData(lineDate, deltaTime,
+                        db.addEventData(lineDate, deltaTime,
                                            lineType, l, self.fileNum, self.fileName)
                     if(self.csvFileID):
                         self.csvFileID.write('%d,"\t%s",%d,%s,"%s",%s\n' % (
                             self.lineCount, lineDate, 0, lineType, l, self.fileName))
+
+    def getFileInfo(self, fileName, startLine):
+        # startLine = "Robot Type Competition Started compiled:03/08/2020 20:06:49 version:0.7"
+        exp = ".*Robot Type (.*) Started compiled:(.*) version:(.*)"
+        result = re.match(exp, startLine)
+        if(result):
+            flags.robotType = result.group(1)
+            flags.compiled = datetime.datetime.strptime(
+                result.group(2), '%m/%d/%Y %H:%M:%S')
+            flags.version = result.group(3)
+        if flags.debug:
+            print("Type:%s Compiled:%s Version:%s" %
+                  (flags.robotType, flags.compiled, flags.version))
+
 
 
 def parseFile(file):

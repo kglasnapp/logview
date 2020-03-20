@@ -1,31 +1,22 @@
-import os
-import re
 import datetime
-import db
+import os
 import struct
-import flags
-import bitstring
 import sys
-#import main
-import utils
+
+import flags
+from db import db
 
 
 class parseDSLogs:
     lineCount = 0
     fileName = ''
-
+    linesWithCurrent = 0
     def __init__(self, file):
         if flags.debug:
             print("Parse DSLog for file:" + file)
         table = os.path.basename(file)
         self.fileName = table
         table = "Logs_" + table.split(' ')[0] + "_" + table.split(' ')[1]
-        # if flags.makeDB and not flags.allInOne:
-        #     print("Make table in DB for: " + table)
-        #     db.db.dropTable(table)
-        #     db.db.createLogDataTable(table)
-        #     db.db.createConnection('files')
-        # Open the csvfile for writing if requested
         csvFileID = None
         if flags.CSVLogFile != "":
             try:
@@ -52,19 +43,25 @@ class parseDSLogs:
         if len(hdr) == 0:
             return
         time = self.read_timestamp(hdr)
-        # self.dump(hdr, 20)
         if flags.debug:
             print("Parse file: " + file + " date:" +
                   str(fileDate) + " StartSec:" + str(time))
+        fileNum = 0
+        if flags.makeDB:
+            fileNum = db.addFileData(
+                file, fileDate, 0, '', '', '')
         while True:
             hdr = stream.read(35)
             # Check for end of file
             if len(hdr) == 0:
                 break
+            # Get trace (robot status data)
             trace = self.getTrace(hdr[5])
             # Get the values for the PDP currents
             pdp = self.getPDP(hdr, 11)
             current = self.sumCurrents(pdp, False)
+            if(current > 0):
+                self.linesWithCurrent += 1
             battery = round((hdr[2] + hdr[3] / 256) * 10) / 10
             if battery > 15:
                 battery = 0
@@ -73,36 +70,28 @@ class parseDSLogs:
                       hdr[4] / 2, " Trace:", trace, "Current:", current, pdp)
             if csvFileID:
                 data = (time.strftime("%m/%d %H:%M:%S"), self.lineCount,
-                     hdr[0], hdr[1]*4,  battery, hdr[4]/2,  trace, hdr[6]/2, hdr[7]/2, hdr[8], current, self.currentsToString(pdp))
+                        hdr[0], hdr[1]*4,  battery, hdr[4]/2,  trace, hdr[6]/2, hdr[7]/2, hdr[8], current, self.currentsToString(pdp))
                 s = "\t%s,%d,%d,%d,%.1f,%.1f,%s,%.1f,%.1f,%d,%.1f,%s\n" % data
                 csvFileID.write(s)
             if flags.makeDB:
                 #  s = "(fileNum, time,count,trip,loss,battery,cpu,trace,can,wifi,mb,current,"
-                data = [0, time, self.lineCount, hdr[0], hdr[1]*4, battery,
+                data = [fileNum, time, self.lineCount, hdr[0], hdr[1]*4, battery,
                         hdr[4]/2,  trace, hdr[6]/2, hdr[7]/2, hdr[8], current]
                 for x in pdp:
                     data.append(x)
-                data.append("misc")
-                db.db.addLogData(tuple(data))
+                #data.append(self.fileName)
+                data.append("")
+                db.addLogData(tuple(data))
             self.lineCount += 1
             time += datetime.timedelta(seconds=(.02))
-        print("Processed file:%s Last Time:%s Line count:%d" %
-              (file, time.strftime("%H:%M:%S "), self.lineCount-1))
+        print("Processed file:%s Last Time:%s Line count:%d Lines with Current:%d" %
+              (file, time.strftime("%H:%M:%S "), self.lineCount-1, self.linesWithCurrent))
+        if flags.makeDB:
+            fileNum = db.addFileData(
+                file, fileDate,self.lineCount-1, '', '', '')
+            db.connection.commit()
         if(csvFileID):
             csvFileID.close()
-        if flags.makeDB:
-            db.db.addFileData(file, fileDate, self.lineCount-1, '', '', '')
-            db.db.connection.commit()
-            # if not flags.allInOne:
-            #     s = table + '_' + str(self.lineCount)
-            #     db.db.dropTable(s)
-            #     db.db.renameTable(s)
-
-    def toDec4(self, d, start):
-        return d[start+2] * 256 + d[start+3] + (d[start] * 256 + d[start+1]) * 256
-
-    def toDec2(self, d, start):
-        return d[start] * 256 + d[start+1]
 
     def currentsToString(self, pdp):
         s = ""
@@ -177,39 +166,6 @@ class parseDSLogs:
         if data & 0x1:
             s += "RD "
         return "%x %s" % (data, s)
-
-    def parseDataV3(self, data_bytes):
-        data_bytes = data_bytes[0:10]
-        raw_values = struct.unpack('>BBHBcBBH', data_bytes)
-        status_bits = self.unpack_bits(raw_values[4])
-        res = {
-            'round_trip_time': self.shifted_float(raw_values[0], 1),
-            'packet_loss': 0.04 * raw_values[1],             # not shifted
-            'voltage': self.shifted_float(raw_values[2], 8),
-            'rio_cpu': 0.01 * self.shifted_float(raw_values[3], 1),
-            'can_usage': 0.01 * self.shifted_float(raw_values[5], 1),
-            'wifi_db': self.shifted_float(raw_values[6], 1),
-            'bandwidth': self.shifted_float(raw_values[7], 8),
-
-            'robot_disabled': status_bits[7],
-            'robot_auto': status_bits[6],
-            'robot_tele': status_bits[5],
-            'ds_disabled': status_bits[4],
-            'ds_auto': status_bits[3],
-            'ds_tele': status_bits[2],
-            'watchdog': status_bits[1],
-            'brownout': status_bits[0],
-        }
-        return res
-
-    def shifted_float(self, raw_value, shift_right):
-        return raw_value / (2.0**shift_right)
-
-    def unpack_bits(self, raw_value):
-        # Unpack and invert the bits in a byte
-        status_bits = bitstring.Bits(bytes=raw_value)
-        # invert them all
-        return [not b for b in status_bits]
 
 
 def parseFile(file):
