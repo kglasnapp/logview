@@ -184,6 +184,12 @@ class DB:
         self.cursor.execute("SELECT * FROM %s" % table)
         table = self.cursor.fetchall()
         print(table)
+        
+    def getData(self, table):
+        self.cursor = self.connection.cursor()
+        self.cursor.execute("SELECT * FROM %s" % table)
+        table = self.cursor.fetchall()
+        return table
 
     def createIndex(self, name, table, column):
         sql = "CREATE INDEX IF NOT EXISTS %s ON %s (%s);" % (name, table, column)

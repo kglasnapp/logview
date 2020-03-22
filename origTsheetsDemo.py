@@ -1,13 +1,10 @@
 from tksheet import Sheet
 import tkinter as tk
-import db as db
 
 
 class demo(tk.Tk):
-    myData = []
-    def __init__(self, inData):
+    def __init__(self):
         tk.Tk.__init__(self)
-        self.myData = inData
         self.grid_columnconfigure(0, weight = 1)
         self.grid_rowconfigure(0, weight = 1)
         self.sheet_demo = Sheet(self,
@@ -17,20 +14,16 @@ class demo(tk.Tk):
                                 #align = "center",
                                 #header_align = "w",
                                 #row_index_align = "w",
-                                #data = [[f"Row {r}, Column {c}\nnewline1\nnewline2" for c in range(5)] for r in range(100)], #to set sheet data at startup
-                                #data = self.getFiles(),
-                                data = inData,
-                                headers = ["File Name"],
+                                data = [[f"Row {r}, Column {c}\nnewline1\nnewline2" for c in range(30)] for r in range(2000)], #to set sheet data at startup
                                 #headers = [f"Column {c}\nnewline1\nnewline2" for c in range(30)],
                                 #row_index = [f"Row {r}\nnewline1\nnewline2" for r in range(2000)],
-                                set_all_heights_and_widths = True, #to fit all cell sizes to text at start up
+                                #set_all_heights_and_widths = True, #to fit all cell sizes to text at start up
                                 #headers = 0, #to set headers as first row at startup
                                 #row_index = 0, #to set row_index as first column at startup
                                 #total_rows = 2000, #if you want to set empty sheet dimensions at startup
                                 #total_columns = 30, #if you want to set empty sheet dimensions at startup
-                                height = 800, #height and width arguments are optional
-                                width = 1200, #For full startup arguments see DOCUMENTATION.md
-                                )
+                                height = 500, #height and width arguments are optional
+                                width = 1200) #For full startup arguments see DOCUMENTATION.md
         self.sheet_demo.enable_bindings(("single_select", #"single_select" or "toggle_select"
                                          "drag_select",   #enables shift click selection as well
                                          "column_drag_and_drop",
@@ -69,10 +62,10 @@ class demo(tk.Tk):
 
         # __________ HIGHLIGHT / DEHIGHLIGHT CELLS __________
         
-        # self.sheet_demo.highlight_cells(row = 5, column = 5, bg = "#ed4337", fg = "white")
-        # self.sheet_demo.highlight_cells(row = 5, column = 1, bg = "#ed4337", fg = "white")
-        # self.sheet_demo.highlight_cells(row = 5, bg = "#ed4337", fg = "white", canvas = "row_index")
-        # self.sheet_demo.highlight_cells(column = 0, bg = "#ed4337", fg = "white", canvas = "header")
+        self.sheet_demo.highlight_cells(row = 5, column = 5, bg = "#ed4337", fg = "white")
+        self.sheet_demo.highlight_cells(row = 5, column = 1, bg = "#ed4337", fg = "white")
+        self.sheet_demo.highlight_cells(row = 5, bg = "#ed4337", fg = "white", canvas = "row_index")
+        self.sheet_demo.highlight_cells(column = 0, bg = "#ed4337", fg = "white", canvas = "header")
 
         # __________ DISPLAY SUBSET OF COLUMNS __________
 
@@ -185,9 +178,9 @@ class demo(tk.Tk):
 
         # __________ GETTING SELECTED __________
 
-        print (self.sheet_demo.get_currently_selected())
-        print (self.sheet_demo.get_selected_cells())
-        print (self.sheet_demo.get_selected_rows())
+        #print (self.sheet_demo.get_currently_selected())
+        #print (self.sheet_demo.get_selected_cells())
+        #print (self.sheet_demo.get_selected_rows())
         #print (self.sheet_demo.get_selected_columns())
         #print (self.sheet_demo.get_selection_boxes())
         #print (self.sheet_demo.get_selection_boxes_with_types())
@@ -220,7 +213,7 @@ class demo(tk.Tk):
     """
 
     UNTIL DOCUMENTATION IS COMPLETE, PLEASE BROWSE THE FILE
-    _tksheet.py FOR A FULL LIST OF FUNCTIONS AND THEIR PARAMETERS
+    _tksheet.py FOR A FULL LIST OF FUNCTIONS
 
     """
 
@@ -231,42 +224,29 @@ class demo(tk.Tk):
         print (region, row, column)
 
     def deselect(self, event):
-        print("Deselect - my")
-        c = self.sheet_demo.get_highlighted_cells()
-        ar = []
-        for x in c:
-           ar.append(x[0])
-           print("File:", self.myData[x[0]][0])
-        ar.sort(reverse=True)
-        for r in ar:
-            self.sheet_demo.dehighlight_cells(row = r, column = 0, canvas = "table", all_ = False, redraw = False)
-        self.sheet_demo.refresh(True, True)
-        
+        print (event, self.sheet_demo.get_selected_cells())
 
     def rc(self, event):
         print (event)
         
     def cell_select(self, response):
         print (response)
-        self.sheet_demo.highlight_cells(row = response[1], column = 0, bg = "#ed4337", fg = "white", redraw = True)
-        
+
     def shift_select_cells(self, response):
         print (response)
 
     def drag_select_cells(self, response):
-        print (response)
-        for r in range(response[1],response[3]):
-             self.sheet_demo.highlight_cells(row = r, column = 0, bg = "#ed4337", fg = "white", redraw = True)
-        self.sheet_demo.refresh(True, True)
+        pass
+        #print (response)
 
     def ctrl_a(self, response):
         print (response)
 
     def row_select(self, response):
-        print ("Row Select", response)
+        print (response)
 
     def shift_select_rows(self, response):
-        print ("Shift Select Rows", response)
+        print (response)
 
     def drag_select_rows(self, response):
         pass
@@ -281,13 +261,6 @@ class demo(tk.Tk):
     def drag_select_columns(self, response):
         pass
         #print (response)
-    
-def getFiles():
-    db.db.createConnection("data.db")
-    cur = db.db.connection.cursor()
-    cur.execute("SELECT fileName FROM files order by filename;")
-    data = cur.fetchall()
-    return data
-          
-app = demo(getFiles())
+        
+app = demo()
 app.mainloop()
