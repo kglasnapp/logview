@@ -9,6 +9,7 @@ from tksheet import Sheet
 
 
 def addMenu():
+    print("Add selection menus")
     top.title("Team 3932 Log Viewer")
     menubar = tk.Menu(top)
     file = tk.Menu(menubar, tearoff=0)
@@ -41,7 +42,6 @@ def openFile():
         ("dsevents", "*.dsevents"), ("all files", "*.*")), multiple = True)
     print(fileName)
 
-
 def open():
     lBox = tk.Listbox(top, height=10, width=30, yscrollcommand=True)
     lBox.grid(row=1, column=1)
@@ -51,36 +51,26 @@ def open():
     for file in glob.glob("*.dsevents"):
         lBox.insert(tk.END, file.replace(".dsevents", ""))
 
-
 def save():
     print("Save Menu Activated")
 
-
 def alert():
     tkinter.messagebox.showinfo("Help", "This is just a message!")
-
-# def addButtons():
-#     frame = Frame(top)
-#     frame.pack(side=LEFT)
-#     button = Button(frame, text="QUIT", fg="red", command=top.quit)
-#     button.pack(side=LEFT)
-#     hi_there = Button(frame, text="Hello", command=sayHi)
-#     hi_there.pack(side=LEFT)
-
 
 def sayHi():
     print("hi there, everyone!")
 
 
 def printVar():
-    print(var.get())
+    print("Expand Flag:", var.get())
 
 def getFirst():
-    print(entry1.get())
+    print("Data from First field", entry1.get())
 
+def changeE(v):
+    print("Entry Changed", v)
 
 top = tk.Tk()
-#top['bg'] = 'green'
 var = tk.IntVar()
 var.set(0)
 print("var:", var.get())
@@ -94,7 +84,8 @@ textV = tk.StringVar()
 textV.set("Keith")
 
 entry1 = tk.Entry(top, width=60, textvariable=textV)
-#entry1.set("Keith")
+entry1.bind('<Key-Return>', changeE)
+
 entry2 = tk.Entry(top)
 
 entry1.grid(row=0, column=1)

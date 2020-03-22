@@ -59,6 +59,16 @@ def getListOfFiles(dirName, reg):
                 allFiles.append(fullPath)
     return allFiles
 
+def getRegularExpressionD(dict):
+    fileType = ""
+    if dict["dslog"]:
+        fileType = "dslog"
+    if dict["dsevents"]:
+        fileType = "dsevents"
+    if dict["dslog"] and dict["dsevents"]:
+        fileType = ""
+    return getRegularExpression(dict["year"], dict["month"], dict["day"], True, True, fileType)
+        
 
 def getRegularExpression(year, month, day, monthEntered, dayEntered, fileType):
     ar = day.split('-')

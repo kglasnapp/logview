@@ -16,7 +16,7 @@ class DB:
        # create a database connection to a SQLite database
         try:
             self.connection = sqlite3.connect(db_file)
-            print("sqlite3 version:" + str(sqlite3.version))
+            #print("sqlite3 version:" + str(sqlite3.version))
         except Error as e:
             print(e)
         finally:

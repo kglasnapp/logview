@@ -12,7 +12,7 @@
             "console": "integratedTerminal",
             //"args": ["-S", "-D", "-a", "-cl mydslogdata.csv",  "-ce mydseventdata.csv","."]
             //"args": ["-D", "-Pe", "-Pl", "-cl mydslogdata.csv",  "-ce mydseventdata.csv","."]
-            "args": [ "-d7-9", "-D", "-pl", "-cemydseventdata.csv", "..//AllLogs"]
+            "args": [ "-d1-10", "-D", "-pl", "-cemydseventdata.csv", "..//AllLogs"]
             //"args": [ "-d8",  "-D", "-clcurrents.csv",  "-ceevents.csv", "../AllLogs"]
             //"args":["-D", "-Pl"]
         }
