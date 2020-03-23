@@ -1,4 +1,3 @@
-#from tkinter import *
 from tkinter import ttk, Menu, Button, Label, Toplevel, Checkbutton, Entry, Text
 import tkinter.messagebox
 import tkinter as tk
@@ -11,13 +10,9 @@ import sheet as sh
 
 
 class Root(tk.Tk):
-    #dslogV = None
-    #dayV = None
-    #sheet = None
+    sheet = None
     dataStale = True
     
-   
-
     def __init__(self):
         super(Root, self).__init__()
         
@@ -25,19 +20,25 @@ class Root(tk.Tk):
         self.minsize(640, 400)
         self.configure(background="white")
         self.createMenu()
-        tabControl = ttk.Notebook(self)
-        self.tab1 = ttk.Frame(tabControl)
-        tabControl.add(self.tab1, text="Files")
-        self.addFilesTab(self.tab1)
-        self.tab2 = ttk.Frame(tabControl)
-        tabControl.add(self.tab2, text="Events")
-        self.addEventsTab(self.tab2)
-        self.tab3 = ttk.Frame(tabControl)
-        tabControl.add(self.tab3, text="Logs")
-        self.tab4 = ttk.Frame(tabControl)
-        tabControl.add(self.tab4, text="tab 4")
-        self.addingTab4()
-        tabControl.pack(expand=1, fill="both")
+        self.addFilesTab(self)     
+        
+        # tabControl = ttk.Notebook(self)
+        # self.tab1 = ttk.Frame(tabControl)
+        # tabControl.add(self.tab1, text="Files")
+        # self.addFilesTab(self.tab1)
+        # self.tab2 = ttk.Frame(tabControl)
+        # tabControl.add(self.tab2, text="Events")
+        # self.addEventsTab(self.tab2)
+        # self.tab3 = ttk.Frame(tabControl)
+        # tabControl.add(self.tab3, text="Logs")
+        # self.tab4 = ttk.Frame(tabControl)
+        # tabControl.add(self.tab4, text="tab 4")
+        # self.addingTab4()
+        # tabControl.grid(row = 0, column = 0)
+        
+        
+       # tabControl.pack(expand=1, fill="both")
+     
         
     def drag_select_rows(self, response):
         pass
@@ -49,7 +50,7 @@ class Root(tk.Tk):
         ar = []
         for x in c:
            ar.append(x[0])
-           print("File:", self.myData[x[0]][0])
+           # print("File:", self.inData[x[0]][0])
         ar.sort(reverse=True)
         for r in ar:
             self.sheet.dehighlight_cells(row = r, column = 0, canvas = "table", all_ = False, redraw = False)
@@ -57,8 +58,9 @@ class Root(tk.Tk):
         
     
     def cell_select(self, response):
-        print (response)
+        print ("My Cell Select:", response)
         self.sheet.highlight_cells(row = response[1], column = 0, bg = "#ed4337", fg = "white", redraw = True)
+        self.sheet.refresh()
         
     def shift_select_cells(self, response):
         print (response)
@@ -105,10 +107,10 @@ class Root(tk.Tk):
         Button(self.tab4, text="Submit",
                command=lambda: self.submit()).place(x=520, y=320)
 
-    def addEventsTab(self, tab):
-        inData = [("Keith",), ("Sue",)]
-        self.sheet = ts.Sheet(tab, data=inData, headers=["File Name"])
-        self.sheet.grid(row=0, column=0)
+    # def addEventsTab(self, tab):
+    #     inData = [("Keith",), ("Sue",)]
+    #     self.sheet = ts.Sheet(tab, data=inData, headers=["File Name"])
+    #     self.sheet.grid(row=1, column=0)
 
     def addFilesTab(self, tab):
         Button(tab, text="Refresh",
@@ -116,15 +118,18 @@ class Root(tk.Tk):
         Label(tab, text="Month:").grid(row=0, column=1)
         self.monthV = tk.StringVar()
         self.monthV.set("3")
-        Entry(tab, width=4, textvariable=self.monthV).grid(row=0, column=2)
+        month = Entry(tab, width=4, textvariable=self.monthV)
+        month.grid(row=0, column=2)
+        month.bind('<Key-Return>', self.changeDay)
+        month.bind('<FocusOut>', self.changeDay)
         Label(tab, text="Day:").grid(row=0, column=3)
         self.dayV = tk.StringVar()
         self.dayV.set("8-10")
-        x = ttk.Entry(tab, width=8, textvariable=self.dayV,
+        day = ttk.Entry(tab, width=8, textvariable=self.dayV,
                       validatecommand=self.on_change)
-        x.grid(row=0, column=4)
-        x.bind('<Key-Return>', self.changeDay)
-        x.bind('<FocusOut>', self.changeDay)
+        day.grid(row=0, column=4)
+        day.bind('<Key-Return>', self.changeDay)
+        day.bind('<FocusOut>', self.changeDay)
         self.dslogV = tk.BooleanVar()
         Checkbutton(tab, text="dslog", command=self.vChanged,
                     variable=self.dslogV, onvalue=True, offvalue=False).grid(row=0, column=6)
@@ -133,11 +138,22 @@ class Root(tk.Tk):
         Checkbutton(tab, text="dsevents", command=self.vChanged,
                     variable=self.dseventsV, onvalue=True, offvalue=False).grid(row=0, column=7)
         self.inData = self.getFiles()
-        self.fileTab = tab
-        self.sheet = ts.Sheet(self.fileTab, data=self.inData, headers=[
-                              "File Name"], set_all_heights_and_widths=True, width=300, height=700)
-        self.sheet.grid(row=2, column=0, columnspan=6)
+        #self.fileTab = tab
+        self.setupSheet()
+        
+    def setupSheet(self):
+        self.sheet = ts.Sheet(self, data=self.inData, headers=[
+                              "File Name"], set_all_heights_and_widths=True,column_width = 290, width=290, height=900)
+        self.sheet.grid(row=1, column=0, columnspan=6)
       
+       
+        self.sheet.enable_bindings(
+            ("single_select", "drag_select", "column_drag_and_drop", "row_drag_and_drop",
+             "column_select", "row_select", "column_width_resize", "double_click_column_resize",                                          
+             "arrowkeys", "row_height_resize", "double_click_row_resize", "right_click_popup_menu",
+             "rc_select", "rc_insert_column", "rc_delete_column", "rc_insert_row", "rc_delete_row",
+             "copy", "cut", "paste", "delete", "undo", "edit_cell"))
+        
         self.sheetBindings = [
             ("cell_select", self.cell_select),
             ("shift_cell_select", self.shift_select_cells),
@@ -147,14 +163,8 @@ class Root(tk.Tk):
             ("shift_row_select", self.shift_select_rows),
             ("drag_select_rows", self.drag_select_rows),
             ("deselect", self.deselect)]
+        
         self.sheet.extra_bindings(self.sheetBindings)
-        self.sheet.enable_bindings(
-            ("single_select", "drag_select", "column_drag_and_drop", "row_drag_and_drop",
-             "column_select", "row_select", "column_width_resize", "double_click_column_resize",                                          
-             "arrowkeys", "row_height_resize", "double_click_row_resize", "right_click_popup_menu",
-             "rc_select", "rc_insert_column", "rc_delete_column", "rc_insert_row", "rc_delete_row",
-             "copy", "cut", "paste", "delete", "undo", "edit_cell"))
-
     def changeDay(self, value):
         print("Day Changed", self.dayV.get(), value)
         self.vChanged()
@@ -168,9 +178,13 @@ class Root(tk.Tk):
     def vChanged(self):
         print("---  Something Changed ---")
         self.inData = self.getFiles()
-        self.sheet = ts.Sheet(self.fileTab, data=self.inData, headers=[
-            "File Name"], set_all_heights_and_widths=True, width=300, height=700)
-        self.sheet.grid(row=2, column=0, columnspan=6)
+        #self.sheet.data_reference(inData, reset_row_positions=False, reset_col_positions=False)
+        ##self.sheet.set_sheet_data(inData,reset_row_positions=False, reset_col_positions=False)
+        #self.sheet.refresh()
+        self.setupSheet()
+        # self.sheet = ts.Sheet(self, data=self.inData, headers=[
+        #     "File Name"], set_all_heights_and_widths=True, width=400, height=700)
+        # self.sheet.grid(row=1, column=0, columnspan=6)
 
     def getValues(self):
         self.values = {
@@ -188,10 +202,7 @@ class Root(tk.Tk):
         newTop.title("Review and Submit")
         newTop.focus_set()
         newTop.geometry("400x600")
-        # WOULD LIKE: when this button is clicked it takes the user to tab 7 of the notebook window
-        Button(newTop, text="Tab 7", command=self.result1).pack()
-        Button(newTop, text="Back").pack()
-
+    
     def result1(self):
         ttk.Notebook.select(self.tab7)
 

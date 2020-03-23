@@ -60,7 +60,7 @@ def getListOfFiles(dirName, reg):
     return allFiles
 
 def getRegularExpressionD(dict):
-    fileType = ""
+    fileType = "junk"
     if dict["dslog"]:
         fileType = "dslog"
     if dict["dsevents"]:
