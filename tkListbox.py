@@ -1,5 +1,9 @@
 from tkinter import (Scrollbar,Tk,Label,Frame,Listbox,END, EXTENDED)
 
+def onSelect(x):
+    selection = listBox.curselection()
+    print(selection)
+    
 window = Tk()
 window.geometry("680x500")
 
@@ -8,18 +12,19 @@ Label(window, text="Top label").pack()
 frame = Frame(window)
 frame.pack()
 
-listNodes = Listbox(frame, selectmode=EXTENDED, width=20, height=20, font=("Helvetica", 12))
-listNodes.pack(side="left", fill="y")
+listBox = Listbox(frame, selectmode=EXTENDED, width=20, height=20, font=("Helvetica", 12))
+listBox.pack(side="left", fill="y")
 
 scrollbar = Scrollbar(frame, orient="vertical")
-scrollbar.config(command=listNodes.yview)
+scrollbar.config(command=listBox.yview)
 scrollbar.pack(side="right", fill="y")
-
-listNodes.config(yscrollcommand=scrollbar.set)
+listBox.bind('<<ListboxSelect>>', onSelect)
+listBox.config(yscrollcommand=scrollbar.set)
 
 for x in range(100):
-    listNodes.insert(END, str(x))
+    listBox.insert(END, str(x))
 
 Label(window, text="Bottom label").pack()
 
 window.mainloop()
+
