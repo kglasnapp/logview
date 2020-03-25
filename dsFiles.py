@@ -1,33 +1,29 @@
 import re
-import tkinter as tk
+#import tkinter as tk
 from tkinter import (Button, Checkbutton, Entry, Frame, Label, Listbox, Menu,
-                     Scrollbar, Text, Toplevel, ttk)
+                     Scrollbar, Text, Toplevel, ttk, StringVar, BooleanVar, VERTICAL, EXTENDED, END )
 
 import db as db
 import utils
 import flags
 
-#import sheet as sh
-#import utils
-
-
 class dsFiles():
 
     dataStale = True
-
+    
     def __init__(self, tab):
         global monthV, dayV, dslogV, dseventsV, statusTextV, listBox, frame
         frame = Frame(tab)
 
-        monthV = tk.StringVar()
+        monthV = StringVar()
         monthV.set("3")
-        dayV = tk.StringVar()
+        dayV = StringVar()
         dayV.set("8-10")
-        dslogV = tk.BooleanVar()
+        dslogV = BooleanVar()
         dslogV.set(False)
-        dseventsV = tk.BooleanVar()
+        dseventsV = BooleanVar()
         dseventsV.set(True)
-        statusTextV = tk.StringVar()
+        statusTextV = StringVar()
         statusTextV.set("Status")
 
         lblMonth = ttk.Label(frame, text="Month:")
@@ -51,8 +47,8 @@ class dsFiles():
         day.bind('<Key-Return>', self.statusChanged)
         day.bind('<FocusOut>', self.statusChanged)
    
-        scrollbar = Scrollbar(frame, orient=tk.VERTICAL)
-        listBox = Listbox(frame, selectmode=tk.EXTENDED,
+        scrollbar = Scrollbar(frame, orient=VERTICAL)
+        listBox = Listbox(frame, selectmode=EXTENDED,
                           width=32, yscrollcommand=scrollbar.set)
         scrollbar.config(command=listBox.yview)
         
@@ -87,7 +83,7 @@ class dsFiles():
         print("---  Something Changed ---", response)
         self.inData = self.getFiles()
         print("Found %d files" % (len(self.inData)))
-        listBox.delete(0, tk.END)
+        listBox.delete(0, END)
         count = 1
         for r in self.inData:
             listBox.insert(count, r[0])
@@ -123,3 +119,12 @@ class dsFiles():
         files.sort()
         self.inData = files
         return files
+    
+    def getSelected(self):
+        sel = listBox.curselection()
+        files = []
+        for x in sel:
+            files.append(listBox.get(x))
+        return files
+    
+    
