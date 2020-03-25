@@ -24,7 +24,7 @@ class Demo2:
 
 def main(): 
     root = tk.Tk()
-    app = Demo1(root)
+    Demo1(root)
     root.mainloop()
 
 if __name__ == '__main__':
