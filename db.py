@@ -4,6 +4,7 @@ import re  # Regular expression library
 import sqlite3
 from sqlite3 import Error
 import sys
+import flags
 
 
 class DB:
@@ -92,7 +93,6 @@ class DB:
             print(e)
             return
         self.createIndex("fileName", fileTable, "fileName")
-        
 
     def addFileData(self, path, date, lines, robotType, compiled, version):
         fileName = os.path.basename(path)
@@ -122,8 +122,8 @@ class DB:
         sql = "SELECT id,fileName FROM files WHERE fileName=?"
         try:
             cur.execute(sql, (fileName, ))
-        except: 
-            print("Error: **** " , sql)
+        except:
+            print("Error: **** ", sql)
             sys.exit(0)
         rows = cur.fetchall()
         if(len(rows) == 1):
@@ -184,7 +184,7 @@ class DB:
         self.cursor.execute("SELECT * FROM %s" % table)
         table = self.cursor.fetchall()
         print(table)
-        
+
     def getData(self, table):
         self.cursor = self.connection.cursor()
         self.cursor.execute("SELECT * FROM %s" % table)
@@ -192,12 +192,50 @@ class DB:
         return table
 
     def createIndex(self, name, table, column):
-        sql = "CREATE INDEX IF NOT EXISTS %s ON %s (%s);" % (name, table, column)
+        sql = "CREATE INDEX IF NOT EXISTS %s ON %s (%s);" % (
+            name, table, column)
         try:
             self.cursor = self.connection.cursor()
             self.cursor.execute(sql)
         except Error as e:
             print("Error creating index:", name, e)
+
+    # Create the needed databases
+
+
+    def createDB(self, drop):
+        db.createConnection(flags.mainDB)
+        if drop:
+            db.dropTable(flags.eventsTable)
+            db.dropTable(flags.logTable)
+            db.dropTable(flags.fileTable)
+        db.createEventDataTable(flags.eventsTable)
+        db.createLogDataTable(flags.logTable)
+        db.createFileDataTable(flags.fileTable)
+        db.connection.commit()
+
+
+    def isFileInDB(self, fileName):
+        fileName = os.path.basename(fileName)
+        cur = self.connection.cursor()
+        sql = "SELECT fileSize, fileDate FROM files WHERE fileName=?"
+        try:
+            cur.execute(sql, (fileName, ))
+        except:
+            print("Error: **** ", sql)
+            sys.exit(0)
+        rows = cur.fetchall()
+        if(len(rows) == 1):
+            fileSize = os.path.getsize(fileName)
+            if fileSize != rows[0][0]:
+                return False
+            fileDate = os.path.getmtime(fileName)
+            fileDate = datetime.datetime.fromtimestamp(
+                fileDate).strftime("%m/%d %H:%M:%S")
+            if fileDate != rows[0][1]:
+                return False
+            return True
+        return False
 
 
 db = DB()

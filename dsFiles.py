@@ -1,7 +1,7 @@
 import re
 #import tkinter as tk
 from tkinter import (Button, Checkbutton, Entry, Frame, Label, Listbox, Menu,
-                     Scrollbar, Text, Toplevel, ttk, StringVar, BooleanVar, VERTICAL, EXTENDED, END )
+                     Scrollbar, Text, Toplevel, ttk, StringVar, BooleanVar, VERTICAL, EXTENDED, END, MULTIPLE )
 
 import db as db
 import utils
@@ -14,7 +14,8 @@ class dsFiles():
     def __init__(self, tab):
         global monthV, dayV, dslogV, dseventsV, statusTextV, listBox, frame
         frame = Frame(tab)
-
+        
+        # declare varaibles used on the form
         monthV = StringVar()
         monthV.set("3")
         dayV = StringVar()
@@ -25,7 +26,8 @@ class dsFiles():
         dseventsV.set(True)
         statusTextV = StringVar()
         statusTextV.set("Status")
-
+        
+        # allocate the widgets for the form
         lblMonth = ttk.Label(frame, text="Month:")
         month = ttk.Entry(frame, width=4, textvariable=monthV)
         lblDay = ttk.Label(frame, text="Day:")
@@ -34,14 +36,16 @@ class dsFiles():
                             variable=dslogV, onvalue=True, offvalue=False)
         cbEvents = ttk.Checkbutton(frame, text="dsevents", command=self.checkChanged,
                                variable=dseventsV, onvalue=True, offvalue=False)
-
+        
+        # place the widgets on the form
         lblMonth.grid(row=0, column=0)
         month.grid(row=0, column=1)
         lblDay.grid(row=0, column=2)
         day.grid(row=0, column=3)
         cbLog.grid(row=1, column=0, columnspan=2)
         cbEvents.grid(row=1, column=2, columnspan=2)
-         
+        
+        # setup bindings i.e. methods that are called when things change
         month.bind('<Key-Return>', self.statusChanged)
         month.bind('<FocusOut>', self.statusChanged)
         day.bind('<Key-Return>', self.statusChanged)
@@ -49,7 +53,7 @@ class dsFiles():
    
         scrollbar = Scrollbar(frame, orient=VERTICAL)
         listBox = Listbox(frame, selectmode=EXTENDED,
-                          width=32, yscrollcommand=scrollbar.set)
+            width=32, yscrollcommand=scrollbar.set, exportselection=0)
         scrollbar.config(command=listBox.yview)
         
         listBox.grid(row=2, column=0, columnspan=4, sticky='NS')
@@ -82,9 +86,9 @@ class dsFiles():
     def statusChanged(self, response):
         print("---  Something Changed ---", response)
         self.inData = self.getFiles()
-        print("Found %d files" % (len(self.inData)))
+        print("Found %d files to display in files listBox" % (len(self.inData)))
         listBox.delete(0, END)
-        count = 1
+        count = 0
         for r in self.inData:
             listBox.insert(count, r[0])
             count += 1
@@ -127,4 +131,6 @@ class dsFiles():
             files.append(listBox.get(x))
         return files
     
+    def refresh(self):
+        self.statusChanged("Refresh")
     

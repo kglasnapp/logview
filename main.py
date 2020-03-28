@@ -1,140 +1,71 @@
-import datetime
-import getopt
-import os
-import re
-import sys
-
-import db
+import tkinter as tk
+from tkinter import Button, filedialog
+import dseventsF
+import dsFiles
+import ignores
 import flags
-import parseDSEvents
-import parseDSLogs
 import utils
+import db
+import sys
+#from tk import tkFileDialog
 
 
-def printShortHelp():
-    print("python main.py -ce<csvfile> -cl<csvfile> -d9 -d8-9 -D -h -l -L -m3  -pe -pl -y2020 [path to search]")
+def createMenu(tab):
+    menubar = tk.Menu()
+    tab.config(menu=menubar)
+    fileMenu = tk.Menu(menubar, tearoff=0)
+    menubar.add_cascade(label="File", menu=fileMenu)
+    fileMenu.add_command(label="Import", command=fileImport)
+    fileMenu.add_command(label="Save")
+    fileMenu.add_separator()
+    fileMenu.add_command(label="Exit", command=lambda : sys.exit(0))
+    editMenu = tk.Menu(menubar, tearoff=0)
+    menubar.add_cascade(label="Edit", menu=editMenu)
+    editMenu.add_command(label="Edit Ignores", command= ignores.showForm) 
+    helpMenu = tk.Menu(menubar, tearoff=0)
+    menubar.add_cascade(label="Help", menu=helpMenu)
+    helpMenu.add_command(label="About Us")
+    
+def basicLabels(tab):
+    frame = tk.Frame(tab)
+    frame.grid(row=0,column=0, sticky='ns')
+    lbl0 = tk.Label(frame, text="Top label")
+    lbl1 = tk.Label(frame, text="Middle label")
+    lbl2 = tk.Label(frame, text="Bottom label")
+    lbl0.grid(row=0,column=0)
+    lbl1.grid(row=1,column=0)
+    lbl2.grid(row=2,column=0)
+    frame.grid_rowconfigure(1, weight=1)
+    return frame
 
-
-def printLongHelp():
-    print()
-    printShortHelp()
-    print()
-    print("-c make csv file with all of data")
-    print("-d only process files matching the days parameter")
-    print("   for the day parameter you can specify a range -d8-10")
-    print("-D make a data base of the data")
-    print("-h show this help information")
-    print("-l show Debug (log) data")
-    print("-L show data from logs")
-    print("-m only process files matching the month parameter")
-    print("-Pe process dsevents files")
-    print("-pe do not process dsevents files")
-    print("-Pl process dslog files -- default is to not process dslog")
-    print("    dslog show motor currents and general robot status")
-    print("-pl do not process dslog files")
-    print("-y only process file matching the year parameter -- must be 4 digit")
-    print()
-
-
-def processOptions():
-    # get current year, month, day
-    flags.year = datetime.datetime.now().strftime('%Y')
-    flags.month = datetime.datetime.now().strftime('%m')
-    flags.day = datetime.datetime.now().strftime('%d')
-    try:
-        opts, args = getopt.getopt(sys.argv[1:], "c:d:DhlLm:p:P:y:")
-        if(len(args) >= 1):
-            flags.path = args[0]
-        else:
-            flags.path = '.'
-    except:
-        printLongHelp()
-        sys.exit(2)
-    flags.dayParm = False
-    flags.monthParm = False
-    for opt, arg in opts:
-        if opt == '-a':
-            flags.allInOne = True
-        if opt[0:2] == '-c':
-            if len(arg) > 1:
-                if(arg[0:1] == 'e'):
-                    flags.makeCSVEvents = True
-                    flags.CSVEventsFile = arg[1:].strip()
-                if(arg[0:1] == 'l'):
-                    flags.makeCSVLog = True
-                    flags.CSVLogFile = arg[1:].strip()
-        if opt == '-d':
-            flags.day = arg
-            flags.dayParm = True
-        if opt == '-D':
-            flags.makeDB = True
-        if opt == '-h':
-            printLongHelp()
-        if opt == '-L':
-            flags.showLogs = True
-        if opt == "-l":
-            flags.debug = True
-        if opt == '-m':
-            flags.month = arg
-            flags.monthParm = True
-        if opt == '-P' and arg == 'e':
-            flags.dsevents = True
-        if opt == '-P' and arg == 'l':
-            flags.dslogs = True
-        if opt == '-p' and arg == 'e':
-            flags.dsevents = False
-        if opt == '-p' and arg == 'l':
-            flags.dslogs = False
-        if opt == '-y':
-            flags.year = arg
-
-
-def processFiles(argv,  fileType):
-    exp = utils.getRegularExpression(
-        flags.year, flags.month, flags.day, flags.monthParm, flags.dayParm, fileType)
-    files = utils.getListOfFiles(flags.path, exp)
-    print("Start argv:%s RegExp:%s Found %d Files" % (argv, exp,  len(files)))
+def fileImport():
+    types = (("Robot log files","*.dslog;*.dsevents"),("dsevents", "*.dsevents"),("dslog","*.dslog"),("All files","*.*"))
+    fileNames =  tk.filedialog.askopenfilename(initialdir = ".",title = "Select file",multiple=True, filetypes = types)
     if flags.debug:
-        for fn in files:
-            print(fn)
-    if flags.makeDB:
-        db.db.createConnection("data.db")
-        table = "allData_" + fileType
-        db.db.dropTable(table)
-        if fileType == "dsevents":
-            db.db.createEventDataTable(table)
-        if fileType == "dslog":
-            db.db.createLogDataTable(table)
-        db.db.createFileDataTable("files")
-        db.db.connection.commit()
-    utils.doFiles(files, fileType)
-    if flags.makeDB:
-        print("Close out DB")
-        db.db.connection.commit()
-        db.db.closeConnection()
+        print ("Files to Import", fileNames)
+    flags.makeDB = True
+    #db.createDB(flags.dropDataBase)
+    utils.processListOfFiles(fileNames)
+    db.db.connection.commit()
+    db.db.closeConnection()
+    files.refresh() 
 
 
-def main(argv):
-    if len(argv) == 0:
-        printShortHelp()
-    processOptions()
-    if flags.dsevents:
-        # Delete previous csv file for Events
-        if flags.makeCSVEvents:
-            try:
-                os.remove(flags.CSVEventsFile)
-            except:
-                pass
-        processFiles(argv, "dsevents")
-    if flags.dslogs:
-        # Delete previous csv file for Logs
-        if flags.makeCSVLog:
-            try:
-                os.remove(flags.CSVLogFile)
-            except:
-                pass
-        processFiles(argv,  "dslog")
+global files, evaents
 
+window = tk.Tk()
+window.geometry("780x550")
+window.title("Team 3932 Log File Viewer")
+window.configure(background="white")
+window.grid_rowconfigure(0, weight=1)
+createMenu(window)
+db.db.createDB(flags.dropDataBase)
 
-if __name__ == "__main__":
-    main(sys.argv[1:])
+files = dsFiles.dsFiles(window)
+files.getFrame().grid(row=0, column=0, padx=5, pady=5,stick='NS')
+
+events = dseventsF.dsevents(window, files)
+events.getFrame().grid(row=0, column=1, padx=5, pady=5,stick='NESW')
+window.grid_columnconfigure(1, weight=1)
+
+window.mainloop()

@@ -20,19 +20,6 @@ def doAllDSEvents(path, fileType):
             totalCount += p.lineCount
     print("Total %d lines in %d files" % (totalCount, fileCount))
 
-
-def doFiles(files, fileType):
-    totalCount = 0
-    fileCount = 0
-    for file in files:
-        fileCount += 1
-        if fileType == "dsevents":
-            p = parseDSEvents.parseFile(file)
-        if fileType == "dslog":
-            p = parseDSLogs.parseFile(file)
-        totalCount += p.lineCount
-    print("%6d lines found in %d files" % (totalCount, fileCount))
-
 def getListOfFiles(dirName, reg):
     # create a list of file and sub directories
     # names in the given directory
@@ -111,3 +98,45 @@ def dump(hdr, length):
     for i in range(0, length):
         s += "%x " % (hdr[i])
     print(s)
+    
+def processFiles(argv, fileType):
+    exp = getRegularExpression(
+        flags.year, flags.month, flags.day, flags.monthParm, flags.dayParm, fileType)
+    files = getListOfFiles(flags.path, exp)
+    print("Start argv:%s RegExp:%s Found %d Files" % (argv, exp,  len(files)))
+    processListOfFiles(files)
+
+
+def processListOfFiles(files):
+    totalCount = 0
+    fileCount = 0
+    for file in files:
+        fileCount += 1
+        if "dsevents" in file:
+            p = parseDSEvents.parseFile(file)
+            totalCount += p.lineCount
+        elif "dslog" in file:
+            p = parseDSLogs.parseFile(file)
+            totalCount += p.lineCount
+        else:
+            print("Error can't process file:", file)
+    print("%8d lines found in %d files" % (totalCount, fileCount))
+
+
+def deleteCSVs():
+    # Delete previous csv file for Logs
+    if flags.makeCSVEvents:
+        try:
+            os.remove(flags.CSVEventsFile)
+        except:
+            s = "Error -- Unable to open file %s for writing -- is the file %s open in another program like excel"
+            print(s % (flags.CSVEventsFile, flags.CSVEventsFile))
+            sys.exit(0)
+    if flags.makeCSVLog:
+        try:
+            os.remove(flags.CSVLogFile)
+        except:
+            s = "Error -- Unable to open file %s for writing -- is the file %s open in another program like excel"
+            print(s % (flags.CSVLogFile, flags.CSVLogFile))
+            sys.exit(0)
+

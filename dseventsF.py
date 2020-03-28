@@ -4,7 +4,6 @@ from tkinter import (Button, Checkbutton, Entry, Label, Menu, Text, Toplevel, Li
                      Scrollbar, Frame, END, ttk)
 import tksheet as ts
 import db as db
-import myListBox
 import re
 
 
@@ -12,6 +11,8 @@ class dsevents():
 
     dsfiles = None
     dataStale = True
+    fileCount = 0
+    
 
     def __init__(self, tab, f0):
         global search1V, search2V, reg1, reg2, andOrV, frame, listBox, statusBarV
@@ -76,10 +77,8 @@ class dsevents():
 
         frame.grid_rowconfigure(2, weight=1)
         frame.grid_columnconfigure(0, weight=1)
-
-        # Fill in the data
-        for x in range(100):
-            listBox.insert(END, str(x))
+        self.fileCount = 0
+       
     
     def ignoreBtn(self):
         tkinter.messagebox.showinfo(title="Ignores", message="Show Ignores")
@@ -180,7 +179,7 @@ class dsevents():
 
     def updateSpecial(self, sIn):
         # Regular expression special chars
-        sp = "\^$.|?*+()[{"
+        sp = "\\^$.|?*+()[{"
         s = ''
         for c in sIn:
             if c in sp:

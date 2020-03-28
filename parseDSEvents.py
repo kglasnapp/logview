@@ -14,6 +14,8 @@ class parseDSEvents:
 
     def __init__(self, file):
         table = os.path.basename(file)
+        self.lineCount = 0
+        self.myMakeDB = flags.makeDB
         self.fileName = table
         if flags.debug:
             print("Parse file:" + table)
@@ -45,10 +47,28 @@ class parseDSEvents:
         if flags.debug:
             print("Parse file: " + file + " date:" +
                   str(fileDate) + " StartSec:" + str(startSec))
+        if(self.myMakeDB):
+            if db.isFileInDB(file):  
+                print("File %s is in the DB,  will not update the DB" % (file))
+                self.myMakeDB = False
+            else:
+                self.fileNum = db.addFileData(
+                    file, startSec, 0, flags.robotType, flags.compiled, flags.version)
+            db.table = flags.eventsTable 
+        if(self.myMakeDB or self.csvFileID):
+            self.loopOverFile(stream, fileDate, startSec)
+        if self.lineCount > 0:
+            print("%8d events in file:%s Robot Type:%s Software Compiled:%s Version: %s" %
+              (self.lineCount, file, flags.robotType, flags.compiled, flags.version))
+        if(self.csvFileID):
+            self.csvFileID.close()
+        if self.myMakeDB:
+            db.addFileData(file, fileDate, self.lineCount,
+                              flags.robotType, flags.compiled, flags.version)
+            db.connection.commit()
+            
+    def loopOverFile(self, stream, fileDate, startSec):
         lastSec = 0
-        if(flags.makeDB):
-            self.fileNum = db.addFileData(
-                file, startSec, 0, flags.robotType, flags.compiled, flags.version)
         while True:
             hdr = stream.read(20)
             if len(hdr) == 0:
@@ -64,14 +84,6 @@ class parseDSEvents:
             x = stream.read(lineLength)
             self.parseLine(x, lineDate)
             lastSec = sec
-        print("%6d lines in file %s type %s compiled %s version %s" %
-              (self.lineCount-1, file, flags.robotType, flags.compiled, flags.version))
-        if(self.csvFileID):
-            self.csvFileID.close()
-        if flags.makeDB:
-            db.addFileData(file, fileDate, self.lineCount-1,
-                              flags.robotType, flags.compiled, flags.version)
-            db.connection.commit()
 
     def toDec4(self, d, start):
         return d[start+2] * 256 + d[start+3] + (d[start] * 256 + d[start+1]) * 256
@@ -117,7 +129,7 @@ class parseDSEvents:
                         print(d + "** " + l)
                     self.getFileInfo(self.fileName, l)
                     self.lineCount += 1
-                    if flags.makeDB:
+                    if self.myMakeDB:
                         db.addEventData(lineDate, deltaTime,
                                            lineType, l, self.fileNum, self.fileName)
                     if(self.csvFileID):

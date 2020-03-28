@@ -11,18 +11,21 @@ class parseDSLogs:
     lineCount = 0
     fileName = ''
     linesWithCurrent = 0
+    myMakeDB = False
     def __init__(self, file):
+        self.lineCount = 0
+        self.myMakeDB = flags.makeDB
         if flags.debug:
             print("Parse DSLog for file:" + file)
         table = os.path.basename(file)
         self.fileName = table
-        table = "Logs_" + table.split(' ')[0] + "_" + table.split(' ')[1]
+        #table = "Logs_" + table.split(' ')[0] + "_" + table.split(' ')[1]
         csvFileID = None
         if flags.CSVLogFile != "":
             try:
                 csvFileID = open(flags.CSVLogFile, "a")
             except:
-                s = "Error -- Unable to open file %s for writing -- is the file %s open in another program"
+                s = "Error -- Unable to open file %s for writing -- is the file %s open in another program like excel"
                 print(s % (flags.CSVLogFile, flags.CSVLogFile))
                 sys.exit(0)
             if os.path.getsize(flags.CSVLogFile) == 0:
@@ -47,15 +50,33 @@ class parseDSLogs:
             print("Parse file: " + file + " date:" +
                   str(fileDate) + " StartSec:" + str(time))
         fileNum = 0
-        if flags.makeDB:
-            fileNum = db.addFileData(
+        if self.myMakeDB:
+            if db.isFileInDB(file):  
+                print("File %s is in the DB, will not update the DB" % (file))
+                self.myMakeDB = False
+            else:
+                fileNum = db.addFileData(
                 file, fileDate, 0, '', '', '')
+            db.table = flags.logTable 
+        if(self.myMakeDB or csvFileID):
+            self.loopOverFile(stream, csvFileID, fileNum, time)
+        if self.lineCount > 0:
+            print("%8d logs in file:%s Last Time:%s Lines with Current:%d" %
+              (self.lineCount, file, time.strftime("%H:%M:%S "), self.linesWithCurrent))
+        if self.myMakeDB:
+            fileNum = db.addFileData(
+                file, fileDate,self.lineCount, '', '', '')
+            db.connection.commit()
+        if(csvFileID):
+            csvFileID.close()
+            
+    def loopOverFile(self, stream, csvFileID, fileNum, time):
         while True:
             hdr = stream.read(35)
             # Check for end of file
             if len(hdr) == 0:
                 break
-            # Get trace (robot status data)
+            # Get trace or the robot status data
             trace = self.getTrace(hdr[5])
             # Get the values for the PDP currents
             pdp = self.getPDP(hdr, 11)
@@ -73,7 +94,7 @@ class parseDSLogs:
                         hdr[0], hdr[1]*4,  battery, hdr[4]/2,  trace, hdr[6]/2, hdr[7]/2, hdr[8], current, self.currentsToString(pdp))
                 s = "\t%s,%d,%d,%d,%.1f,%.1f,%s,%.1f,%.1f,%d,%.1f,%s\n" % data
                 csvFileID.write(s)
-            if flags.makeDB:
+            if self.myMakeDB:
                 #  s = "(fileNum, time,count,trip,loss,battery,cpu,trace,can,wifi,mb,current,"
                 data = [fileNum, time, self.lineCount, hdr[0], hdr[1]*4, battery,
                         hdr[4]/2,  trace, hdr[6]/2, hdr[7]/2, hdr[8], current]
@@ -84,14 +105,6 @@ class parseDSLogs:
                 db.addLogData(tuple(data))
             self.lineCount += 1
             time += datetime.timedelta(seconds=(.02))
-        print("Processed file:%s Last Time:%s Line count:%d Lines with Current:%d" %
-              (file, time.strftime("%H:%M:%S "), self.lineCount-1, self.linesWithCurrent))
-        if flags.makeDB:
-            fileNum = db.addFileData(
-                file, fileDate,self.lineCount-1, '', '', '')
-            db.connection.commit()
-        if(csvFileID):
-            csvFileID.close()
 
     def currentsToString(self, pdp):
         s = ""
