@@ -215,8 +215,8 @@ class DB:
         db.connection.commit()
 
 
-    def isFileInDB(self, fileName):
-        fileName = os.path.basename(fileName)
+    def isFileInDB(self, path):
+        fileName = os.path.basename(path)
         cur = self.connection.cursor()
         sql = "SELECT fileSize, fileDate FROM files WHERE fileName=?"
         try:
@@ -226,10 +226,10 @@ class DB:
             sys.exit(0)
         rows = cur.fetchall()
         if(len(rows) == 1):
-            fileSize = os.path.getsize(fileName)
+            fileSize = os.path.getsize(path)
             if fileSize != rows[0][0]:
                 return False
-            fileDate = os.path.getmtime(fileName)
+            fileDate = os.path.getmtime(path)
             fileDate = datetime.datetime.fromtimestamp(
                 fileDate).strftime("%m/%d %H:%M:%S")
             if fileDate != rows[0][1]:

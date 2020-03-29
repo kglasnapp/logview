@@ -6,7 +6,7 @@ import sys
 import flags
 from db import db
 
-
+# Parse an FRC dslog file the format is documented at https://frcture.readthedocs.io/en/latest/driverstation/logging.html
 class parseDSLogs:
     lineCount = 0
     fileName = ''

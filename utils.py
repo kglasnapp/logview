@@ -26,7 +26,7 @@ def getListOfFiles(dirName, reg):
     try:
         exp = re.compile(reg)
     except:
-        print("Error -- Invalid or no paramters entered")
+        print("Error -- Invalid regular expression:" + reg)
         sys.exit(0)
     try:
         listOfFile = os.listdir(dirName)
@@ -120,7 +120,7 @@ def processListOfFiles(files):
             totalCount += p.lineCount
         else:
             print("Error can't process file:", file)
-    print("%8d lines found in %d files" % (totalCount, fileCount))
+    print("%8d lines processed in %d files" % (totalCount, fileCount))
 
 
 def deleteCSVs():
