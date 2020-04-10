@@ -15,9 +15,16 @@ def isOk(r):
     #Aprint("isOK", r, combo.get())
     return True
 
+def onSelect(resp):
+    sel = lstBox.curselection()
+    s = lstBox.get(sel[0])
+    print(resp, sel, s)
+    newIgnoreV.set(s)
+    
+
 
 def showForm():
-    global root, lstBox
+    global root, lstBox, newIgnoreV
     root = tk.Tk()
     newIgnoreV = tk.StringVar()
     statusBarV = tk.StringVar()
@@ -32,7 +39,7 @@ def showForm():
     saveBtn = Button(root, text="Save")
     exitBtn = Button(root, text="Exit")
     scrollbar = Scrollbar(root, orient=tk.VERTICAL)
-    lstBox = Listbox(root, selectmode=tk.EXTENDED,
+    lstBox = Listbox(root, 
                      width=32, yscrollcommand=scrollbar.set)
     scrollbar.config(command=lstBox.yview)
     statusBar = Label(root, textvariable=statusBarV)
@@ -46,6 +53,8 @@ def showForm():
     scrollbar.grid(row=1, column=3, sticky='nesw', padx=15, pady=5)
     statusBar.grid(row=2, column=0, columnspan=2, sticky='ws', padx=5, pady=5)
     
+    lstBox.bind('<<ListboxSelect>>', onSelect)
+    
     
     root.grid_rowconfigure(1, weight=1)
     root.grid_columnconfigure(0, weight=1)
@@ -57,5 +66,5 @@ def showForm():
 
     root.mainloop()
 
-
-showForm()
+if __name__ == '__ignores__':
+    showForm()

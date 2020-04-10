@@ -4,7 +4,7 @@ import tkinter as tk
 from tkinter import Button, filedialog
 import dseventsF
 import dsFiles
-import ignores
+import editIgnores
 import flags
 import utils
 import db
@@ -29,7 +29,7 @@ def createMenu(tab):
     fileMenu.add_command(label="Exit", command=lambda: sys.exit(0))
     editMenu = tk.Menu(menubar, tearoff=0)
     menubar.add_cascade(label="Edit", menu=editMenu)
-    editMenu.add_command(label="Edit Ignores", command=ignores.showForm)
+    editMenu.add_command(label="Edit Ignores", command=editIgnores.showForm)
     helpMenu = tk.Menu(menubar, tearoff=0)
     menubar.add_cascade(label="Help", menu=helpMenu)
     helpMenu.add_command(label="About Us")

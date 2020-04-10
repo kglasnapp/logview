@@ -46,7 +46,7 @@ class dsevents():
                             variable=andOrV, onvalue=True, offvalue=False)
         search2 = ttk.Entry(topFrame, width=40, textvariable=search2V)
         refreshBtn = Button(topFrame, text="Refresh", command=self.refresh)
-        ignoresBtn = Button(topFrame, text="Ignores", command=self.ignoreBtn)
+        #ignoresBtn = Button(topFrame, text="Ignores", command=self.ignoreBtn)
         scrollbar = Scrollbar(frame, orient=tk.VERTICAL)
         listBox = Listbox(frame, selectmode=tk.EXTENDED,
                           width=32, yscrollcommand=scrollbar.set)
@@ -59,7 +59,7 @@ class dsevents():
         search1.grid(row=0, column=1, padx=5, pady=5, sticky='W')
         cb1.grid(row=0, column=2, padx=5, pady=5)
         andOr.grid(row=0, column=3, padx=5, pady=5)
-        ignoresBtn.grid(row=0, column=4)
+        #ignoresBtn.grid(row=0, column=4)
         label2.grid(row=1, column=0, padx=5, pady=5, sticky='W')
         search2.grid(row=1, column=1, padx=5, pady=5, sticky='W')
         cb2.grid(row=1, column=2, padx=5, pady=5)

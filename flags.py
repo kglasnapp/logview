@@ -26,3 +26,4 @@ eventsTable = "allData_dsevents"
 logTable = "allData_dslog"
 fileTable = "files"
 mainDB = "data.db"
+profile = 0
