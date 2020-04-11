@@ -15,11 +15,10 @@ class parseDSLogs:
     def __init__(self, file):
         self.lineCount = 0
         self.myMakeDB = flags.makeDB
-        if flags.debug:
-            print("Parse DSLog for file:" + file)
-        table = os.path.basename(file)
-        self.fileName = table
-        #table = "Logs_" + table.split(' ')[0] + "_" + table.split(' ')[1]
+        self.fileName = os.path.basename(file)
+        if '.dslog' not in self.fileName or len(self.fileName.split(' ')) != 3:
+            print("Attempted to process invalid file: " + self.fileName)
+            return
         csvFileID = None
         if flags.CSVLogFile != "":
             try:
@@ -36,9 +35,6 @@ class parseDSLogs:
                     "Time,Count,Trip,Loss,Battery,CPU,Trace,CAN,WiFi,MB,Current," + s[:-1] + "\n")
         stream = open(file, 'rb')
         ar = os.path.basename(file).split()
-        if(len(ar) != 3):
-            print("********* Invalid file name " + os.path.basename(file))
-            return
         fileDate = datetime.datetime.strptime(
             ar[0] + ar[1], "%Y_%m_%d%H_%M_%S")
         hdr = stream.read(20)

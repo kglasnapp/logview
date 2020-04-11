@@ -13,13 +13,14 @@ class parseDSEvents:
     csvFileID = None
 
     def __init__(self, file):
-        table = os.path.basename(file)
+        self.fileName = os.path.basename(file)
         self.lineCount = 0
         self.myMakeDB = flags.makeDB
-        self.fileName = table
+        if '.dsevents' not in self.fileName or len(self.fileName.split(' ')) != 3:
+            print("Attempted to process invalid file: " + self.fileName)
+            return
         if flags.debug:
-            print("Parse file:" + table)
-        table = "Logs_" + table.split(' ')[0] + "_" + table.split(' ')[1]
+            print("Parse file:" + self.fileName)
         self.csvFileID = None
         if flags.CSVEventsFile != "":
             try:

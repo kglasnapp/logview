@@ -32,7 +32,7 @@ def getListOfFiles(dirName, reg):
         listOfFile = os.listdir(dirName)
     except:
         print("Error -- Unable to find directory --> " + dirName)
-        sys.exit(0)
+        return []
     allFiles = list()
     # Iterate over all the entries
     for entry in listOfFile:

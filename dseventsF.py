@@ -91,6 +91,7 @@ class dsevents():
     def onChanged1(self, resp):
         print("-- Something Changed -- Search1:%s Search2:%s andOrV:%s reg1:%s reg2:%s" %
               (search1V.get(), search2V.get(), andOrV.get(), reg1.get(), reg2.get()))
+        self.getData()
 
     def onChanged(self):
         self.onChanged1("")
@@ -159,21 +160,25 @@ class dsevents():
         if reg1.get():
             exp1 = s1
         else:
-            exp1 = ".*%s.*" % (self.updateSpecial(s1))
+            exp1 = ".*%s" % (self.updateSpecial(s1))
         s2 = search2V.get()
         if reg2.get():
             exp2 = s2
         else:
-            exp2 = ".*%s.*" % (self.updateSpecial(s2))
-        exp = exp1 + exp2
+            exp2 = ".*%s" % (self.updateSpecial(s2))
+        if s1 == '':
+            exp = exp2
+        if s2 == '':
+            exp = exp1
         if s1 != '' and s2 != '':
             if andOrV.get():
                 # And condition
-                exp = "(%s)(%s)" % (exp1, exp2)
+                exp = "(?=%s)(?=%s)" % (exp1, exp2)
             else:
                 # Or condition
                 exp = "%s|%s" % (exp1, exp2)
-        print("exp:%s exp1:%s exp2:%s" % (exp, exp1, exp2))
+        #exp = "(?=.*---)(?=.*turn)"
+        print("exp:%s" % (exp))
         reg = re.compile(exp, re.IGNORECASE)
         return reg
 

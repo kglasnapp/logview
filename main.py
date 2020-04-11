@@ -51,8 +51,8 @@ def basicLabels(tab):
 
 
 def fileImport():
-    types = (("Robot log files", "*.dslog;*.dsevents"), ("dsevents",
-                                                         "*.dsevents"), ("dslog", "*.dslog"), ("All files", "*.*"))
+    types = [("Robot log files", "*.dslog;*.dsevents"), ("dsevents",
+                                                         "*.dsevents"), ("dslog", "*.dslog"), ("All files", "*.*")]
     fileNames = tk.filedialog.askopenfilename(
         initialdir=".", title="Select file", multiple=True, filetypes=types)
     if flags.debug:

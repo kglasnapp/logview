@@ -86,7 +86,7 @@ class dsFiles():
     def statusChanged(self, response):
         print("---  Something Changed ---", response)
         self.inData = self.getFiles()
-        print("Found %d files to display in files listBox" % (len(self.inData)))
+        print("Found %d files to display" % (len(self.inData)))
         listBox.delete(0, END)
         count = 0
         for r in self.inData:
