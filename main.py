@@ -9,8 +9,7 @@ import flags
 import utils
 import db
 import sys
-
-
+import editPDPConfigTKSheet
 
 def createMenu(tab):
     menubar = tk.Menu()
@@ -30,6 +29,7 @@ def createMenu(tab):
     editMenu = tk.Menu(menubar, tearoff=0)
     menubar.add_cascade(label="Edit", menu=editMenu)
     editMenu.add_command(label="Edit Ignores", command=editIgnores.showForm)
+    editMenu.add_command(label="Edit PDP Configs", command=editPDPConfigTKSheet.showForm)
     helpMenu = tk.Menu(menubar, tearoff=0)
     menubar.add_cascade(label="Help", menu=helpMenu)
     helpMenu.add_command(label="About Us")
@@ -80,7 +80,7 @@ def directoryImport(reg):
     utils.processListOfFiles(files)
 
 
-global files, evaents
+global files, events
 
 window = tk.Tk()
 window.geometry("780x550")
