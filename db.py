@@ -47,7 +47,6 @@ class DB:
             print(e)
 
     def createEventDataTable(self, table):
-        print("Create table:" + table)
         self.table = table
         # create a table from the create_table_sql statement
         sql = "CREATE TABLE IF NOT EXISTS " + table + """ (
@@ -73,7 +72,6 @@ class DB:
         self.cursor.execute(sql, task)
 
     def createFileDataTable(self, fileTable):
-        print("Create table:" + fileTable)
         self.fileTable = fileTable
         # create a table from the create_table_sql statement
         sql = "CREATE TABLE IF NOT EXISTS " + fileTable + """ (
@@ -132,7 +130,6 @@ class DB:
         return None
 
     def createLogDataTable(self, table):
-        print("Create table:" + table)
         self.table = table
         # create a table from the create_table_sql statement
         # Time,Count,Trip,Loss,Battery,CPU,Trace,CAN,WiFi,MB,Current,

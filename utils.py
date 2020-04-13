@@ -141,8 +141,8 @@ def deleteCSVs():
             sys.exit(0)
 
 
-def toDec4(self, d, start):
+def toDec4(d, start):
         return d[start+2] * 256 + d[start+3] + (d[start] * 256 + d[start+1]) * 256
 
-def toDec2(self, d, start):
+def toDec2(d, start):
         return d[start] * 256 + d[start+1]

@@ -151,6 +151,6 @@ class dsFiles():
             files.append(self.listBox.get(x))
         return files
     
-    # def refresh(self):
-    #     self.statusChanged("Refresh")
+    def refresh(self):
+        self.statusChanged("Refresh")
     

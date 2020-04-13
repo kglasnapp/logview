@@ -78,7 +78,7 @@ def refreshEvents():
 global files, events
 
 window = tk.Tk()
-window.geometry("780x550")
+window.geometry("880x550")
 window.title("Team 3932 Log File Viewer")
 window.configure(background="white")
 window.grid_rowconfigure(0, weight=1)
