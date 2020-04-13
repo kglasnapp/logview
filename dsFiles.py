@@ -6,36 +6,39 @@ from tkinter import (Button, Checkbutton, Entry, Frame, Label, Listbox, Menu,
 import db as db
 import utils
 import flags
+import datetime 
 
 class dsFiles():
-
+    lastTime = datetime.datetime.now()
+    waitCount = 0
     dataStale = True
     
-    def __init__(self, tab):
-        global monthV, dayV, dslogV, dseventsV, statusTextV, listBox, frame
+    def __init__(self, tab, refreshEvents):
         frame = Frame(tab)
+        self.frame = frame
+        self.refreshEvents = refreshEvents
         
         # declare varaibles used on the form
-        monthV = StringVar()
-        monthV.set("3")
-        dayV = StringVar()
-        dayV.set("8-10")
-        dslogV = BooleanVar()
-        dslogV.set(False)
-        dseventsV = BooleanVar()
-        dseventsV.set(True)
-        statusTextV = StringVar()
-        statusTextV.set("Status")
+        self.monthV = StringVar()
+        self.monthV.set("3")
+        self.dayV = StringVar()
+        self.dayV.set("8-10")
+        self.dslogV = BooleanVar()
+        self.dslogV.set(False)
+        self.dseventsV = BooleanVar()
+        self.dseventsV.set(True)
+        self.statusTextV = StringVar()
+        self.statusTextV.set("Status")
         
         # allocate the widgets for the form
         lblMonth = ttk.Label(frame, text="Month:")
-        month = ttk.Entry(frame, width=4, textvariable=monthV)
+        month = ttk.Entry(frame, width=4, textvariable=self.monthV)
         lblDay = ttk.Label(frame, text="Day:")
-        day = ttk.Entry(frame, width=8, textvariable=dayV)
+        day = ttk.Entry(frame, width=8, textvariable=self.dayV)
         cbLog = ttk.Checkbutton(frame, text="dslog", command=self.checkChanged,
-                            variable=dslogV, onvalue=True, offvalue=False)
+                            variable=self.dslogV, onvalue=True, offvalue=False)
         cbEvents = ttk.Checkbutton(frame, text="dsevents", command=self.checkChanged,
-                               variable=dseventsV, onvalue=True, offvalue=False)
+                               variable=self.dseventsV, onvalue=True, offvalue=False)
         
         # place the widgets on the form
         lblMonth.grid(row=0, column=0)
@@ -54,6 +57,7 @@ class dsFiles():
         scrollbar = Scrollbar(frame, orient=VERTICAL)
         listBox = Listbox(frame, selectmode=EXTENDED,
             width=32, yscrollcommand=scrollbar.set, exportselection=0)
+        self.listBox = listBox
         scrollbar.config(command=listBox.yview)
         
         listBox.grid(row=2, column=0, columnspan=4, sticky='NS')
@@ -61,51 +65,67 @@ class dsFiles():
 
         listBox.bind('<<ListboxSelect>>', self.onSelect)
 
-        statusBar = Label(frame,  textvariable=statusTextV)
+        statusBar = Label(frame,  textvariable=self.statusTextV)
         statusBar.grid(row=3, column=0, sticky='NS', columnspan=4)
         
         frame.grid_rowconfigure(2, weight=1)
         self.statusChanged("Startup")
-  
+        
+ 
+    
+    def timeOut(self, *arg):
+        diff = datetime.datetime.now() - self.lastTime
+        self.waitCount -= 1
+        if flags.debug:
+            print("Timeout", arg[0][0], diff, arg[0][1], self.waitCount)
+        self.lastTime = datetime.datetime.now()
+        if self.waitCount == 0:
+            self.refreshEvents()
 
     def onSelect(self, evt):
         w = evt.widget
-        print(w.curselection())
+        if len(w.curselection()) == 0:
+            print(w.curselection())
+            return
         index = int(w.curselection()[0])
         value = w.get(index)
-        print('You selected item %d: "%s"' % (index, value))
+        if flags.debug:
+            print('You selected item %d: "%s"' % (index, value))
         self.updateStatusBar()
+        self.waitCount += 1
+        self.frame.after(1000, self.timeOut, (datetime.datetime.now(), self.waitCount))
+        
 
     def checkChanged(self):
         self.statusChanged("Check Box")
 
     def updateStatusBar(self):
-        statusTextV.set("Files:%d Selected:%d" %
-                        (len(self.inData), len(listBox.curselection())))
+        self.statusTextV.set("Files:%d Selected:%d" %
+                        (len(self.inData), len(self.listBox.curselection())))
 
     def statusChanged(self, response):
         print("---  Something Changed ---", response)
         self.inData = self.getFiles()
         print("Found %d files to display" % (len(self.inData)))
-        listBox.delete(0, END)
+        self.listBox.delete(0, END)
         count = 0
         for r in self.inData:
-            listBox.insert(count, r[0])
+            self.listBox.insert(count, r[0])
             count += 1
         self.updateStatusBar()
-
+      
     def getValues(self):
         self.values = {
             "year": str(flags.year),
-            "month": monthV.get(),
-            "day": dayV.get(),
-            "dslog": dslogV.get(),
-            "dsevents": dseventsV.get()
+            "month": self.monthV.get(),
+            "day": self.dayV.get(),
+            "dslog": self.dslogV.get(),
+            "dsevents": self.dseventsV.get()
         }
         return self.values
     
     def getFrame(self):
-        return frame
+        return self.frame
 
     def getFiles(self):
         if(self.dataStale):
@@ -125,12 +145,12 @@ class dsFiles():
         return files
     
     def getSelected(self):
-        sel = listBox.curselection()
+        sel = self.listBox.curselection()
         files = []
         for x in sel:
-            files.append(listBox.get(x))
+            files.append(self.listBox.get(x))
         return files
     
-    def refresh(self):
-        self.statusChanged("Refresh")
+    # def refresh(self):
+    #     self.statusChanged("Refresh")
     

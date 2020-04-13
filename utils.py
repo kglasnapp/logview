@@ -140,3 +140,9 @@ def deleteCSVs():
             print(s % (flags.CSVLogFile, flags.CSVLogFile))
             sys.exit(0)
 
+
+def toDec4(self, d, start):
+        return d[start+2] * 256 + d[start+3] + (d[start] * 256 + d[start+1]) * 256
+
+def toDec2(self, d, start):
+        return d[start] * 256 + d[start+1]

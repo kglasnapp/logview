@@ -11,6 +11,7 @@ import db
 import sys
 import editPDPConfigTKSheet
 
+
 def createMenu(tab):
     menubar = tk.Menu()
     tab.config(menu=menubar)
@@ -22,14 +23,15 @@ def createMenu(tab):
     fileMenu.add_command(label="Import dslog (Robot Status) Files in Directory",
                          command=lambda: directoryImport(".*dslog"))
     fileMenu.add_command(label="Import all Files in Directory",
-                         command=lambda: directoryImport("*.dslog|*.dsevents"))
+                         command=lambda: directoryImport(".*dslog|.*dsevents"))
     fileMenu.add_command(label="Save")
     fileMenu.add_separator()
     fileMenu.add_command(label="Exit", command=lambda: sys.exit(0))
     editMenu = tk.Menu(menubar, tearoff=0)
     menubar.add_cascade(label="Edit", menu=editMenu)
     editMenu.add_command(label="Edit Ignores", command=editIgnores.showForm)
-    editMenu.add_command(label="Edit PDP Configs", command=editPDPConfigTKSheet.showForm)
+    editMenu.add_command(label="Edit PDP Configs",
+                         command=editPDPConfigTKSheet.showForm)
     helpMenu = tk.Menu(menubar, tearoff=0)
     menubar.add_cascade(label="Help", menu=helpMenu)
     helpMenu.add_command(label="About Us")
@@ -37,21 +39,10 @@ def createMenu(tab):
 # Test only method to help understand how frames work
 
 
-def basicLabels(tab):
-    frame = tk.Frame(tab)
-    frame.grid(row=0, column=0, sticky='ns')
-    lbl0 = tk.Label(frame, text="Top label")
-    lbl1 = tk.Label(frame, text="Middle label")
-    lbl2 = tk.Label(frame, text="Bottom label")
-    lbl0.grid(row=0, column=0)
-    lbl1.grid(row=1, column=0)
-    lbl2.grid(row=2, column=0)
-    frame.grid_rowconfigure(1, weight=1)
-    return frame
 
 
 def fileImport():
-    types = [("Robot log files", "*.dslog;*.dsevents"), ("dsevents",
+    types = [("Robot log files", "*.dslog *.dsevents"), ("dsevents",
                                                          "*.dsevents"), ("dslog", "*.dslog"), ("All files", "*.*")]
     fileNames = tk.filedialog.askopenfilename(
         initialdir=".", title="Select file", multiple=True, filetypes=types)
@@ -80,6 +71,10 @@ def directoryImport(reg):
     utils.processListOfFiles(files)
 
 
+def refreshEvents():
+    events.refresh()
+
+
 global files, events
 
 window = tk.Tk()
@@ -90,7 +85,7 @@ window.grid_rowconfigure(0, weight=1)
 createMenu(window)
 db.db.createDB(flags.dropDataBase)
 
-files = dsFiles.dsFiles(window)
+files = dsFiles.dsFiles(window, refreshEvents)
 files.getFrame().grid(row=0, column=0, padx=5, pady=5, stick='NS')
 
 events = dseventsF.dsevents(window, files)

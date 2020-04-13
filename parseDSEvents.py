@@ -2,6 +2,7 @@ import datetime
 import os
 import re
 import sys
+import utils
 
 from db import db
 import flags
@@ -75,10 +76,10 @@ class parseDSEvents:
             if len(hdr) == 0:
                 break
             milli = hdr[8] * 4
-            sec = self.toDec4(hdr, 4) + milli / 1000
+            sec = utils.toDec4(hdr, 4) + milli / 1000
             t = self.read_timestamp(hdr, 4) - startSec
             lineDate = fileDate + datetime.timedelta(seconds=(t))
-            lineLength = self.toDec4(hdr, 16)
+            lineLength = utils.toDec4(hdr, 16)
             if flags.debug:
                 print("Line:" + str(self.lineCount) + " {:%m/%d %H:%M:%S.%f}".format(
                     lineDate)[0:-3] + " dSec:" + str(round((sec - lastSec), 4)))
@@ -86,14 +87,10 @@ class parseDSEvents:
             self.parseLine(x, lineDate)
             lastSec = sec
 
-    def toDec4(self, d, start):
-        return d[start+2] * 256 + d[start+3] + (d[start] * 256 + d[start+1]) * 256
-
-    def toDec2(self, d, start):
-        return d[start] * 256 + d[start+1]
+    
 
     def read_timestamp(self, hdr, start):
-        sec = self.toDec4(hdr, start)
+        sec = utils.toDec4(hdr, start)
         milli = hdr[start+4] * 4
         sec += milli / 1000
         return sec
@@ -125,17 +122,18 @@ class parseDSEvents:
                             (elementDate - lineDate).total_seconds())
                     else:
                         lineType = "Message"
+                    l = l.strip()
                     if flags.showLogs:
                         d = "{:%m/%d}".format(lineDate)
                         print(d + "** " + l)
                     self.getFileInfo(self.fileName, l)
                     self.lineCount += 1
-                    if self.myMakeDB:
+                    if self.myMakeDB and len(l) > 0:
                         db.addEventData(lineDate, deltaTime,
-                                           lineType, l, self.fileNum, self.fileName)
+                                           lineType, "{:%m/%d }".format(lineDate) + l, self.fileNum, self.fileName)
                     if(self.csvFileID):
                         self.csvFileID.write('%d,"\t%s",%d,%s,"%s",%s\n' % (
-                            self.lineCount, lineDate, 0, lineType, l, self.fileName))
+                            self.lineCount, lineDate, 0, lineType, "{:%m/%d }".format(lineDate) + l, self.fileName))
 
     def getFileInfo(self, fileName, startLine):
         # startLine = "Robot Type Competition Started compiled:03/08/2020 20:06:49 version:0.7"

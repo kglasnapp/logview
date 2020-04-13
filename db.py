@@ -115,6 +115,7 @@ class DB:
                 ' (beginDate, fileName, fileSize, fileDate, lines, robotType, compiled, version)  VALUES(?,?,?,?,?,?,?,?)'
             self.cursor = self.connection.cursor()
             self.cursor.execute(sql, task)
+            db.connection.commit()
             return self.cursor.lastrowid
 
     def getFileNameIndex(self, fileName):
