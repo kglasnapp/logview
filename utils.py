@@ -5,6 +5,7 @@ import datetime
 import flags
 import parseDSEvents
 import parseDSLogs
+import filehash
 
 
 def doAllDSEvents(path, fileType):
@@ -146,3 +147,8 @@ def toDec4(d, start):
 
 def toDec2(d, start):
         return d[start] * 256 + d[start+1]
+    
+def hashFile(fileName):
+    md5hasher = filehash.FileHash('md5')
+    return md5hasher.hash_file(fileName)
+

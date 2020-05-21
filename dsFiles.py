@@ -142,6 +142,7 @@ class dsFiles():
                 files.append(r)
         files.sort()
         self.inData = files
+        #self.statusChanged("Got New Files")
         return files
     
     def getSelected(self):

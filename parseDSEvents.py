@@ -2,9 +2,8 @@ import datetime
 import os
 import re
 import sys
-import utils
-
 from db import db
+import utils
 import flags
 
 class parseDSEvents:
@@ -50,12 +49,13 @@ class parseDSEvents:
             print("Parse file: " + file + " date:" +
                   str(fileDate) + " StartSec:" + str(startSec))
         if(self.myMakeDB):
-            if db.isFileInDB(file):  
+            md5Hash = utils.hashFile(file)
+            if db.isFileInDB(file, md5Hash):  
                 print("File %s is in the DB,  will not update the DB" % (file))
                 self.myMakeDB = False
             else:
                 self.fileNum = db.addFileData(
-                    file, startSec, 0, flags.robotType, flags.compiled, flags.version)
+                    file, startSec, 0, flags.robotType, flags.compiled, flags.version, md5Hash)
             db.table = flags.eventsTable 
         if(self.myMakeDB or self.csvFileID):
             self.loopOverFile(stream, fileDate, startSec)
@@ -66,7 +66,7 @@ class parseDSEvents:
             self.csvFileID.close()
         if self.myMakeDB:
             db.addFileData(file, fileDate, self.lineCount,
-                              flags.robotType, flags.compiled, flags.version)
+                              flags.robotType, flags.compiled, flags.version, md5Hash)
             db.connection.commit()
             
     def loopOverFile(self, stream, fileDate, startSec):

@@ -2,16 +2,20 @@ import datetime
 import os
 import struct
 import sys
+import utils
 
 import flags
 from db import db
 
 # Parse an FRC dslog file the format is documented at https://frcture.readthedocs.io/en/latest/driverstation/logging.html
+
+
 class parseDSLogs:
     lineCount = 0
     fileName = ''
     linesWithCurrent = 0
     myMakeDB = False
+
     def __init__(self, file):
         self.lineCount = 0
         self.myMakeDB = flags.makeDB
@@ -47,25 +51,26 @@ class parseDSLogs:
                   str(fileDate) + " StartSec:" + str(time))
         fileNum = 0
         if self.myMakeDB:
-            if db.isFileInDB(file):  
+            md5Hash = utils.hashFile(file)
+            if db.isFileInDB(file, md5Hash):
                 print("File %s is in the DB, will not update the DB" % (file))
                 self.myMakeDB = False
             else:
                 fileNum = db.addFileData(
-                file, fileDate, 0, '', '', '')
-            db.table = flags.logTable 
+                    file, fileDate, 0, '', '', '', md5Hash)
+            db.table = flags.logTable
         if(self.myMakeDB or csvFileID):
             self.loopOverFile(stream, csvFileID, fileNum, time)
         if self.lineCount > 0:
             print("%8d logs in file:%s Last Time:%s Lines with Current:%d" %
-              (self.lineCount, file, time.strftime("%H:%M:%S "), self.linesWithCurrent))
+                  (self.lineCount, file, time.strftime("%H:%M:%S "), self.linesWithCurrent))
         if self.myMakeDB:
             fileNum = db.addFileData(
-                file, fileDate,self.lineCount, '', '', '')
+                file, fileDate, self.lineCount, '', '', '', md5Hash)
             db.connection.commit()
         if(csvFileID):
             csvFileID.close()
-            
+
     def loopOverFile(self, stream, csvFileID, fileNum, time):
         while True:
             hdr = stream.read(35)
@@ -96,7 +101,7 @@ class parseDSLogs:
                         hdr[4]/2,  trace, hdr[6]/2, hdr[7]/2, hdr[8], current]
                 for x in pdp:
                     data.append(x)
-                #data.append(self.fileName)
+                # data.append(self.fileName)
                 data.append("")
                 db.addLogData(tuple(data))
             self.lineCount += 1

@@ -6,7 +6,6 @@ from sqlite3 import Error
 import sys
 import flags
 
-
 class DB:
     connection = None
     cursor = None
@@ -80,6 +79,7 @@ class DB:
             fileName text,
             fileSize integer,
             fileDate text,
+            md5Hash text,
             lines integer,
             robotType text,
             compiled text,
@@ -92,13 +92,13 @@ class DB:
             return
         self.createIndex("fileName", fileTable, "fileName")
 
-    def addFileData(self, path, date, lines, robotType, compiled, version):
+    def addFileData(self, path, date, lines, robotType, compiled, version, md5Hash):
         fileName = os.path.basename(path)
         idx = self.getFileNameIndex(fileName)
         if(idx):
             # UPDATE table SET column_1 = new_value_1,     column_2 = new_value_2  WHERE     search_condition
-            sql = "Update %s set lines='%s', robotType='%s', compiled='%s', version='%s' where fileName='%s'" % (
-                self.fileTable, lines, robotType, compiled, version, fileName)
+            sql = "Update %s set lines='%s', robotType='%s', compiled='%s', version='%s', md5Hash='%s' where fileName='%s'" % (
+                self.fileTable, lines, robotType, compiled, version, md5Hash, fileName)
             self.cursor = self.connection.cursor()
             self.cursor.execute(sql)
             return idx
@@ -200,7 +200,6 @@ class DB:
 
     # Create the needed databases
 
-
     def createDB(self, drop):
         db.createConnection(flags.mainDB)
         if drop:
@@ -212,26 +211,28 @@ class DB:
         db.createFileDataTable(flags.fileTable)
         db.connection.commit()
 
-
-    def isFileInDB(self, path):
+    def isFileInDB(self, path, md5Hash):
         fileName = os.path.basename(path)
         cur = self.connection.cursor()
-        sql = "SELECT fileSize, fileDate FROM files WHERE fileName=?"
+        sql = "SELECT fileSize, fileDate, md5Hash FROM files WHERE fileName=?"
         try:
             cur.execute(sql, (fileName, ))
         except:
             print("Error: **** ", sql)
             sys.exit(0)
         rows = cur.fetchall()
-        if(len(rows) == 1):
+        if len(rows) == 1:
             fileSize = os.path.getsize(path)
             if fileSize != rows[0][0]:
                 return False
-            fileDate = os.path.getmtime(path)
-            fileDate = datetime.datetime.fromtimestamp(
-                fileDate).strftime("%m/%d %H:%M:%S")
-            if fileDate != rows[0][1]:
+            if rows[0][2] != md5Hash:
                 return False
+
+            # fileDate = os.path.getmtime(path)
+            # fileDate = datetime.datetime.fromtimestamp(
+            #     fileDate).strftime("%m/%d %H:%M:%S")
+            # if fileDate != rows[0][1]:
+            #     return False
             return True
         return False
 
