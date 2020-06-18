@@ -19,12 +19,12 @@ def updateSheet(data):
     # Fetch the sheet from Google Drive
     id = '1z18FpYI9_mnaq9YFyF2ij60kab50_0nDqtAhdvIcfZg'
     sheet = client.open_by_key(id)
-    worksheet = sheet.worksheet("Sheet1")
+    worksheet = sheet.worksheet("EdwardJones")
     python_sheet = worksheet.get_all_records()
     pp = pprint.PrettyPrinter()
     pp.pprint(python_sheet)
     worksheet.format("B8:J20", {"numberFormat": {"type": "CURRENCY","pattern": "\"$\"#,##0.00"}})
-    worksheet.update('J8', '=I8-I7', raw=False)
+    #worksheet.update('J8', '=I8-I7', raw=False)
     worksheet.append_row(data, value_input_option='RAW', insert_data_option=None, table_range=None)
 
 
