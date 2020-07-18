@@ -7,6 +7,7 @@ import sys
 import os
 import math
 import locale
+import time
 
 
 def updateSheet(data):
@@ -26,12 +27,12 @@ def updateSheet(data):
     pp = pprint.PrettyPrinter()
     last = len(python_sheet) - 1
     print(python_sheet[last])
-    total = float(python_sheet[last]['Total'].replace('$', '').replace(',', ''))
+    total = float(str(python_sheet[last]['Total']).replace('$', '').replace(',', ''))
     print('Old Total:%s' % (locale.currency(total, grouping=True)))
-    print('New Total:%s'% (locale.currency(data[8], grouping=True)))
-    print('Change:%s'% (locale.currency(data[8] - total, grouping=True)))
+    print('New Total:%s'% (locale.currency(data[9], grouping=True)))
+    print('Change:%s'% (locale.currency(data[9] - total, grouping=True)))
     # pp.pprint(python_sheet)
-    worksheet.format("B8:J%d" % (last + 1), {"numberFormat": {
+    worksheet.format("B9:K%d" % (last + 10), {"numberFormat": {
                      "type": "CURRENCY", "pattern": "\"$\"#,##0.00"}})
     #worksheet.update('J8', '=I8-I7', raw=False)
     worksheet.append_row(data, value_input_option='RAW',
@@ -50,30 +51,30 @@ def getValue(start, next):
 
 locale.setlocale(locale.LC_ALL, '')
 file = "z:\\Edward Jones\\Home _ Edward Jones Account Access.html"
+file = "z:\\Edward Jones\\Snapshot _ Edward Jones.html"
+modTimesinceEpoc = os.path.getmtime(file)
+date = time.strftime('%m/%d/%Y', time.localtime(modTimesinceEpoc))
 stream = open(file, 'rb')
 s = ""
 for t in stream:
     s += str(t)
 # print("Read File:", len(s))
-grand = getValue("grandTotalNumeral", ">$")
-joint2 = getValue('performance.action?accountSwitch=Joint-2', 'alignRight">$')
-cash = getValue("performance.action?accountSwitch=CashReserve",
-                'alignRight">$')
-ira = getValue("performance.action?accountSwitch=Trad+IRA-1", 'alignRight">$')
-roth = getValue("performance.action?accountSwitch=Roth+IRA-1", 'alignRight">$')
+grand = getValue("Total Current Value", 'mat-headline">$')
+joint2 = getValue('****1352', 'edj-balance">$')
+cash = getValue("****1353", 'edj-balance">$')
+iraKeith = getValue("****3217", 'edj-balance">$')
+iraSue = getValue("****6343", 'edj-balance">$')
+roth = getValue("****3238", 'edj-balance">$')
 
-total = joint2 + cash + ira + roth
+total = joint2 + cash + iraKeith + iraSue + roth
 if(abs(total-grand) > .1):
     print("Delta error should be 0.0 it is: ", total - grand)
-djia = getValue(">DJIA<", '">')
-nasdq = getValue("NASDQ", '">')
-sp = getValue("S&amp;P", '">')
+djia = getValue("DJIA", 'current-value">')
+nasdq = getValue("COMPQ", 'current-value">')
+sp = getValue("SPX", 'current-value">')
 # Get the date -- i.e. As of
-f = "As of&nbsp;"
-r = s.find(f) + len(f)
-d = s[r:r+10]
-data = (d, djia, nasdq, sp, joint2, cash, ira, roth, grand)
-paste = "%s,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f" % data
+data = (date, djia, nasdq, sp, joint2, cash, iraKeith, iraSue, roth, grand)
+paste = "%s,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f" % data
 command = 'echo ' + paste + ' | clip'
 os.system(command)
 print(paste)
