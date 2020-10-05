@@ -1,5 +1,7 @@
 # Update a Google Sheet from Python
 # https://gspread.readthedocs.io/en/latest/user-guide.html#formatting
+# https://github.com/microsoft/playwright-python to automate web
+
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import pprint
