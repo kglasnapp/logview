@@ -59,9 +59,13 @@ def getDataFromEdwardJones(file, userID, passCode):
 
 
 def getValue(s, start, next):
+    print("Start", start)
     start = s.find(start)
+    if start < 0:
+        return 0.0
     t = s[start:start+300]
     result = t.find(next) + len(next)
+    
     t = t[result:result+14]
     # print(start, t)
     result = t.find("<")
