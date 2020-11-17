@@ -5,7 +5,7 @@ from openpyxl.worksheet.table import Table, TableStyleInfo
 import pandas.io.excel._openpyxl
 import csv
 import sys
-import datetime
+from datetime import datetime
 import os
 
 
@@ -110,6 +110,7 @@ def addTestData(masterWs, sheetName):
 
 debug = False
 root = "c:\\FunStuff\\colleen\\"
+# root = os.getcwd() + "\\"
 if debug:
     print("root path", root, sys.path[0], os.getcwd())
 res = getFiles(root + "Files.xlsx")
@@ -118,6 +119,8 @@ if(len(res) == 0):
 if(debug):
     print(res)
 
+now = datetime.now()
+mast = "Master" + now.strftime("-%Y-%m-%d") + ".xlsx"
 masterWb = Workbook()
 masterWb.create_sheet("Active")
 masterWb.create_sheet("RTW")
@@ -131,8 +134,8 @@ rows = 0
 for r in res:
     if decrypt(root + r[0], r[1], root + 'test.xlsx'):
         counts = appendTo(root + 'test.xlsx', masterWb, first)
-        print("Added %s to Master.xlsx %d Active and %d RTW rows" %
-              (r[0], counts[0], counts[1]))
+        print("Added %s to %s %d Active and %d RTW rows" %
+              (r[0], mast, counts[0], counts[1]))
         rows += counts[0] + counts[1]
         first = False
         os.remove(root + 'test.xlsx')
@@ -144,10 +147,11 @@ masterWs = masterWb["Sheet"]
 masterWb.remove(masterWs)
 
 # Save the master file
-if os.path.exists(root + "Master.xlsx"):
-    os.remove(root + "Master.xlsx")
+#if os.path.exists(root + "Master.xlsx"):
+if os.path.exists(root + mast):
+    os.remove(root + mast)
 try:
-    masterWb.save(root + "Master.xlsx")
-    print("Complete -- writing the Master.xls file with %d new rows" % (rows))
+    masterWb.save(root + mast)
+    print("Complete -- writing the %s file with %d new rows" % (mast, rows))
 except:
-    print("The file Master.xlsx can not be saved -- it might be open in excel -- please close it")
+    print("The file " + mast + " can not be saved -- it might be open in excel -- please close it")

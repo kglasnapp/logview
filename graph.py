@@ -1,5 +1,6 @@
-import sqlite3
+
 import numpy
+import sqlite3
 import matplotlib
 import matplotlib.pyplot as plt
 
