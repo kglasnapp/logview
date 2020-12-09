@@ -9,7 +9,7 @@ import pprint
 import sys
 import os
 import math
-import locale
+import locale       
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
