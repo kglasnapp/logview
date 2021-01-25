@@ -36,7 +36,6 @@ class Point:
         self.x = x
         self.y = y
 
-
 class Line:
     # class to create a line of a given width and color between two points
     myLine = None
@@ -56,7 +55,7 @@ class Line:
 
     def getLine(self):
         return self.myLine
-    
+
     def offset(self, distance):
         # determine a point that is offset by a distance from p1
         angle = math.degrees(math.atan2(
@@ -74,6 +73,7 @@ def callback(event):
 
 
 def sind(a):
+
     # get sin of angle in degrees
     return math.sin(math.radians(a))
 
@@ -89,6 +89,8 @@ def entrycallback(event, arg):
     v = float(objects[arg].get())
     print("Update parm '%s' to %.2f" % (arg, v))
     setParm(arg, v)
+    if arg == 'Bar Angle':
+        inAngle = v
     draw(inAngle)
 
 
@@ -194,17 +196,24 @@ def sy(p):
     # given a point on the screen in y get a normalize y value
     return (-ah * p * 2) / th + ah
 
+
 def normalizeAngle(angle):
     a = angle + 180.0 % 360.0
     if a < 0.0:
         a += 360.0
-    a =  a - 180.0
+    a = a - 180.0
     if a > 180:
         a -= 360
     return a
 
 
+def stop():
+    global stopFlag
+    stopFlag =True
+
+
 def simulate():
+    global stopFlag
     startAngle = normalizeAngle(getParm("Bar Angle Low"))
     endAngle = getParm("Bar Angle High")
     angle = startAngle
@@ -212,10 +221,17 @@ def simulate():
         draw(angle)
         angle += 1
         time.sleep(.1)
+        if(stopFlag):
+            stopFlag = False
+            return
     while angle >= startAngle:
         draw(angle)
         angle -= 1
         time.sleep(.1)
+        if(stopFlag):
+            stopFlag = False
+            return
+
 
 def toggleAngle():
     global inAngle
@@ -235,6 +251,18 @@ def getAngle(pa, pb, pc):
     return math.degrees(math.acos((dac * dac - dbc * dbc - dab * dab) / (-2 * dbc * dab)))
 
 
+def drawGrid(p):
+    offset = 2
+    for i in range(-int(ah), +int(ah), offset):
+        p.create_line(rx(-aw), ry(i), rx(aw), ry(i),
+                      width=1, fill="light gray")
+    for i in range(-int(aw), int(aw), offset):
+        p.create_line(rx(i), ry(-ah), rx(i), ry(ah),
+                      width=1, fill="light gray")
+        # Draw Line at the bottom of the graph
+    w.create_line(rx(-aw), ry(-ah), rx(aw), ry(-ah), width=2, fill="black")
+
+
 def draw(inAngle):
     global w, pc, pb, f
     determineForce()
@@ -242,12 +270,11 @@ def draw(inAngle):
     w = Canvas(master, width=tw, height=th)
     w.bind("<Button-1>", callback)
     w.bind("<B1-Motion>", move)
-    # Draw Line at the bottom of the graph
-    w.create_line(rx(-aw), ry(-ah), rx(aw), ry(-ah), width=1, fill="black")
-    ll = getParm("Bar Length")
+    drawGrid(w)
+    barLength = getParm("Bar Length")
     angle = math.radians(inAngle)
-    bx = math.sin(angle) * ll
-    by = math.cos(angle) * ll
+    bx = math.sin(angle) * barLength
+    by = math.cos(angle) * barLength
     pa = Point(0, 0, .5, "red", "A")
     pb = Point(bx, by, .5, "blue", "B")
     pw = Point(bx, by - 5, .5, "purple", "Weight=" +
@@ -259,38 +286,43 @@ def draw(inAngle):
         pc = Point(getParm("CX"), getParm("CY"), .5, "purple", "C")
     else:
         pc = Point(pc.x, pc.y, .5, "purple", "C")
-    a1 = getAngle(pa, pb, pc)
-    a2 = getAngle(pw, pb, pa)
-    force = getParm("Weight on Bar") * sind(a2)/sind(a1)
+    # Calculate the force on the sylinder
+    angleABC = getAngle(pa, pb, pc)
+    angleABW = getAngle(pw, pb, pa)
+    setParm("Angle ABC", angleABC)
+    setParm("Angle ABW", angleABW)
+    force = getParm("Weight on Bar") * sind(angleABW)/sind(angleABC)
     setParm("Cylinder Force", force)
+    # Colorize the cylinder paramter based upon the force
     color = "light green"
     if force > getParm("Max Force In") * .7:
         color = "yellow"
     if force > getParm("Max Force In") * .9:
         color = "red"
     entries["Cylinder Force"]['bg'] = color
+    # Draw the cylinder
     lbc = Line(pb, pc, 4, "green", "Cylinder")
     # Draw the rod of the Cylinder
     pd = lbc.offset(getParm('Cylinder Length'))
     lcd = Line(pc, pd, 15, "gray", "Base")
     # Update the parms that have changed
     setParm("Bar Angle", inAngle)
+    # Colorize the cylinder i.e. make part red if they exceed the length and stroke of the cylinder
     cExt = distance(pb, pc)
     cStroke = getParm("Cylinder Stroke")
     cLength = getParm("Cylinder Length")
     if cExt < cLength:
         w.itemconfig(lcd.getLine(), fill="red")
-    if cStroke < cExt - cStroke:
+    if cStroke + cLength <= cExt:
         w.itemconfig(lbc.getLine(), fill="red")
     setParm("Cylinder Extent", cExt)
     # Place the data on the screen
     w.grid(row=0,  column=0)
     f.grid(row=1,  column=0, sticky='W')
 
-# Put the widgets on the screen
-
 
 def widgetsToScreen():
+    # Put the widgets on the screen
     global f
     r = 1
     c = 0
@@ -333,25 +365,28 @@ def widgetsToScreen():
     c += 1
     b4 = Button(f, text="Simulate", command=simulate).grid(
         row=r, column=c, sticky="W", padx=2, pady=5)
+    c += 1
+    b5 = Button(f, text="Stop", command=stop).grid(
+        row=r, column=c, sticky="W", padx=2, pady=5)
 
-
+stopFlag = False
 pa = pb = pc = pd = None
 tw = 800
 th = 600
-print(normalizeAngle(355))
 fileName = "parms.json"
-parms = {"BX": [10, 'RO'], "BY": [10, 'RO'], "CX": [-10, "RO"], "CY": [10, "RO"],  "Bar Length": [15],
-         "Weight on Bar": [10], "Bar Angle Low": [355], "Bar Angle High": [95], "Bar Angle": [90],
-         "Cylinder PSI": [50], "Cylinder Force": [10, "RO"], "Cylinder Extent": [10],
+parms = {"Bar Length": [15], "Weight on Bar": [10], "Bar Angle Low": [355], "Bar Angle High": [95], "Cylinder PSI": [50], 
          "Cylinder Length": [10], "Cylinder Stroke": [8], "Cylinder Inner Dia": [1], "Cylinder Rod Dia": [.08],
-         "Max Force In": [10, "RO"], "Max Force Out": [10, "RO"], "AW": [20, "H"], "AH": [20, "H"]}
+         "Max Force In": [10, "RO"], "Max Force Out": [10, "RO"], "Cylinder Force": [10, "RO"], "Bar Angle": [90],  "Cylinder Extent": [10], 
+         "Angle ABC": [0, "RO"], "Angle ABW": [0, "RO"], "BX": [10, 'RO'], "BY": [10, 'RO'], "CX": [-10, "RO"], "CY": [10, "RO"],
+         "AW": [20, "H"], "AH": [20, "H"]}
 objects = {}
 entries = {}
 restoreData()  # restore the data from the file
 aw = getParm("AW")
 ah = getParm("AH")
 master = Tk()
-master.title("Linkage Analysis Tool  --  Click any point to move the Cylinder Pivot point")
+master.title(
+    "Linkage Analysis Tool  --  Click any point to move the Cylinder Pivot point")
 f = Frame(master)
 widgetsToScreen()
 inAngle = getParm('Bar Angle')

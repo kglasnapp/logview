@@ -3,6 +3,8 @@
 # https://gspread.readthedocs.io/en/latest/user-guide.html#formatting
 # https://github.com/microsoft/playwright-python to automate web
 
+# share via pythonupdate@voice-api-203820.iam.gserviceaccount.com
+
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import pprint
@@ -63,7 +65,7 @@ def getValue(s, start, next):
     start = s.find(start)
     if start < 0:
         return 0.0
-    t = s[start:start+300]
+    t = s[start:start+300].replace(" ",'')
     result = t.find(next) + len(next)
     
     t = t[result:result+14]
