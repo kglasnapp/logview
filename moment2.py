@@ -1,4 +1,5 @@
-from tkinter import *
+#from tkinter import *
+import tkinter
 import math
 import time
 import json
@@ -267,7 +268,7 @@ def draw(inAngle):
     global w, pc, pb, f
     determineForce()
     master.update()
-    w = Canvas(master, width=tw, height=th)
+    w = tkinter.Canvas(master, width=tw, height=th)
     w.bind("<Button-1>", callback)
     w.bind("<B1-Motion>", move)
     drawGrid(w)
@@ -329,14 +330,14 @@ def widgetsToScreen():
     # Show the paramters
     for key in parms:
         p = parms[key]
-        objects[key] = StringVar()
+        objects[key] = tkinter.StringVar()
         objects[key].set(getParm(key))
         op = ""
         if len(p) == 2:
             op = p[1]
         if op != "H":
-            Label(f, text=key + ": ").grid(row=r, column=c, sticky='E')
-            e = Entry(f, width=15, textvariable=objects[key])
+            tkinter.Label(f, text=key + ": ").grid(row=r, column=c, sticky='E')
+            e = tkinter.Entry(f, width=15, textvariable=objects[key])
             entries[key] = e
             if op == "RO":
                 e['bg'] = 'light gray'
@@ -351,22 +352,22 @@ def widgetsToScreen():
                 c = 0
     r += 1
     c = 0
-    b1 = Button(f, text="Zoom +", command=zoomPlus).grid(
+    tkinter.Button(f, text="Zoom +", command=zoomPlus).grid(
         row=r, column=c, sticky="W", padx=2, pady=5)
     c += 1
-    b2 = Button(f, text="Zoom -", command=zoomMinus).grid(
+    tkinter.Button(f, text="Zoom -", command=zoomMinus).grid(
         row=r, column=c, sticky="W", padx=2, pady=5)
     c += 1
-    b3 = Button(f, text="Save Data", command=saveData).grid(
+    tkinter.Button(f, text="Save Data", command=saveData).grid(
         row=r, column=c, sticky="W", padx=2, pady=5)
     c += 1
-    b4 = Button(f, text="Toggle Angle", command=toggleAngle).grid(
+    tkinter.Button(f, text="Toggle Angle", command=toggleAngle).grid(
         row=r, column=c, sticky="W", padx=2, pady=5)
     c += 1
-    b4 = Button(f, text="Simulate", command=simulate).grid(
+    tkinter.Button(f, text="Simulate", command=simulate).grid(
         row=r, column=c, sticky="W", padx=2, pady=5)
     c += 1
-    b5 = Button(f, text="Stop", command=stop).grid(
+    tkinter.Button(f, text="Stop", command=stop).grid(
         row=r, column=c, sticky="W", padx=2, pady=5)
 
 stopFlag = False
@@ -384,10 +385,10 @@ entries = {}
 restoreData()  # restore the data from the file
 aw = getParm("AW")
 ah = getParm("AH")
-master = Tk()
+master = tkinter.Tk()
 master.title(
     "Linkage Analysis Tool  --  Click any point to move the Cylinder Pivot point")
-f = Frame(master)
+f = tkinter.Frame(master)
 widgetsToScreen()
 inAngle = getParm('Bar Angle')
 draw(inAngle)
