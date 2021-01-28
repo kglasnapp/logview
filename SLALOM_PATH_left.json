@@ -1,0 +1,3026 @@
+[
+ {
+   "X Point": 2.500292,
+   "Y Point": 2.970833,
+   "Heading": 6.283152,
+   "Velocity": 0.012346,
+   "Acceleration": 0.246914,
+   "Jerk": 4.938272
+ },
+ {
+   "X Point": 2.501644,
+   "Y Point": 2.970833,
+   "Heading": 6.283,
+   "Velocity": 0.027035,
+   "Acceleration": 0.293784,
+   "Jerk": 0.937399
+ },
+ {
+   "X Point": 2.504685,
+   "Y Point": 2.970832,
+   "Heading": 6.282659,
+   "Velocity": 0.060814,
+   "Acceleration": 0.675588,
+   "Jerk": 7.6361
+ },
+ {
+   "X Point": 2.510088,
+   "Y Point": 2.970828,
+   "Heading": 6.282056,
+   "Velocity": 0.108066,
+   "Acceleration": 0.945033,
+   "Jerk": 5.388898
+ },
+ {
+   "X Point": 2.518525,
+   "Y Point": 2.970814,
+   "Heading": 6.281121,
+   "Velocity": 0.168729,
+   "Acceleration": 1.213268,
+   "Jerk": 5.36469
+ },
+ {
+   "X Point": 2.53066,
+   "Y Point": 2.970781,
+   "Heading": 6.279793,
+   "Velocity": 0.242706,
+   "Acceleration": 1.479526,
+   "Jerk": 5.325169
+ },
+ {
+   "X Point": 2.547152,
+   "Y Point": 2.970711,
+   "Heading": 6.278017,
+   "Velocity": 0.329849,
+   "Acceleration": 1.742861,
+   "Jerk": 5.266686
+ },
+ {
+   "X Point": 2.56865,
+   "Y Point": 2.970575,
+   "Heading": 6.275753,
+   "Velocity": 0.429956,
+   "Acceleration": 2.002149,
+   "Jerk": 5.185762
+ },
+ {
+   "X Point": 2.595787,
+   "Y Point": 2.970335,
+   "Heading": 6.27298,
+   "Velocity": 0.542761,
+   "Acceleration": 2.256106,
+   "Jerk": 5.07915
+ },
+ {
+   "X Point": 2.629181,
+   "Y Point": 2.969939,
+   "Heading": 6.269695,
+   "Velocity": 0.667927,
+   "Acceleration": 2.503301,
+   "Jerk": 4.943901
+ },
+ {
+   "X Point": 2.669428,
+   "Y Point": 2.96932,
+   "Heading": 6.265925,
+   "Velocity": 0.805035,
+   "Acceleration": 2.742172,
+   "Jerk": 4.777417
+ },
+ {
+   "X Point": 2.717098,
+   "Y Point": 2.968396,
+   "Heading": 6.261728,
+   "Velocity": 0.953587,
+   "Acceleration": 2.971045,
+   "Jerk": 4.577458
+ },
+ {
+   "X Point": 2.772404,
+   "Y Point": 2.967082,
+   "Heading": 6.257227,
+   "Velocity": 1.106428,
+   "Acceleration": 3.056822,
+   "Jerk": 1.715548
+ },
+ {
+   "X Point": 2.835205,
+   "Y Point": 2.965304,
+   "Heading": 6.252599,
+   "Velocity": 1.256533,
+   "Acceleration": 3.002089,
+   "Jerk": -1.094675
+ },
+ {
+   "X Point": 2.905345,
+   "Y Point": 2.962994,
+   "Heading": 6.248044,
+   "Velocity": 1.403554,
+   "Acceleration": 2.940431,
+   "Jerk": -1.233157
+ },
+ {
+   "X Point": 2.982649,
+   "Y Point": 2.960106,
+   "Heading": 6.243784,
+   "Velocity": 1.547156,
+   "Acceleration": 2.872027,
+   "Jerk": -1.368078
+ },
+ {
+   "X Point": 3.066927,
+   "Y Point": 2.95662,
+   "Heading": 6.240062,
+   "Velocity": 1.687003,
+   "Acceleration": 2.796943,
+   "Jerk": -1.501688
+ },
+ {
+   "X Point": 3.157974,
+   "Y Point": 2.952549,
+   "Heading": 6.237145,
+   "Velocity": 1.822757,
+   "Acceleration": 2.715073,
+   "Jerk": -1.637389
+ },
+ {
+   "X Point": 3.255569,
+   "Y Point": 2.947952,
+   "Heading": 6.23532,
+   "Velocity": 1.954061,
+   "Acceleration": 2.626081,
+   "Jerk": -1.779834
+ },
+ {
+   "X Point": 3.359474,
+   "Y Point": 2.942939,
+   "Heading": 6.234901,
+   "Velocity": 2.080527,
+   "Acceleration": 2.529333,
+   "Jerk": -1.934959
+ },
+ {
+   "X Point": 3.469434,
+   "Y Point": 2.937682,
+   "Heading": 6.236231,
+   "Velocity": 2.201719,
+   "Acceleration": 2.423839,
+   "Jerk": -2.109895
+ },
+ {
+   "X Point": 3.585171,
+   "Y Point": 2.932423,
+   "Heading": 6.239684,
+   "Velocity": 2.317129,
+   "Acceleration": 2.308204,
+   "Jerk": -2.312697
+ },
+ {
+   "X Point": 3.706379,
+   "Y Point": 2.927486,
+   "Heading": 6.245675,
+   "Velocity": 2.42616,
+   "Acceleration": 2.180616,
+   "Jerk": -2.551765
+ },
+ {
+   "X Point": 3.832714,
+   "Y Point": 2.923283,
+   "Heading": 6.254662,
+   "Velocity": 2.528104,
+   "Acceleration": 2.038879,
+   "Jerk": -2.834726
+ },
+ {
+   "X Point": 3.963788,
+   "Y Point": 2.920326,
+   "Heading": 6.267159,
+   "Velocity": 2.622132,
+   "Acceleration": 1.880562,
+   "Jerk": -3.166357
+ },
+ {
+   "X Point": 4.099148,
+   "Y Point": 2.919235,
+   "Heading": 0.000556,
+   "Velocity": 2.707298,
+   "Acceleration": 1.703318,
+   "Jerk": -3.544868
+ },
+ {
+   "X Point": 4.238269,
+   "Y Point": 2.920742,
+   "Heading": 0.021863,
+   "Velocity": 2.782575,
+   "Acceleration": 1.505545,
+   "Jerk": -3.955465
+ },
+ {
+   "X Point": 4.380264,
+   "Y Point": 2.925681,
+   "Heading": 0.048546,
+   "Velocity": 2.841629,
+   "Acceleration": 1.181068,
+   "Jerk": -6.489529
+ },
+ {
+   "X Point": 4.523919,
+   "Y Point": 2.934942,
+   "Heading": 0.081208,
+   "Velocity": 2.879051,
+   "Acceleration": 0.748451,
+   "Jerk": -8.652355
+ },
+ {
+   "X Point": 4.667985,
+   "Y Point": 2.949432,
+   "Heading": 0.120384,
+   "Velocity": 2.895857,
+   "Acceleration": 0.336107,
+   "Jerk": -8.246883
+ },
+ {
+   "X Point": 4.811222,
+   "Y Point": 2.97003,
+   "Heading": 0.166468,
+   "Velocity": 2.894211,
+   "Acceleration": -0.032919,
+   "Jerk": -7.380512
+ },
+ {
+   "X Point": 4.952461,
+   "Y Point": 2.997548,
+   "Heading": 0.219612,
+   "Velocity": 2.877897,
+   "Acceleration": -0.326269,
+   "Jerk": -5.867
+ },
+ {
+   "X Point": 5.090694,
+   "Y Point": 3.032698,
+   "Heading": 0.279593,
+   "Velocity": 2.852642,
+   "Acceleration": -0.505104,
+   "Jerk": -3.576705
+ },
+ {
+   "X Point": 5.225166,
+   "Y Point": 3.07609,
+   "Heading": 0.345701,
+   "Velocity": 2.825994,
+   "Acceleration": -0.532963,
+   "Jerk": -0.557171
+ },
+ {
+   "X Point": 5.355435,
+   "Y Point": 3.128245,
+   "Heading": 0.416677,
+   "Velocity": 2.806442,
+   "Acceleration": -0.391047,
+   "Jerk": 2.838327
+ },
+ {
+   "X Point": 5.481357,
+   "Y Point": 3.189625,
+   "Heading": 0.490759,
+   "Velocity": 2.801693,
+   "Acceleration": -0.094964,
+   "Jerk": 5.921647
+ },
+ {
+   "X Point": 5.602981,
+   "Y Point": 3.260622,
+   "Heading": 0.565877,
+   "Velocity": 2.816586,
+   "Acceleration": 0.297857,
+   "Jerk": 7.856431
+ },
+ {
+   "X Point": 5.7204,
+   "Y Point": 3.3415,
+   "Heading": 0.639926,
+   "Velocity": 2.851576,
+   "Acceleration": 0.699792,
+   "Jerk": 8.038686
+ },
+ {
+   "X Point": 5.833623,
+   "Y Point": 3.432298,
+   "Heading": 0.711066,
+   "Velocity": 2.902647,
+   "Acceleration": 1.021424,
+   "Jerk": 6.432636
+ },
+ {
+   "X Point": 5.942679,
+   "Y Point": 3.532892,
+   "Heading": 0.778015,
+   "Velocity": 2.967323,
+   "Acceleration": 1.293527,
+   "Jerk": 5.442073
+ },
+ {
+   "X Point": 6.0459,
+   "Y Point": 3.641541,
+   "Heading": 0.842986,
+   "Velocity": 2.997281,
+   "Acceleration": 0.599149,
+   "Jerk": -13.887561
+ },
+ {
+   "X Point": 6.145932,
+   "Y Point": 3.760757,
+   "Heading": 0.900527,
+   "Velocity": 3.11248,
+   "Acceleration": 2.303976,
+   "Jerk": 34.096533
+ },
+ {
+   "X Point": 6.24369,
+   "Y Point": 3.890681,
+   "Heading": 0.949033,
+   "Velocity": 3.25188,
+   "Acceleration": 2.788016,
+   "Jerk": 9.680801
+ },
+ {
+   "X Point": 6.339876,
+   "Y Point": 4.030866,
+   "Heading": 0.987924,
+   "Velocity": 3.400215,
+   "Acceleration": 2.966687,
+   "Jerk": 3.573414
+ },
+ {
+   "X Point": 6.435321,
+   "Y Point": 4.180624,
+   "Heading": 1.016992,
+   "Velocity": 3.551742,
+   "Acceleration": 3.030552,
+   "Jerk": 1.277309
+ },
+ {
+   "X Point": 6.531044,
+   "Y Point": 4.339125,
+   "Heading": 1.036236,
+   "Velocity": 3.703268,
+   "Acceleration": 3.030521,
+   "Jerk": -0.000626
+ },
+ {
+   "X Point": 6.628281,
+   "Y Point": 4.505474,
+   "Heading": 1.045727,
+   "Velocity": 3.853661,
+   "Acceleration": 3.007856,
+   "Jerk": -0.45329
+ },
+ {
+   "X Point": 6.728492,
+   "Y Point": 4.678738,
+   "Heading": 1.045523,
+   "Velocity": 4.003154,
+   "Acceleration": 2.98985,
+   "Jerk": -0.360126
+ },
+ {
+   "X Point": 6.833358,
+   "Y Point": 4.857943,
+   "Heading": 1.035621,
+   "Velocity": 4.152636,
+   "Acceleration": 2.989643,
+   "Jerk": -0.004144
+ },
+ {
+   "X Point": 6.944756,
+   "Y Point": 5.042007,
+   "Heading": 1.015963,
+   "Velocity": 4.302983,
+   "Acceleration": 3.006939,
+   "Jerk": 0.345932
+ },
+ {
+   "X Point": 7.064724,
+   "Y Point": 5.229654,
+   "Heading": 0.986479,
+   "Velocity": 4.454383,
+   "Acceleration": 3.028005,
+   "Jerk": 0.421307
+ },
+ {
+   "X Point": 7.195371,
+   "Y Point": 5.419288,
+   "Heading": 0.947176,
+   "Velocity": 4.605632,
+   "Acceleration": 3.024978,
+   "Jerk": -0.060532
+ },
+ {
+   "X Point": 7.338717,
+   "Y Point": 5.608867,
+   "Heading": 0.898273,
+   "Velocity": 4.753441,
+   "Acceleration": 2.956186,
+   "Jerk": -1.375839
+ },
+ {
+   "X Point": 7.472296,
+   "Y Point": 5.771265,
+   "Heading": 0.884893,
+   "Velocity": 4.205558,
+   "Acceleration": -10.957656,
+   "Jerk": -278.276834
+ },
+ {
+   "X Point": 7.588154,
+   "Y Point": 5.915746,
+   "Heading": 0.904094,
+   "Velocity": 3.703925,
+   "Acceleration": -10.032661,
+   "Jerk": 18.499898
+ },
+ {
+   "X Point": 7.703684,
+   "Y Point": 6.064923,
+   "Heading": 0.918774,
+   "Velocity": 3.773646,
+   "Acceleration": 1.394412,
+   "Jerk": 228.541453
+ },
+ {
+   "X Point": 7.819446,
+   "Y Point": 6.218298,
+   "Heading": 0.928946,
+   "Velocity": 3.843168,
+   "Acceleration": 1.390447,
+   "Jerk": -0.079306
+ },
+ {
+   "X Point": 7.936055,
+   "Y Point": 6.375365,
+   "Heading": 0.934627,
+   "Velocity": 3.912411,
+   "Acceleration": 1.38486,
+   "Jerk": -0.11173
+ },
+ {
+   "X Point": 8.054171,
+   "Y Point": 6.535609,
+   "Heading": 0.935831,
+   "Velocity": 3.981446,
+   "Acceleration": 1.380691,
+   "Jerk": -0.083383
+ },
+ {
+   "X Point": 8.174503,
+   "Y Point": 6.698505,
+   "Heading": 0.93256,
+   "Velocity": 4.050427,
+   "Acceleration": 1.379612,
+   "Jerk": -0.02158
+ },
+ {
+   "X Point": 8.2978,
+   "Y Point": 6.863502,
+   "Heading": 0.924806,
+   "Velocity": 4.119525,
+   "Acceleration": 1.381974,
+   "Jerk": 0.047234
+ },
+ {
+   "X Point": 8.424845,
+   "Y Point": 7.030014,
+   "Heading": 0.912553,
+   "Velocity": 4.188866,
+   "Acceleration": 1.386817,
+   "Jerk": 0.096856
+ },
+ {
+   "X Point": 8.556444,
+   "Y Point": 7.197399,
+   "Heading": 0.895785,
+   "Velocity": 4.258458,
+   "Acceleration": 1.391842,
+   "Jerk": 0.10052
+ },
+ {
+   "X Point": 8.69341,
+   "Y Point": 7.364946,
+   "Heading": 0.874496,
+   "Velocity": 4.328127,
+   "Acceleration": 1.393371,
+   "Jerk": 0.030576
+ },
+ {
+   "X Point": 8.836539,
+   "Y Point": 7.531853,
+   "Heading": 0.848708,
+   "Velocity": 4.397444,
+   "Acceleration": 1.38634,
+   "Jerk": -0.140633
+ },
+ {
+   "X Point": 8.98658,
+   "Y Point": 7.697211,
+   "Heading": 0.818492,
+   "Velocity": 4.465666,
+   "Acceleration": 1.36444,
+   "Jerk": -0.437993
+ },
+ {
+   "X Point": 9.144191,
+   "Y Point": 7.859997,
+   "Heading": 0.783989,
+   "Velocity": 4.531692,
+   "Acceleration": 1.320521,
+   "Jerk": -0.878385
+ },
+ {
+   "X Point": 9.309895,
+   "Y Point": 8.019074,
+   "Heading": 0.745437,
+   "Velocity": 4.59406,
+   "Acceleration": 1.247368,
+   "Jerk": -1.463064
+ },
+ {
+   "X Point": 9.484027,
+   "Y Point": 8.17321,
+   "Heading": 0.703187,
+   "Velocity": 4.651006,
+   "Acceleration": 1.138917,
+   "Jerk": -2.169013
+ },
+ {
+   "X Point": 9.649885,
+   "Y Point": 8.310644,
+   "Heading": 0.683167,
+   "Velocity": 4.307993,
+   "Acceleration": -6.860267,
+   "Jerk": -159.983684
+ },
+ {
+   "X Point": 9.816898,
+   "Y Point": 8.444132,
+   "Heading": 0.665255,
+   "Velocity": 4.276092,
+   "Acceleration": -0.638007,
+   "Jerk": 124.445199
+ },
+ {
+   "X Point": 9.987003,
+   "Y Point": 8.575022,
+   "Heading": 0.646265,
+   "Velocity": 4.29269,
+   "Acceleration": 0.331955,
+   "Jerk": 19.399245
+ },
+ {
+   "X Point": 10.1603,
+   "Y Point": 8.70306,
+   "Heading": 0.626197,
+   "Velocity": 4.309314,
+   "Acceleration": 0.332471,
+   "Jerk": 0.010324
+ },
+ {
+   "X Point": 10.336874,
+   "Y Point": 8.827977,
+   "Heading": 0.605055,
+   "Velocity": 4.325864,
+   "Acceleration": 0.331015,
+   "Jerk": -0.029126
+ },
+ {
+   "X Point": 10.516792,
+   "Y Point": 8.949496,
+   "Heading": 0.58285,
+   "Velocity": 4.342226,
+   "Acceleration": 0.327236,
+   "Jerk": -0.075578
+ },
+ {
+   "X Point": 10.7001,
+   "Y Point": 9.067328,
+   "Heading": 0.559605,
+   "Velocity": 4.358266,
+   "Acceleration": 0.32079,
+   "Jerk": -0.128922
+ },
+ {
+   "X Point": 10.886819,
+   "Y Point": 9.181179,
+   "Heading": 0.53535,
+   "Velocity": 4.373833,
+   "Acceleration": 0.311355,
+   "Jerk": -0.188695
+ },
+ {
+   "X Point": 11.076944,
+   "Y Point": 9.290748,
+   "Heading": 0.510125,
+   "Velocity": 4.388766,
+   "Acceleration": 0.298654,
+   "Jerk": -0.254021
+ },
+ {
+   "X Point": 11.270442,
+   "Y Point": 9.395735,
+   "Heading": 0.483983,
+   "Velocity": 4.40289,
+   "Acceleration": 0.282476,
+   "Jerk": -0.32356
+ },
+ {
+   "X Point": 11.467247,
+   "Y Point": 9.49584,
+   "Heading": 0.456989,
+   "Velocity": 4.416025,
+   "Acceleration": 0.262701,
+   "Jerk": -0.395497
+ },
+ {
+   "X Point": 11.66726,
+   "Y Point": 9.590775,
+   "Heading": 0.429218,
+   "Velocity": 4.427991,
+   "Acceleration": 0.239323,
+   "Jerk": -0.467565
+ },
+ {
+   "X Point": 11.870349,
+   "Y Point": 9.680263,
+   "Heading": 0.400758,
+   "Velocity": 4.438614,
+   "Acceleration": 0.212466,
+   "Jerk": -0.53713
+ },
+ {
+   "X Point": 12.07635,
+   "Y Point": 9.764045,
+   "Heading": 0.371706,
+   "Velocity": 4.447734,
+   "Acceleration": 0.1824,
+   "Jerk": -0.601323
+ },
+ {
+   "X Point": 12.287754,
+   "Y Point": 9.842745,
+   "Heading": 0.338478,
+   "Velocity": 4.511555,
+   "Acceleration": 1.276403,
+   "Jerk": 21.880052
+ },
+ {
+   "X Point": 12.510607,
+   "Y Point": 9.915608,
+   "Heading": 0.293745,
+   "Velocity": 4.689244,
+   "Acceleration": 3.553786,
+   "Jerk": 45.547655
+ },
+ {
+   "X Point": 12.735137,
+   "Y Point": 9.978261,
+   "Heading": 0.250771,
+   "Velocity": 4.662145,
+   "Acceleration": -0.541982,
+   "Jerk": -81.915355
+ },
+ {
+   "X Point": 12.960479,
+   "Y Point": 10.03107,
+   "Heading": 0.209954,
+   "Velocity": 4.628954,
+   "Acceleration": -0.663809,
+   "Jerk": -2.436537
+ },
+ {
+   "X Point": 13.185863,
+   "Y Point": 10.074554,
+   "Heading": 0.171613,
+   "Velocity": 4.590799,
+   "Acceleration": -0.763097,
+   "Jerk": -1.985769
+ },
+ {
+   "X Point": 13.410628,
+   "Y Point": 10.109352,
+   "Heading": 0.135996,
+   "Velocity": 4.548863,
+   "Acceleration": -0.838728,
+   "Jerk": -1.512619
+ },
+ {
+   "X Point": 13.634238,
+   "Y Point": 10.136182,
+   "Heading": 0.103273,
+   "Velocity": 4.504278,
+   "Acceleration": -0.891705,
+   "Jerk": -1.059528
+ },
+ {
+   "X Point": 13.856274,
+   "Y Point": 10.155813,
+   "Heading": 0.073551,
+   "Velocity": 4.458049,
+   "Acceleration": -0.924577,
+   "Jerk": -0.657438
+ },
+ {
+   "X Point": 14.076428,
+   "Y Point": 10.169035,
+   "Heading": 0.046882,
+   "Velocity": 4.411009,
+   "Acceleration": -0.940799,
+   "Jerk": -0.324448
+ },
+ {
+   "X Point": 14.294486,
+   "Y Point": 10.176636,
+   "Heading": 0.023278,
+   "Velocity": 4.363801,
+   "Acceleration": -0.94416,
+   "Jerk": -0.067221
+ },
+ {
+   "X Point": 14.510312,
+   "Y Point": 10.179391,
+   "Heading": 0.002718,
+   "Velocity": 4.316883,
+   "Acceleration": -0.938352,
+   "Jerk": 0.116154
+ },
+ {
+   "X Point": 14.723836,
+   "Y Point": 10.178048,
+   "Heading": 6.268351,
+   "Velocity": 4.270548,
+   "Acceleration": -0.926702,
+   "Jerk": 0.23301
+ },
+ {
+   "X Point": 14.93503,
+   "Y Point": 10.173324,
+   "Heading": 6.253757,
+   "Velocity": 4.224947,
+   "Acceleration": -0.912033,
+   "Jerk": 0.293376
+ },
+ {
+   "X Point": 15.150413,
+   "Y Point": 10.165138,
+   "Heading": 6.233554,
+   "Velocity": 4.310774,
+   "Acceleration": 1.716555,
+   "Jerk": 52.571761
+ },
+ {
+   "X Point": 15.369683,
+   "Y Point": 10.15142,
+   "Heading": 6.207991,
+   "Velocity": 4.393974,
+   "Acceleration": 1.663997,
+   "Jerk": -1.051159
+ },
+ {
+   "X Point": 15.587828,
+   "Y Point": 10.132264,
+   "Heading": 6.183355,
+   "Velocity": 4.379688,
+   "Acceleration": -0.285716,
+   "Jerk": -38.994261
+ },
+ {
+   "X Point": 15.804681,
+   "Y Point": 10.107935,
+   "Heading": 6.159721,
+   "Velocity": 4.364265,
+   "Acceleration": -0.308475,
+   "Jerk": -0.455169
+ },
+ {
+   "X Point": 16.020102,
+   "Y Point": 10.078712,
+   "Heading": 6.137149,
+   "Velocity": 4.347884,
+   "Acceleration": -0.327622,
+   "Jerk": -0.38294
+ },
+ {
+   "X Point": 16.23398,
+   "Y Point": 10.044887,
+   "Heading": 6.115692,
+   "Velocity": 4.330721,
+   "Acceleration": -0.343248,
+   "Jerk": -0.31253
+ },
+ {
+   "X Point": 16.44623,
+   "Y Point": 10.00676,
+   "Heading": 6.095388,
+   "Velocity": 4.312944,
+   "Acceleration": -0.355547,
+   "Jerk": -0.245987
+ },
+ {
+   "X Point": 16.656793,
+   "Y Point": 9.964635,
+   "Heading": 6.076268,
+   "Velocity": 4.294704,
+   "Acceleration": -0.364791,
+   "Jerk": -0.18487
+ },
+ {
+   "X Point": 16.865633,
+   "Y Point": 9.918818,
+   "Heading": 6.058352,
+   "Velocity": 4.276139,
+   "Acceleration": -0.371303,
+   "Jerk": -0.130245
+ },
+ {
+   "X Point": 17.072735,
+   "Y Point": 9.869609,
+   "Heading": 6.041655,
+   "Velocity": 4.257367,
+   "Acceleration": -0.37544,
+   "Jerk": -0.082728
+ },
+ {
+   "X Point": 17.278105,
+   "Y Point": 9.817309,
+   "Heading": 6.026183,
+   "Velocity": 4.238489,
+   "Acceleration": -0.377567,
+   "Jerk": -0.042544
+ },
+ {
+   "X Point": 17.481763,
+   "Y Point": 9.76221,
+   "Heading": 6.011937,
+   "Velocity": 4.219586,
+   "Acceleration": -0.378047,
+   "Jerk": -0.009606
+ },
+ {
+   "X Point": 17.683743,
+   "Y Point": 9.704598,
+   "Heading": 5.998915,
+   "Velocity": 4.200725,
+   "Acceleration": -0.377227,
+   "Jerk": 0.01641
+ },
+ {
+   "X Point": 17.884093,
+   "Y Point": 9.644753,
+   "Heading": 5.987111,
+   "Velocity": 4.181954,
+   "Acceleration": -0.375427,
+   "Jerk": 0.035995
+ },
+ {
+   "X Point": 18.082871,
+   "Y Point": 9.582944,
+   "Heading": 5.976517,
+   "Velocity": 4.163307,
+   "Acceleration": -0.37294,
+   "Jerk": 0.04974
+ },
+ {
+   "X Point": 18.282698,
+   "Y Point": 9.518514,
+   "Heading": 5.963558,
+   "Velocity": 4.199151,
+   "Acceleration": 0.716882,
+   "Jerk": 21.796432
+ },
+ {
+   "X Point": 18.491196,
+   "Y Point": 9.446431,
+   "Heading": 5.936817,
+   "Velocity": 4.412128,
+   "Acceleration": 4.259543,
+   "Jerk": 70.853219
+ },
+ {
+   "X Point": 18.698921,
+   "Y Point": 9.368122,
+   "Heading": 5.908272,
+   "Velocity": 4.439918,
+   "Acceleration": 0.555805,
+   "Jerk": -74.074748
+ },
+ {
+   "X Point": 18.905553,
+   "Y Point": 9.283194,
+   "Heading": 5.877899,
+   "Velocity": 4.468077,
+   "Acceleration": 0.563183,
+   "Jerk": 0.147563
+ },
+ {
+   "X Point": 19.110713,
+   "Y Point": 9.191267,
+   "Heading": 5.845695,
+   "Velocity": 4.496274,
+   "Acceleration": 0.563923,
+   "Jerk": 0.014796
+ },
+ {
+   "X Point": 19.313967,
+   "Y Point": 9.091988,
+   "Heading": 5.811686,
+   "Velocity": 4.524093,
+   "Acceleration": 0.556398,
+   "Jerk": -0.150513
+ },
+ {
+   "X Point": 19.514823,
+   "Y Point": 8.985046,
+   "Heading": 5.775927,
+   "Velocity": 4.551044,
+   "Acceleration": 0.539012,
+   "Jerk": -0.347719
+ },
+ {
+   "X Point": 19.712736,
+   "Y Point": 8.870186,
+   "Heading": 5.738511,
+   "Velocity": 4.576562,
+   "Acceleration": 0.510361,
+   "Jerk": -0.573014
+ },
+ {
+   "X Point": 19.907111,
+   "Y Point": 8.747226,
+   "Heading": 5.699571,
+   "Velocity": 4.600033,
+   "Acceleration": 0.469425,
+   "Jerk": -0.818722
+ },
+ {
+   "X Point": 20.097318,
+   "Y Point": 8.616072,
+   "Heading": 5.659281,
+   "Velocity": 4.620822,
+   "Acceleration": 0.415775,
+   "Jerk": -1.072999
+ },
+ {
+   "X Point": 20.282705,
+   "Y Point": 8.476729,
+   "Heading": 5.617856,
+   "Velocity": 4.63831,
+   "Acceleration": 0.349764,
+   "Jerk": -1.320221
+ },
+ {
+   "X Point": 20.462622,
+   "Y Point": 8.329314,
+   "Heading": 5.575545,
+   "Velocity": 4.651943,
+   "Acceleration": 0.272653,
+   "Jerk": -1.542225
+ },
+ {
+   "X Point": 20.63644,
+   "Y Point": 8.174053,
+   "Heading": 5.532628,
+   "Velocity": 4.661275,
+   "Acceleration": 0.186632,
+   "Jerk": -1.720403
+ },
+ {
+   "X Point": 20.803578,
+   "Y Point": 8.011283,
+   "Heading": 5.489404,
+   "Velocity": 4.66601,
+   "Acceleration": 0.094714,
+   "Jerk": -1.838359
+ },
+ {
+   "X Point": 20.963524,
+   "Y Point": 7.841439,
+   "Heading": 5.446178,
+   "Velocity": 4.666034,
+   "Acceleration": 0.000485,
+   "Jerk": -1.884586
+ },
+ {
+   "X Point": 21.113975,
+   "Y Point": 7.667401,
+   "Heading": 5.407135,
+   "Velocity": 4.601066,
+   "Acceleration": -1.299362,
+   "Jerk": -25.996947
+ },
+ {
+   "X Point": 21.250213,
+   "Y Point": 7.50056,
+   "Heading": 5.387153,
+   "Velocity": 4.307984,
+   "Acceleration": -5.861654,
+   "Jerk": -91.245846
+ },
+ {
+   "X Point": 21.383126,
+   "Y Point": 7.330965,
+   "Heading": 5.367076,
+   "Velocity": 4.309451,
+   "Acceleration": 0.029356,
+   "Jerk": 117.820203
+ },
+ {
+   "X Point": 21.512635,
+   "Y Point": 7.158687,
+   "Heading": 5.346927,
+   "Velocity": 4.310553,
+   "Acceleration": 0.022025,
+   "Jerk": -0.146614
+ },
+ {
+   "X Point": 21.638664,
+   "Y Point": 6.983803,
+   "Heading": 5.326732,
+   "Velocity": 4.311279,
+   "Acceleration": 0.014526,
+   "Jerk": -0.149984
+ },
+ {
+   "X Point": 21.761143,
+   "Y Point": 6.806393,
+   "Heading": 5.306513,
+   "Velocity": 4.311625,
+   "Acceleration": 0.006914,
+   "Jerk": -0.152229
+ },
+ {
+   "X Point": 21.880008,
+   "Y Point": 6.626545,
+   "Heading": 5.286298,
+   "Velocity": 4.311587,
+   "Acceleration": -0.000751,
+   "Jerk": -0.153306
+ },
+ {
+   "X Point": 21.995205,
+   "Y Point": 6.44435,
+   "Heading": 5.266109,
+   "Velocity": 4.311167,
+   "Acceleration": -0.008411,
+   "Jerk": -0.153192
+ },
+ {
+   "X Point": 22.106684,
+   "Y Point": 6.259903,
+   "Heading": 5.245972,
+   "Velocity": 4.310366,
+   "Acceleration": -0.016005,
+   "Jerk": -0.151891
+ },
+ {
+   "X Point": 22.214404,
+   "Y Point": 6.073304,
+   "Heading": 5.225912,
+   "Velocity": 4.309193,
+   "Acceleration": -0.023476,
+   "Jerk": -0.149427
+ },
+ {
+   "X Point": 22.318332,
+   "Y Point": 5.884654,
+   "Heading": 5.205951,
+   "Velocity": 4.307654,
+   "Acceleration": -0.030769,
+   "Jerk": -0.145849
+ },
+ {
+   "X Point": 22.41844,
+   "Y Point": 5.694057,
+   "Heading": 5.186114,
+   "Velocity": 4.305763,
+   "Acceleration": -0.03783,
+   "Jerk": -0.141224
+ },
+ {
+   "X Point": 22.514712,
+   "Y Point": 5.501618,
+   "Heading": 5.166421,
+   "Velocity": 4.303532,
+   "Acceleration": -0.044612,
+   "Jerk": -0.13564
+ },
+ {
+   "X Point": 22.608139,
+   "Y Point": 5.305203,
+   "Heading": 5.143693,
+   "Velocity": 4.350045,
+   "Acceleration": 0.93025,
+   "Jerk": 19.497244
+ },
+ {
+   "X Point": 22.69959,
+   "Y Point": 5.094925,
+   "Heading": 5.105658,
+   "Velocity": 4.586082,
+   "Acceleration": 4.720746,
+   "Jerk": 75.809916
+ },
+ {
+   "X Point": 22.777788,
+   "Y Point": 4.902528,
+   "Heading": 5.095692,
+   "Velocity": 4.153621,
+   "Acceleration": -8.649219,
+   "Jerk": -267.399303
+ },
+ {
+   "X Point": 22.848529,
+   "Y Point": 4.730317,
+   "Heading": 5.113624,
+   "Velocity": 3.723501,
+   "Acceleration": -8.602405,
+   "Jerk": 0.936285
+ },
+ {
+   "X Point": 22.915796,
+   "Y Point": 4.580257,
+   "Heading": 5.159729,
+   "Velocity": 3.288929,
+   "Acceleration": -8.69144,
+   "Jerk": -1.780704
+ },
+ {
+   "X Point": 22.981841,
+   "Y Point": 4.453785,
+   "Heading": 5.234049,
+   "Velocity": 2.853571,
+   "Acceleration": -8.707154,
+   "Jerk": -0.314283
+ },
+ {
+   "X Point": 23.047743,
+   "Y Point": 4.350667,
+   "Heading": 5.334681,
+   "Velocity": 2.447557,
+   "Acceleration": -8.120276,
+   "Jerk": 11.737573
+ },
+ {
+   "X Point": 23.140268,
+   "Y Point": 4.235656,
+   "Heading": 5.402579,
+   "Velocity": 2.952172,
+   "Acceleration": 10.092289,
+   "Jerk": 364.251294
+ },
+ {
+   "X Point": 23.270487,
+   "Y Point": 4.076142,
+   "Heading": 5.394902,
+   "Velocity": 4.118344,
+   "Acceleration": 23.32344,
+   "Jerk": 264.623024
+ },
+ {
+   "X Point": 23.390761,
+   "Y Point": 3.929647,
+   "Heading": 5.408466,
+   "Velocity": 3.790864,
+   "Acceleration": -6.549584,
+   "Jerk": -597.460485
+ },
+ {
+   "X Point": 23.503711,
+   "Y Point": 3.79864,
+   "Heading": 5.443512,
+   "Velocity": 3.459517,
+   "Acceleration": -6.626955,
+   "Jerk": -1.547418
+ },
+ {
+   "X Point": 23.610967,
+   "Y Point": 3.685162,
+   "Heading": 5.500379,
+   "Velocity": 3.122891,
+   "Acceleration": -6.732502,
+   "Jerk": -2.110931
+ },
+ {
+   "X Point": 23.713469,
+   "Y Point": 3.59041,
+   "Heading": 5.578706,
+   "Velocity": 2.791742,
+   "Acceleration": -6.622985,
+   "Jerk": 2.190334
+ },
+ {
+   "X Point": 23.812187,
+   "Y Point": 3.51411,
+   "Heading": 5.67624,
+   "Velocity": 2.495354,
+   "Acceleration": -5.927758,
+   "Jerk": 13.904539
+ },
+ {
+   "X Point": 23.922957,
+   "Y Point": 3.446068,
+   "Heading": 5.766966,
+   "Velocity": 2.599978,
+   "Acceleration": 2.092482,
+   "Jerk": 160.404805
+ },
+ {
+   "X Point": 24.07254,
+   "Y Point": 3.364683,
+   "Heading": 5.805495,
+   "Velocity": 3.405793,
+   "Acceleration": 16.116295,
+   "Jerk": 280.476263
+ },
+ {
+   "X Point": 24.216124,
+   "Y Point": 3.294792,
+   "Heading": 5.857765,
+   "Velocity": 3.19381,
+   "Acceleration": -4.239656,
+   "Jerk": -407.119037
+ },
+ {
+   "X Point": 24.353776,
+   "Y Point": 3.237578,
+   "Heading": 5.923803,
+   "Velocity": 2.98137,
+   "Acceleration": -4.248805,
+   "Jerk": -0.182969
+ },
+ {
+   "X Point": 24.485727,
+   "Y Point": 3.193655,
+   "Heading": 6.002801,
+   "Velocity": 2.781386,
+   "Acceleration": -3.999686,
+   "Jerk": 4.982373
+ },
+ {
+   "X Point": 24.612782,
+   "Y Point": 3.163013,
+   "Heading": 6.09265,
+   "Velocity": 2.613957,
+   "Acceleration": -3.348574,
+   "Jerk": 13.022245
+ },
+ {
+   "X Point": 24.769334,
+   "Y Point": 3.137824,
+   "Heading": 6.146369,
+   "Velocity": 3.171319,
+   "Acceleration": 11.147246,
+   "Jerk": 289.916395
+ },
+ {
+   "X Point": 24.930771,
+   "Y Point": 3.11953,
+   "Heading": 6.195036,
+   "Velocity": 3.249398,
+   "Acceleration": 1.561574,
+   "Jerk": -191.71344
+ },
+ {
+   "X Point": 25.090345,
+   "Y Point": 3.109548,
+   "Heading": 6.247053,
+   "Velocity": 3.197711,
+   "Acceleration": -1.033749,
+   "Jerk": -51.906454
+ },
+ {
+   "X Point": 25.24795,
+   "Y Point": 3.10814,
+   "Heading": 0.018832,
+   "Velocity": 3.152236,
+   "Acceleration": -0.909487,
+   "Jerk": 2.485232
+ },
+ {
+   "X Point": 25.403547,
+   "Y Point": 3.115503,
+   "Heading": 0.076182,
+   "Velocity": 3.115429,
+   "Acceleration": -0.736154,
+   "Jerk": 3.466671
+ },
+ {
+   "X Point": 25.641013,
+   "Y Point": 3.129116,
+   "Heading": 0.027004,
+   "Velocity": 4.757115,
+   "Acceleration": 32.833729,
+   "Jerk": 671.39765
+ },
+ {
+   "X Point": 25.845046,
+   "Y Point": 3.132834,
+   "Heading": 0.021727,
+   "Velocity": 4.081327,
+   "Acceleration": -13.515752,
+   "Jerk": -926.98962
+ },
+ {
+   "X Point": 25.990192,
+   "Y Point": 3.139844,
+   "Heading": 0.092631,
+   "Velocity": 2.906301,
+   "Acceleration": -23.500527,
+   "Jerk": -199.695495
+ },
+ {
+   "X Point": 26.074268,
+   "Y Point": 3.152738,
+   "Heading": 0.241647,
+   "Velocity": 1.701186,
+   "Acceleration": -24.1023,
+   "Jerk": -12.035454
+ },
+ {
+   "X Point": 26.108699,
+   "Y Point": 3.164435,
+   "Heading": 0.453847,
+   "Velocity": 0.727272,
+   "Acceleration": -19.478292,
+   "Jerk": 92.480153
+ },
+ {
+   "X Point": 26.328054,
+   "Y Point": 3.272569,
+   "Heading": 0.395808,
+   "Velocity": 4.891195,
+   "Acceleration": 83.278472,
+   "Jerk": 2055.135277
+ },
+ {
+   "X Point": 26.582441,
+   "Y Point": 3.363599,
+   "Heading": 0.304633,
+   "Velocity": 5.403669,
+   "Acceleration": 10.24947,
+   "Jerk": -1460.580034
+ },
+ {
+   "X Point": 26.764375,
+   "Y Point": 3.420249,
+   "Heading": 0.31689,
+   "Velocity": 3.810998,
+   "Acceleration": -31.853406,
+   "Jerk": -842.05753
+ },
+ {
+   "X Point": 26.867114,
+   "Y Point": 3.458794,
+   "Heading": 0.43392,
+   "Velocity": 2.194637,
+   "Acceleration": -32.327233,
+   "Jerk": -9.476541
+ },
+ {
+   "X Point": 26.892761,
+   "Y Point": 3.472521,
+   "Heading": 0.655605,
+   "Velocity": 0.581789,
+   "Acceleration": -32.256955,
+   "Jerk": 1.405571
+ },
+ {
+   "X Point": 26.888853,
+   "Y Point": 3.469804,
+   "Heading": 0.921071,
+   "Velocity": 0.095189,
+   "Acceleration": -9.732006,
+   "Jerk": 450.498985
+ },
+ {
+   "X Point": 27.096878,
+   "Y Point": 3.703696,
+   "Heading": 0.774085,
+   "Velocity": 6.26035,
+   "Acceleration": 123.303234,
+   "Jerk": 2660.704787
+ },
+ {
+   "X Point": 27.289113,
+   "Y Point": 3.876297,
+   "Heading": 0.698305,
+   "Velocity": 5.167009,
+   "Acceleration": -21.866821,
+   "Jerk": -2903.401087
+ },
+ {
+   "X Point": 27.447535,
+   "Y Point": 4.006882,
+   "Heading": 0.691422,
+   "Velocity": 4.106094,
+   "Acceleration": -21.218314,
+   "Jerk": 12.970133
+ },
+ {
+   "X Point": 27.562795,
+   "Y Point": 4.106864,
+   "Heading": 0.752906,
+   "Velocity": 3.051653,
+   "Acceleration": -21.088804,
+   "Jerk": 2.590203
+ },
+ {
+   "X Point": 27.630326,
+   "Y Point": 4.177389,
+   "Heading": 0.885604,
+   "Velocity": 1.952861,
+   "Acceleration": -21.975853,
+   "Jerk": -17.740979
+ },
+ {
+   "X Point": 27.658102,
+   "Y Point": 4.217606,
+   "Heading": 1.081558,
+   "Velocity": 0.977528,
+   "Acceleration": -19.50666,
+   "Jerk": 49.383859
+ },
+ {
+   "X Point": 27.67564,
+   "Y Point": 4.265949,
+   "Heading": 1.274168,
+   "Velocity": 1.02851,
+   "Acceleration": 1.019646,
+   "Jerk": 410.526108
+ },
+ {
+   "X Point": 27.711339,
+   "Y Point": 4.401806,
+   "Heading": 1.351352,
+   "Velocity": 2.809386,
+   "Acceleration": 35.617512,
+   "Jerk": 691.957326
+ },
+ {
+   "X Point": 27.738568,
+   "Y Point": 4.547567,
+   "Heading": 1.418408,
+   "Velocity": 2.96566,
+   "Acceleration": 3.125487,
+   "Jerk": -649.840488
+ },
+ {
+   "X Point": 27.757919,
+   "Y Point": 4.703605,
+   "Heading": 1.473863,
+   "Velocity": 3.144668,
+   "Acceleration": 3.580167,
+   "Jerk": 9.093597
+ },
+ {
+   "X Point": 27.770254,
+   "Y Point": 4.869802,
+   "Heading": 1.517106,
+   "Velocity": 3.33308,
+   "Acceleration": 3.768242,
+   "Jerk": 3.761487
+ },
+ {
+   "X Point": 27.776778,
+   "Y Point": 5.045805,
+   "Heading": 1.548072,
+   "Velocity": 3.522466,
+   "Acceleration": 3.787717,
+   "Jerk": 0.389511
+ },
+ {
+   "X Point": 27.779043,
+   "Y Point": 5.231246,
+   "Heading": 1.566938,
+   "Velocity": 3.709094,
+   "Acceleration": 3.732553,
+   "Jerk": -1.103289
+ },
+ {
+   "X Point": 27.777554,
+   "Y Point": 5.404073,
+   "Heading": 1.602121,
+   "Velocity": 3.456664,
+   "Acceleration": -5.048604,
+   "Jerk": -175.623139
+ },
+ {
+   "X Point": 27.768454,
+   "Y Point": 5.563517,
+   "Heading": 1.654373,
+   "Velocity": 3.194086,
+   "Acceleration": -5.251561,
+   "Jerk": -4.059147
+ },
+ {
+   "X Point": 27.751068,
+   "Y Point": 5.718977,
+   "Heading": 1.71087,
+   "Velocity": 3.128583,
+   "Acceleration": -1.310063,
+   "Jerk": 78.829972
+ },
+ {
+   "X Point": 27.725158,
+   "Y Point": 5.869931,
+   "Heading": 1.771604,
+   "Velocity": 3.063214,
+   "Acceleration": -1.307371,
+   "Jerk": 0.053843
+ },
+ {
+   "X Point": 27.690548,
+   "Y Point": 6.01593,
+   "Heading": 1.836376,
+   "Velocity": 3.000911,
+   "Acceleration": -1.246053,
+   "Jerk": 1.226344
+ },
+ {
+   "X Point": 27.647113,
+   "Y Point": 6.156644,
+   "Heading": 1.904752,
+   "Velocity": 2.945299,
+   "Acceleration": -1.112254,
+   "Jerk": 2.675998
+ },
+ {
+   "X Point": 27.594765,
+   "Y Point": 6.291884,
+   "Heading": 1.97604,
+   "Velocity": 2.900362,
+   "Acceleration": -0.898732,
+   "Jerk": 4.270428
+ },
+ {
+   "X Point": 27.533424,
+   "Y Point": 6.421606,
+   "Heading": 2.049303,
+   "Velocity": 2.86988,
+   "Acceleration": -0.609646,
+   "Jerk": 5.781719
+ },
+ {
+   "X Point": 27.463006,
+   "Y Point": 6.545877,
+   "Heading": 2.12342,
+   "Velocity": 2.856714,
+   "Acceleration": -0.263311,
+   "Jerk": 6.926705
+ },
+ {
+   "X Point": 27.383431,
+   "Y Point": 6.664823,
+   "Heading": 2.197182,
+   "Velocity": 2.862179,
+   "Acceleration": 0.109301,
+   "Jerk": 7.452232
+ },
+ {
+   "X Point": 27.294654,
+   "Y Point": 6.778564,
+   "Heading": 2.269419,
+   "Velocity": 2.885724,
+   "Acceleration": 0.470888,
+   "Jerk": 7.231752
+ },
+ {
+   "X Point": 27.196708,
+   "Y Point": 6.887176,
+   "Heading": 2.339106,
+   "Velocity": 2.925066,
+   "Acceleration": 0.786845,
+   "Jerk": 6.319128
+ },
+ {
+   "X Point": 27.089744,
+   "Y Point": 6.99067,
+   "Heading": 2.405445,
+   "Velocity": 2.976721,
+   "Acceleration": 1.033111,
+   "Jerk": 4.925328
+ },
+ {
+   "X Point": 26.974052,
+   "Y Point": 7.089003,
+   "Heading": 2.467897,
+   "Velocity": 3.03671,
+   "Acceleration": 1.19977,
+   "Jerk": 3.333169
+ },
+ {
+   "X Point": 26.85006,
+   "Y Point": 7.182114,
+   "Heading": 2.526169,
+   "Velocity": 3.101202,
+   "Acceleration": 1.289839,
+   "Jerk": 1.801379
+ },
+ {
+   "X Point": 26.718304,
+   "Y Point": 7.269945,
+   "Heading": 2.580179,
+   "Velocity": 3.166953,
+   "Acceleration": 1.315028,
+   "Jerk": 0.503792
+ },
+ {
+   "X Point": 26.581893,
+   "Y Point": 7.350971,
+   "Heading": 2.633765,
+   "Velocity": 3.173216,
+   "Acceleration": 0.125248,
+   "Jerk": -23.795599
+ },
+ {
+   "X Point": 26.448726,
+   "Y Point": 7.419549,
+   "Heading": 2.69887,
+   "Velocity": 2.995767,
+   "Acceleration": -3.548965,
+   "Jerk": -73.484257
+ },
+ {
+   "X Point": 26.312849,
+   "Y Point": 7.47849,
+   "Heading": 2.766151,
+   "Velocity": 2.962184,
+   "Acceleration": -0.671677,
+   "Jerk": 57.545758
+ },
+ {
+   "X Point": 26.174258,
+   "Y Point": 7.527706,
+   "Heading": 2.834779,
+   "Velocity": 2.941407,
+   "Acceleration": -0.415523,
+   "Jerk": 5.123082
+ },
+ {
+   "X Point": 26.032906,
+   "Y Point": 7.567175,
+   "Heading": 2.90381,
+   "Velocity": 2.935191,
+   "Acceleration": -0.124335,
+   "Jerk": 5.823762
+ },
+ {
+   "X Point": 25.888737,
+   "Y Point": 7.596915,
+   "Heading": 2.972265,
+   "Velocity": 2.944079,
+   "Acceleration": 0.177769,
+   "Jerk": 6.042072
+ },
+ {
+   "X Point": 25.741735,
+   "Y Point": 7.616977,
+   "Heading": 3.039215,
+   "Velocity": 2.967296,
+   "Acceleration": 0.464338,
+   "Jerk": 5.731384
+ },
+ {
+   "X Point": 25.591955,
+   "Y Point": 7.627443,
+   "Heading": 3.103858,
+   "Velocity": 3.002907,
+   "Acceleration": 0.712223,
+   "Jerk": 4.957693
+ },
+ {
+   "X Point": 25.427862,
+   "Y Point": 7.628857,
+   "Heading": 3.150392,
+   "Velocity": 3.281987,
+   "Acceleration": 5.581598,
+   "Jerk": 97.387506
+ },
+ {
+   "X Point": 25.249436,
+   "Y Point": 7.624931,
+   "Heading": 3.178316,
+   "Velocity": 3.569387,
+   "Acceleration": 5.747995,
+   "Jerk": 3.327947
+ },
+ {
+   "X Point": 25.077556,
+   "Y Point": 7.615642,
+   "Heading": 3.214459,
+   "Velocity": 3.442599,
+   "Acceleration": -2.535753,
+   "Jerk": -165.674966
+ },
+ {
+   "X Point": 24.912581,
+   "Y Point": 7.600045,
+   "Heading": 3.258925,
+   "Velocity": 3.314213,
+   "Acceleration": -2.567719,
+   "Jerk": -0.639325
+ },
+ {
+   "X Point": 24.75483,
+   "Y Point": 7.577359,
+   "Heading": 3.311605,
+   "Velocity": 3.18748,
+   "Acceleration": -2.534666,
+   "Jerk": 0.661066
+ },
+ {
+   "X Point": 24.604479,
+   "Y Point": 7.546971,
+   "Heading": 3.37204,
+   "Velocity": 3.067829,
+   "Acceleration": -2.393016,
+   "Jerk": 2.83299
+ },
+ {
+   "X Point": 24.461453,
+   "Y Point": 7.508405,
+   "Heading": 3.439289,
+   "Velocity": 2.962685,
+   "Acceleration": -2.102888,
+   "Jerk": 5.802573
+ },
+ {
+   "X Point": 24.336126,
+   "Y Point": 7.465068,
+   "Heading": 3.526656,
+   "Velocity": 2.652161,
+   "Acceleration": -6.210486,
+   "Jerk": -82.151975
+ },
+ {
+   "X Point": 24.235174,
+   "Y Point": 7.416895,
+   "Heading": 3.640925,
+   "Velocity": 2.237136,
+   "Acceleration": -8.300494,
+   "Jerk": -41.800142
+ },
+ {
+   "X Point": 24.124174,
+   "Y Point": 7.349142,
+   "Heading": 3.731621,
+   "Velocity": 2.600885,
+   "Acceleration": 7.274992,
+   "Jerk": 311.509713
+ },
+ {
+   "X Point": 24.001771,
+   "Y Point": 7.26085,
+   "Heading": 3.795253,
+   "Velocity": 3.018487,
+   "Acceleration": 8.352039,
+   "Jerk": 21.540939
+ },
+ {
+   "X Point": 23.867331,
+   "Y Point": 7.153379,
+   "Heading": 3.831415,
+   "Velocity": 3.442326,
+   "Acceleration": 8.476765,
+   "Jerk": 2.494522
+ },
+ {
+   "X Point": 23.719409,
+   "Y Point": 7.029606,
+   "Heading": 3.840658,
+   "Velocity": 3.857489,
+   "Acceleration": 8.303258,
+   "Jerk": -3.470141
+ },
+ {
+   "X Point": 23.597522,
+   "Y Point": 6.923107,
+   "Heading": 3.890092,
+   "Velocity": 3.237191,
+   "Acceleration": -12.405954,
+   "Jerk": -414.184236
+ },
+ {
+   "X Point": 23.491485,
+   "Y Point": 6.818074,
+   "Heading": 3.955893,
+   "Velocity": 2.985018,
+   "Acceleration": -5.043463,
+   "Jerk": 147.249814
+ },
+ {
+   "X Point": 23.396332,
+   "Y Point": 6.709807,
+   "Heading": 4.028322,
+   "Velocity": 2.882762,
+   "Acceleration": -2.04511,
+   "Jerk": 59.967062
+ },
+ {
+   "X Point": 23.312329,
+   "Y Point": 6.598281,
+   "Heading": 4.106603,
+   "Velocity": 2.792451,
+   "Acceleration": -1.806221,
+   "Jerk": 4.777782
+ },
+ {
+   "X Point": 23.239443,
+   "Y Point": 6.483268,
+   "Heading": 4.189369,
+   "Velocity": 2.723253,
+   "Acceleration": -1.383964,
+   "Jerk": 8.445136
+ },
+ {
+   "X Point": 23.177422,
+   "Y Point": 6.364291,
+   "Heading": 4.274713,
+   "Velocity": 2.683459,
+   "Acceleration": -0.79589,
+   "Jerk": 11.761477
+ },
+ {
+   "X Point": 23.125928,
+   "Y Point": 6.240685,
+   "Heading": 4.360408,
+   "Velocity": 2.678049,
+   "Acceleration": -0.108195,
+   "Jerk": 13.753895
+ },
+ {
+   "X Point": 23.051845,
+   "Y Point": 6.042936,
+   "Heading": 4.345892,
+   "Velocity": 4.223415,
+   "Acceleration": 30.907322,
+   "Jerk": 620.310347
+ },
+ {
+   "X Point": 22.977518,
+   "Y Point": 5.851741,
+   "Heading": 4.33923,
+   "Velocity": 4.102691,
+   "Acceleration": -2.414481,
+   "Jerk": -666.436068
+ },
+ {
+   "X Point": 22.90625,
+   "Y Point": 5.668914,
+   "Heading": 4.344126,
+   "Velocity": 3.924519,
+   "Acceleration": -3.56344,
+   "Jerk": -22.979178
+ },
+ {
+   "X Point": 22.840085,
+   "Y Point": 5.493694,
+   "Heading": 4.360604,
+   "Velocity": 3.74593,
+   "Acceleration": -3.571775,
+   "Jerk": -0.166686
+ },
+ {
+   "X Point": 22.780814,
+   "Y Point": 5.325505,
+   "Heading": 4.388712,
+   "Velocity": 3.566546,
+   "Acceleration": -3.587675,
+   "Jerk": -0.318017
+ },
+ {
+   "X Point": 22.729957,
+   "Y Point": 5.163939,
+   "Heading": 4.428419,
+   "Velocity": 3.387632,
+   "Acceleration": -3.578276,
+   "Jerk": 0.18798
+ },
+ {
+   "X Point": 22.688715,
+   "Y Point": 5.008661,
+   "Heading": 4.47943,
+   "Velocity": 3.213226,
+   "Acceleration": -3.488132,
+   "Jerk": 1.802882
+ },
+ {
+   "X Point": 22.656318,
+   "Y Point": 4.850615,
+   "Heading": 4.529547,
+   "Velocity": 3.226651,
+   "Acceleration": 0.268507,
+   "Jerk": 75.132777
+ },
+ {
+   "X Point": 22.572607,
+   "Y Point": 4.540665,
+   "Heading": 4.372069,
+   "Velocity": 6.421103,
+   "Acceleration": 63.889036,
+   "Jerk": 1272.410589
+ },
+ {
+   "X Point": 22.463423,
+   "Y Point": 4.280323,
+   "Heading": 4.265112,
+   "Velocity": 5.646207,
+   "Acceleration": -15.497921,
+   "Jerk": -1587.739148
+ },
+ {
+   "X Point": 22.354081,
+   "Y Point": 4.068362,
+   "Heading": 4.21513,
+   "Velocity": 4.770039,
+   "Acceleration": -17.523359,
+   "Jerk": -40.508757
+ },
+ {
+   "X Point": 22.260846,
+   "Y Point": 3.897197,
+   "Heading": 4.221732,
+   "Velocity": 3.898209,
+   "Acceleration": -17.436605,
+   "Jerk": 1.735088
+ },
+ {
+   "X Point": 22.188279,
+   "Y Point": 3.75222,
+   "Heading": 4.270823,
+   "Velocity": 3.242486,
+   "Acceleration": -13.114462,
+   "Jerk": 86.442856
+ },
+ {
+   "X Point": 22.074601,
+   "Y Point": 3.529714,
+   "Heading": 4.20608,
+   "Velocity": 4.997257,
+   "Acceleration": 35.095431,
+   "Jerk": 964.197858
+ },
+ {
+   "X Point": 21.93425,
+   "Y Point": 3.300507,
+   "Heading": 4.116754,
+   "Velocity": 5.375308,
+   "Acceleration": 7.561017,
+   "Jerk": -550.688272
+ },
+ {
+   "X Point": 21.760395,
+   "Y Point": 3.072218,
+   "Heading": 4.003754,
+   "Velocity": 5.73903,
+   "Acceleration": 7.274448,
+   "Jerk": -5.731394
+ },
+ {
+   "X Point": 21.550017,
+   "Y Point": 2.856805,
+   "Heading": 3.872314,
+   "Velocity": 6.022015,
+   "Acceleration": 5.659684,
+   "Jerk": -32.295266
+ },
+ {
+   "X Point": 21.449151,
+   "Y Point": 2.7646,
+   "Heading": 3.954364,
+   "Velocity": 2.733176,
+   "Acceleration": -65.77678,
+   "Jerk": -1428.729281
+ },
+ {
+   "X Point": 21.336099,
+   "Y Point": 2.637346,
+   "Heading": 3.992985,
+   "Velocity": 3.404369,
+   "Acceleration": 13.423869,
+   "Jerk": 1584.012976
+ },
+ {
+   "X Point": 21.152823,
+   "Y Point": 2.442676,
+   "Heading": 3.905469,
+   "Velocity": 5.347401,
+   "Acceleration": 38.860632,
+   "Jerk": 508.735269
+ },
+ {
+   "X Point": 20.894214,
+   "Y Point": 2.23566,
+   "Heading": 3.734582,
+   "Velocity": 6.625219,
+   "Acceleration": 25.556371,
+   "Jerk": -266.085238
+ },
+ {
+   "X Point": 20.687209,
+   "Y Point": 2.105445,
+   "Heading": 3.676736,
+   "Velocity": 4.891092,
+   "Acceleration": -34.682538,
+   "Jerk": -1204.778179
+ },
+ {
+   "X Point": 20.500521,
+   "Y Point": 1.998004,
+   "Heading": 3.656755,
+   "Velocity": 4.307964,
+   "Acceleration": -11.662564,
+   "Jerk": 460.399494
+ },
+ {
+   "X Point": 20.296028,
+   "Y Point": 1.883971,
+   "Heading": 3.612429,
+   "Velocity": 4.682755,
+   "Acceleration": 7.495823,
+   "Jerk": 383.167742
+ },
+ {
+   "X Point": 20.030839,
+   "Y Point": 1.769406,
+   "Heading": 3.496916,
+   "Velocity": 5.777555,
+   "Acceleration": 21.895989,
+   "Jerk": 288.003306
+ },
+ {
+   "X Point": 19.825577,
+   "Y Point": 1.697523,
+   "Heading": 3.474224,
+   "Velocity": 4.349709,
+   "Acceleration": -28.556916,
+   "Jerk": -1009.058093
+ },
+ {
+   "X Point": 19.620707,
+   "Y Point": 1.626743,
+   "Heading": 3.452465,
+   "Velocity": 4.335032,
+   "Acceleration": -0.29354,
+   "Jerk": 565.26752
+ },
+ {
+   "X Point": 19.388921,
+   "Y Point": 1.559288,
+   "Heading": 3.398717,
+   "Velocity": 4.828046,
+   "Acceleration": 9.860289,
+   "Jerk": 203.076588
+ },
+ {
+   "X Point": 19.16303,
+   "Y Point": 1.505132,
+   "Heading": 3.356802,
+   "Velocity": 4.645851,
+   "Acceleration": -3.643916,
+   "Jerk": -270.084107
+ },
+ {
+   "X Point": 18.944426,
+   "Y Point": 1.460962,
+   "Heading": 3.326925,
+   "Velocity": 4.460435,
+   "Acceleration": -3.708313,
+   "Jerk": -1.287938
+ },
+ {
+   "X Point": 18.73624,
+   "Y Point": 1.423851,
+   "Heading": 3.312036,
+   "Velocity": 4.229354,
+   "Acceleration": -4.621623,
+   "Jerk": -18.266198
+ },
+ {
+   "X Point": 18.52646,
+   "Y Point": 1.38933,
+   "Heading": 3.295686,
+   "Velocity": 4.252018,
+   "Acceleration": 0.453292,
+   "Jerk": 101.498289
+ },
+ {
+   "X Point": 18.307908,
+   "Y Point": 1.358214,
+   "Heading": 3.26875,
+   "Velocity": 4.41512,
+   "Acceleration": 3.262031,
+   "Jerk": 56.174776
+ },
+ {
+   "X Point": 18.080421,
+   "Y Point": 1.333274,
+   "Heading": 3.231306,
+   "Velocity": 4.576996,
+   "Acceleration": 3.237523,
+   "Jerk": -0.49016
+ },
+ {
+   "X Point": 17.915297,
+   "Y Point": 1.313769,
+   "Heading": 3.275029,
+   "Velocity": 3.325447,
+   "Acceleration": -25.030985,
+   "Jerk": -565.370161
+ },
+ {
+   "X Point": 17.674688,
+   "Y Point": 1.286362,
+   "Heading": 3.220286,
+   "Velocity": 4.843301,
+   "Acceleration": 30.357085,
+   "Jerk": 1107.76141
+ },
+ {
+   "X Point": 17.432312,
+   "Y Point": 1.278342,
+   "Heading": 3.165038,
+   "Velocity": 4.850178,
+   "Acceleration": 0.137543,
+   "Jerk": -604.390848
+ },
+ {
+   "X Point": 17.261543,
+   "Y Point": 1.270717,
+   "Heading": 3.202726,
+   "Velocity": 3.41878,
+   "Acceleration": -28.627957,
+   "Jerk": -575.309989
+ },
+ {
+   "X Point": 17.072611,
+   "Y Point": 1.257448,
+   "Heading": 3.216479,
+   "Velocity": 3.787947,
+   "Acceleration": 7.383326,
+   "Jerk": 720.225657
+ },
+ {
+   "X Point": 16.865308,
+   "Y Point": 1.242555,
+   "Heading": 3.206311,
+   "Velocity": 4.156734,
+   "Acceleration": 7.375741,
+   "Jerk": -0.151696
+ },
+ {
+   "X Point": 16.639306,
+   "Y Point": 1.231375,
+   "Heading": 3.172205,
+   "Velocity": 4.525577,
+   "Acceleration": 7.376863,
+   "Jerk": 0.022441
+ },
+ {
+   "X Point": 16.415747,
+   "Y Point": 1.229167,
+   "Heading": 3.141593,
+   "Velocity": 4.471401,
+   "Acceleration": -1.083513,
+   "Jerk": -169.207529
+ },
+ {
+   "X Point": 16.215747,
+   "Y Point": 1.229167,
+   "Heading": 3.141593,
+   "Velocity": 4,
+   "Acceleration": -9.428024,
+   "Jerk": -166.890209
+ },
+ {
+   "X Point": 16.015747,
+   "Y Point": 1.229167,
+   "Heading": 3.141593,
+   "Velocity": 4,
+   "Acceleration": 0,
+   "Jerk": 188.560471
+ },
+ {
+   "X Point": 15.815747,
+   "Y Point": 1.229167,
+   "Heading": 3.141593,
+   "Velocity": 4,
+   "Acceleration": 0,
+   "Jerk": 0
+ },
+ {
+   "X Point": 15.615747,
+   "Y Point": 1.229167,
+   "Heading": 3.141593,
+   "Velocity": 4,
+   "Acceleration": 0,
+   "Jerk": 0
+ },
+ {
+   "X Point": 15.415747,
+   "Y Point": 1.229167,
+   "Heading": 3.141593,
+   "Velocity": 4,
+   "Acceleration": 0,
+   "Jerk": 0
+ },
+ {
+   "X Point": 15.215747,
+   "Y Point": 1.229167,
+   "Heading": 3.141593,
+   "Velocity": 4,
+   "Acceleration": 0,
+   "Jerk": 0
+ },
+ {
+   "X Point": 15.015747,
+   "Y Point": 1.229167,
+   "Heading": 3.141593,
+   "Velocity": 4,
+   "Acceleration": 0,
+   "Jerk": 0
+ },
+ {
+   "X Point": 14.81265,
+   "Y Point": 1.229516,
+   "Heading": 3.137555,
+   "Velocity": 4.061951,
+   "Acceleration": 1.239028,
+   "Jerk": 24.780561
+ },
+ {
+   "X Point": 14.607647,
+   "Y Point": 1.230973,
+   "Heading": 3.131057,
+   "Velocity": 4.100163,
+   "Acceleration": 0.764238,
+   "Jerk": -9.495794
+ },
+ {
+   "X Point": 14.400963,
+   "Y Point": 1.234013,
+   "Heading": 3.122356,
+   "Velocity": 4.134125,
+   "Acceleration": 0.679241,
+   "Jerk": -1.699947
+ },
+ {
+   "X Point": 14.19262,
+   "Y Point": 1.239122,
+   "Heading": 3.111451,
+   "Velocity": 4.168107,
+   "Acceleration": 0.679623,
+   "Jerk": 0.007646
+ },
+ {
+   "X Point": 13.982657,
+   "Y Point": 1.246793,
+   "Heading": 3.098342,
+   "Velocity": 4.202054,
+   "Acceleration": 0.678949,
+   "Jerk": -0.013483
+ },
+ {
+   "X Point": 13.771136,
+   "Y Point": 1.257533,
+   "Heading": 3.08304,
+   "Velocity": 4.235876,
+   "Acceleration": 0.676437,
+   "Jerk": -0.050237
+ },
+ {
+   "X Point": 13.558145,
+   "Y Point": 1.271851,
+   "Heading": 3.065559,
+   "Velocity": 4.269434,
+   "Acceleration": 0.671163,
+   "Jerk": -0.105489
+ },
+ {
+   "X Point": 13.355583,
+   "Y Point": 1.288567,
+   "Heading": 3.061328,
+   "Velocity": 4.065021,
+   "Acceleration": -4.088267,
+   "Jerk": -95.188596
+ },
+ {
+   "X Point": 13.161056,
+   "Y Point": 1.303342,
+   "Heading": 3.067701,
+   "Velocity": 3.90173,
+   "Acceleration": -3.265805,
+   "Jerk": 16.449243
+ },
+ {
+   "X Point": 12.955126,
+   "Y Point": 1.319216,
+   "Heading": 3.059215,
+   "Velocity": 4.13082,
+   "Acceleration": 4.581789,
+   "Jerk": 156.951885
+ },
+ {
+   "X Point": 12.738063,
+   "Y Point": 1.339445,
+   "Heading": 3.035852,
+   "Velocity": 4.360082,
+   "Acceleration": 4.585236,
+   "Jerk": 0.068935
+ },
+ {
+   "X Point": 12.510389,
+   "Y Point": 1.367768,
+   "Heading": 2.997655,
+   "Velocity": 4.588584,
+   "Acceleration": 4.570042,
+   "Jerk": -0.30388
+ },
+ {
+   "X Point": 12.292253,
+   "Y Point": 1.403778,
+   "Heading": 2.970271,
+   "Velocity": 4.421754,
+   "Acceleration": -3.336601,
+   "Jerk": -158.132867
+ },
+ {
+   "X Point": 12.097991,
+   "Y Point": 1.436899,
+   "Heading": 2.974078,
+   "Velocity": 3.941312,
+   "Acceleration": -9.608835,
+   "Jerk": -125.444686
+ },
+ {
+   "X Point": 11.8988,
+   "Y Point": 1.470744,
+   "Heading": 2.971424,
+   "Velocity": 4.040917,
+   "Acceleration": 1.992093,
+   "Jerk": 232.018567
+ },
+ {
+   "X Point": 11.694907,
+   "Y Point": 1.506628,
+   "Heading": 2.962308,
+   "Velocity": 4.140522,
+   "Acceleration": 1.992116,
+   "Jerk": 0.000455
+ },
+ {
+   "X Point": 11.486582,
+   "Y Point": 1.545951,
+   "Heading": 2.946732,
+   "Velocity": 4.240081,
+   "Acceleration": 1.991162,
+   "Jerk": -0.019083
+ },
+ {
+   "X Point": 11.273432,
+   "Y Point": 1.590396,
+   "Heading": 2.923706,
+   "Velocity": 4.354686,
+   "Acceleration": 2.292108,
+   "Jerk": 6.01892
+ },
+ {
+   "X Point": 11.056938,
+   "Y Point": 1.641608,
+   "Heading": 2.894546,
+   "Velocity": 4.449384,
+   "Acceleration": 1.893956,
+   "Jerk": -7.963021
+ },
+ {
+   "X Point": 10.840284,
+   "Y Point": 1.699862,
+   "Heading": 2.862947,
+   "Velocity": 4.48697,
+   "Acceleration": 0.751717,
+   "Jerk": -22.844787
+ },
+ {
+   "X Point": 10.623914,
+   "Y Point": 1.765717,
+   "Heading": 2.828982,
+   "Velocity": 4.523413,
+   "Acceleration": 0.728868,
+   "Jerk": -0.456978
+ },
+ {
+   "X Point": 10.408353,
+   "Y Point": 1.839687,
+   "Heading": 2.792772,
+   "Velocity": 4.557984,
+   "Acceleration": 0.691416,
+   "Jerk": -0.749041
+ },
+ {
+   "X Point": 10.19474,
+   "Y Point": 1.921985,
+   "Heading": 2.755224,
+   "Velocity": 4.578361,
+   "Acceleration": 0.407548,
+   "Jerk": -5.67737
+ },
+ {
+   "X Point": 9.98616,
+   "Y Point": 2.010931,
+   "Heading": 2.720503,
+   "Velocity": 4.535056,
+   "Acceleration": -0.866109,
+   "Jerk": -25.47314
+ },
+ {
+   "X Point": 9.77509,
+   "Y Point": 2.110873,
+   "Heading": 2.676972,
+   "Velocity": 4.670727,
+   "Acceleration": 2.713425,
+   "Jerk": 71.590682
+ },
+ {
+   "X Point": 9.563058,
+   "Y Point": 2.224021,
+   "Heading": 2.624612,
+   "Velocity": 4.806664,
+   "Acceleration": 2.718737,
+   "Jerk": 0.106235
+ },
+ {
+   "X Point": 9.352184,
+   "Y Point": 2.3524,
+   "Heading": 2.563748,
+   "Velocity": 4.93756,
+   "Acceleration": 2.617928,
+   "Jerk": -2.016168
+ },
+ {
+   "X Point": 9.145234,
+   "Y Point": 2.497548,
+   "Heading": 2.495217,
+   "Velocity": 5.055531,
+   "Acceleration": 2.359414,
+   "Jerk": -5.170283
+ },
+ {
+   "X Point": 8.973554,
+   "Y Point": 2.634763,
+   "Heading": 2.469521,
+   "Velocity": 4.395545,
+   "Acceleration": -13.199717,
+   "Jerk": -311.182621
+ },
+ {
+   "X Point": 8.835854,
+   "Y Point": 2.738719,
+   "Heading": 2.50514,
+   "Velocity": 3.4507,
+   "Acceleration": -18.896902,
+   "Jerk": -113.943705
+ },
+ {
+   "X Point": 8.650584,
+   "Y Point": 2.880246,
+   "Heading": 2.462121,
+   "Velocity": 4.662817,
+   "Acceleration": 24.242343,
+   "Jerk": 862.784901
+ },
+ {
+   "X Point": 8.45743,
+   "Y Point": 3.052515,
+   "Heading": 2.385655,
+   "Velocity": 5.176303,
+   "Acceleration": 10.26971,
+   "Jerk": -279.45266
+ },
+ {
+   "X Point": 8.407153,
+   "Y Point": 3.086994,
+   "Heading": 2.566023,
+   "Velocity": 1.219274,
+   "Acceleration": -79.140576,
+   "Jerk": -1788.205705
+ },
+ {
+   "X Point": 8.205826,
+   "Y Point": 3.220793,
+   "Heading": 2.511827,
+   "Velocity": 4.834653,
+   "Acceleration": 72.307594,
+   "Jerk": 3028.963397
+ },
+ {
+   "X Point": 7.904416,
+   "Y Point": 3.509139,
+   "Heading": 2.228296,
+   "Velocity": 8.342457,
+   "Acceleration": 70.156068,
+   "Jerk": -43.030534
+ },
+ {
+   "X Point": 7.795876,
+   "Y Point": 3.653296,
+   "Heading": 2.2536,
+   "Velocity": 3.609005,
+   "Acceleration": -94.669036,
+   "Jerk": -3296.502065
+ },
+ {
+   "X Point": 7.685817,
+   "Y Point": 3.782094,
+   "Heading": 2.293262,
+   "Velocity": 3.388321,
+   "Acceleration": -4.413678,
+   "Jerk": 1805.107151
+ },
+ {
+   "X Point": 7.550497,
+   "Y Point": 3.935365,
+   "Heading": 2.287476,
+   "Velocity": 4.08919,
+   "Acceleration": 14.017374,
+   "Jerk": 368.621049
+ },
+ {
+   "X Point": 7.397285,
+   "Y Point": 4.119412,
+   "Heading": 2.236234,
+   "Velocity": 4.789448,
+   "Acceleration": 14.005163,
+   "Jerk": -0.244232
+ },
+ {
+   "X Point": 7.33123,
+   "Y Point": 4.191695,
+   "Heading": 2.368541,
+   "Velocity": 1.958377,
+   "Acceleration": -56.621417,
+   "Jerk": -1412.531604
+ },
+ {
+   "X Point": 7.206748,
+   "Y Point": 4.306053,
+   "Heading": 2.408695,
+   "Velocity": 3.380739,
+   "Acceleration": 28.447233,
+   "Jerk": 1701.373017
+ },
+ {
+   "X Point": 7.02737,
+   "Y Point": 4.475298,
+   "Heading": 2.348165,
+   "Velocity": 4.932354,
+   "Acceleration": 31.032311,
+   "Jerk": 51.70156
+ },
+ {
+   "X Point": 6.843293,
+   "Y Point": 4.685436,
+   "Heading": 2.245015,
+   "Velocity": 5.587219,
+   "Acceleration": 13.097287,
+   "Jerk": -358.700489
+ },
+ {
+   "X Point": 6.705531,
+   "Y Point": 4.864777,
+   "Heading": 2.211083,
+   "Velocity": 4.522889,
+   "Acceleration": -21.286599,
+   "Jerk": -687.677716
+ },
+ {
+   "X Point": 6.585075,
+   "Y Point": 5.027926,
+   "Heading": 2.207452,
+   "Velocity": 4.055976,
+   "Acceleration": -9.338246,
+   "Jerk": 238.967049
+ },
+ {
+   "X Point": 6.476885,
+   "Y Point": 5.171081,
+   "Heading": 2.234118,
+   "Velocity": 3.588791,
+   "Acceleration": -9.343701,
+   "Jerk": -0.109087
+ },
+ {
+   "X Point": 6.346664,
+   "Y Point": 5.332995,
+   "Heading": 2.223992,
+   "Velocity": 4.15565,
+   "Acceleration": 11.337167,
+   "Jerk": 413.617353
+ },
+ {
+   "X Point": 6.195803,
+   "Y Point": 5.550651,
+   "Heading": 2.139788,
+   "Velocity": 5.296535,
+   "Acceleration": 22.817699,
+   "Jerk": 229.610651
+ },
+ {
+   "X Point": 6.087511,
+   "Y Point": 5.72336,
+   "Heading": 2.134791,
+   "Velocity": 4.077022,
+   "Acceleration": -24.390263,
+   "Jerk": -944.159243
+ },
+ {
+   "X Point": 6.007843,
+   "Y Point": 5.841888,
+   "Heading": 2.208936,
+   "Velocity": 2.856295,
+   "Acceleration": -24.414534,
+   "Jerk": -0.485422
+ },
+ {
+   "X Point": 5.950666,
+   "Y Point": 5.909221,
+   "Heading": 2.35367,
+   "Velocity": 1.766691,
+   "Acceleration": -21.792082,
+   "Jerk": 52.449039
+ },
+ {
+   "X Point": 5.773534,
+   "Y Point": 6.104594,
+   "Heading": 2.270911,
+   "Velocity": 5.274325,
+   "Acceleration": 70.152691,
+   "Jerk": 1838.895447
+ },
+ {
+   "X Point": 5.644323,
+   "Y Point": 6.260526,
+   "Heading": 2.267653,
+   "Velocity": 4.050196,
+   "Acceleration": -24.482592,
+   "Jerk": -1892.705642
+ },
+ {
+   "X Point": 5.550628,
+   "Y Point": 6.366158,
+   "Heading": 2.343894,
+   "Velocity": 2.823957,
+   "Acceleration": -24.524771,
+   "Jerk": -0.843593
+ },
+ {
+   "X Point": 5.465436,
+   "Y Point": 6.441891,
+   "Heading": 2.455364,
+   "Velocity": 2.279756,
+   "Acceleration": -10.884031,
+   "Jerk": 272.8148
+ },
+ {
+   "X Point": 5.322247,
+   "Y Point": 6.555978,
+   "Heading": 2.477306,
+   "Velocity": 3.661645,
+   "Acceleration": 27.637786,
+   "Jerk": 770.436345
+ },
+ {
+   "X Point": 5.161533,
+   "Y Point": 6.681943,
+   "Heading": 2.471863,
+   "Velocity": 4.083918,
+   "Acceleration": 8.445453,
+   "Jerk": -383.846664
+ },
+ {
+   "X Point": 4.997661,
+   "Y Point": 6.815182,
+   "Heading": 2.456953,
+   "Velocity": 4.22406,
+   "Acceleration": 2.802854,
+   "Jerk": -112.851983
+ },
+ {
+   "X Point": 4.912058,
+   "Y Point": 6.876103,
+   "Heading": 2.578547,
+   "Velocity": 2.101357,
+   "Acceleration": -42.454068,
+   "Jerk": -905.138437
+ },
+ {
+   "X Point": 4.797041,
+   "Y Point": 6.941364,
+   "Heading": 2.663001,
+   "Velocity": 2.644842,
+   "Acceleration": 10.869711,
+   "Jerk": 1066.475588
+ },
+ {
+   "X Point": 4.661347,
+   "Y Point": 7.007272,
+   "Heading": 2.720615,
+   "Velocity": 3.017064,
+   "Acceleration": 7.444429,
+   "Jerk": -68.505637
+ },
+ {
+   "X Point": 4.5293,
+   "Y Point": 7.059799,
+   "Heading": 2.786045,
+   "Velocity": 2.842207,
+   "Acceleration": -3.497148,
+   "Jerk": -218.831546
+ },
+ {
+   "X Point": 4.338272,
+   "Y Point": 7.131427,
+   "Heading": 2.76687,
+   "Velocity": 4.080307,
+   "Acceleration": 24.762011,
+   "Jerk": 565.183173
+ },
+ {
+   "X Point": 4.185523,
+   "Y Point": 7.196659,
+   "Heading": 2.791733,
+   "Velocity": 3.321905,
+   "Acceleration": -15.168039,
+   "Jerk": -798.600993
+ },
+ {
+   "X Point": 4.155787,
+   "Y Point": 7.201855,
+   "Heading": 2.987059,
+   "Velocity": 0.603723,
+   "Acceleration": -54.36365,
+   "Jerk": -783.912222
+ },
+ {
+   "X Point": 4.006304,
+   "Y Point": 7.220375,
+   "Heading": 3.019372,
+   "Velocity": 3.01251,
+   "Acceleration": 48.175747,
+   "Jerk": 2050.787936
+ },
+ {
+   "X Point": 3.810032,
+   "Y Point": 7.250357,
+   "Heading": 2.981956,
+   "Velocity": 3.970996,
+   "Acceleration": 19.16973,
+   "Jerk": -580.120329
+ },
+ {
+   "X Point": 3.684105,
+   "Y Point": 7.267832,
+   "Heading": 3.02889,
+   "Velocity": 2.542659,
+   "Acceleration": -28.566746,
+   "Jerk": -954.729535
+ },
+ {
+   "X Point": 3.574317,
+   "Y Point": 7.277131,
+   "Heading": 3.088681,
+   "Velocity": 2.203635,
+   "Acceleration": -6.780486,
+   "Jerk": 435.725214
+ },
+ {
+   "X Point": 3.458726,
+   "Y Point": 7.279369,
+   "Heading": 3.131847,
+   "Velocity": 2.312247,
+   "Acceleration": 2.172252,
+   "Jerk": 179.054751
+ },
+ {
+   "X Point": 3.291454,
+   "Y Point": 7.283944,
+   "Heading": 3.098327,
+   "Velocity": 3.346697,
+   "Acceleration": 20.688985,
+   "Jerk": 370.334659
+ },
+ {
+   "X Point": 3.141598,
+   "Y Point": 7.29211,
+   "Heading": 3.077591,
+   "Velocity": 3.001565,
+   "Acceleration": -6.902642,
+   "Jerk": -551.832528
+ },
+ {
+   "X Point": 3.007756,
+   "Y Point": 7.301441,
+   "Heading": 3.067891,
+   "Velocity": 2.683333,
+   "Acceleration": -6.364629,
+   "Jerk": 10.760259
+ },
+ {
+   "X Point": 2.888528,
+   "Y Point": 7.310351,
+   "Heading": 3.06753,
+   "Velocity": 2.3912,
+   "Acceleration": -5.842659,
+   "Jerk": 10.439398
+ },
+ {
+   "X Point": 2.782621,
+   "Y Point": 7.317886,
+   "Heading": 3.074924,
+   "Velocity": 2.123505,
+   "Acceleration": -5.35391,
+   "Jerk": 9.774973
+ },
+ {
+   "X Point": 2.688862,
+   "Y Point": 7.323559,
+   "Heading": 3.088592,
+   "Velocity": 1.87861,
+   "Acceleration": -4.897896,
+   "Jerk": 9.120289
+ },
+ {
+   "X Point": 2.606185,
+   "Y Point": 7.327222,
+   "Heading": 3.107145,
+   "Velocity": 1.655152,
+   "Acceleration": -4.46916,
+   "Jerk": 8.574709
+ },
+ {
+   "X Point": 2.533608,
+   "Y Point": 7.328955,
+   "Heading": 3.129267,
+   "Velocity": 1.451968,
+   "Acceleration": -4.063677,
+   "Jerk": 8.109666
+ },
+ {
+   "X Point": 2.460869,
+   "Y Point": 7.329166,
+   "Heading": 3.141593,
+   "Velocity": 1.454775,
+   "Acceleration": 0.056145,
+   "Jerk": 82.396436
+ },
+ {
+   "X Point": 2.386031,
+   "Y Point": 7.329166,
+   "Heading": 3.141593,
+   "Velocity": 1.496754,
+   "Acceleration": 0.839577,
+   "Jerk": 15.668642
+ },
+ {
+   "X Point": 2.318601,
+   "Y Point": 7.329166,
+   "Heading": 3.141593,
+   "Velocity": 1.348606,
+   "Acceleration": -2.962963,
+   "Jerk": -76.0508
+ },
+ {
+   "X Point": 2.258578,
+   "Y Point": 7.329166,
+   "Heading": 3.141593,
+   "Velocity": 1.200458,
+   "Acceleration": -2.962963,
+   "Jerk": 0
+ },
+ {
+   "X Point": 2.205963,
+   "Y Point": 7.329166,
+   "Heading": 3.141593,
+   "Velocity": 1.05231,
+   "Acceleration": -2.962963,
+   "Jerk": 0
+ },
+ {
+   "X Point": 2.160755,
+   "Y Point": 7.329166,
+   "Heading": 3.141593,
+   "Velocity": 0.904162,
+   "Acceleration": -2.962963,
+   "Jerk": 0
+ },
+ {
+   "X Point": 2.122677,
+   "Y Point": 7.329166,
+   "Heading": 3.141593,
+   "Velocity": 0.76155,
+   "Acceleration": -2.852233,
+   "Jerk": 2.21459
+ },
+ {
+   "X Point": 2.091145,
+   "Y Point": 7.329166,
+   "Heading": 3.141593,
+   "Velocity": 0.630648,
+   "Acceleration": -2.618047,
+   "Jerk": 4.683726
+ },
+ {
+   "X Point": 2.06554,
+   "Y Point": 7.329166,
+   "Heading": 3.141593,
+   "Velocity": 0.512091,
+   "Acceleration": -2.371134,
+   "Jerk": 4.938272
+ },
+ {
+   "X Point": 2.045246,
+   "Y Point": 7.329166,
+   "Heading": 3.141593,
+   "Velocity": 0.40588,
+   "Acceleration": -2.12422,
+   "Jerk": 4.938272
+ },
+ {
+   "X Point": 2.029646,
+   "Y Point": 7.329166,
+   "Heading": 3.141593,
+   "Velocity": 0.312015,
+   "Acceleration": -1.877306,
+   "Jerk": 4.938272
+ },
+ {
+   "X Point": 2.018121,
+   "Y Point": 7.329166,
+   "Heading": 3.141593,
+   "Velocity": 0.230495,
+   "Acceleration": -1.630393,
+   "Jerk": 4.938272
+ },
+ {
+   "X Point": 2.010055,
+   "Y Point": 7.329166,
+   "Heading": 3.141593,
+   "Velocity": 0.161321,
+   "Acceleration": -1.383479,
+   "Jerk": 4.938272
+ },
+ {
+   "X Point": 2.00483,
+   "Y Point": 7.329166,
+   "Heading": 3.141593,
+   "Velocity": 0.104493,
+   "Acceleration": -1.136566,
+   "Jerk": 4.938272
+ },
+ {
+   "X Point": 2.00183,
+   "Y Point": 7.329166,
+   "Heading": 3.141593,
+   "Velocity": 0.06001,
+   "Acceleration": -0.889652,
+   "Jerk": 4.938272
+ },
+ {
+   "X Point": 2.000436,
+   "Y Point": 7.329166,
+   "Heading": 3.141593,
+   "Velocity": 0.027873,
+   "Acceleration": -0.642739,
+   "Jerk": 4.938272
+ },
+ {
+   "X Point": 2.000032,
+   "Y Point": 7.329166,
+   "Heading": 3.141593,
+   "Velocity": 0.008082,
+   "Acceleration": -0.395825,
+   "Jerk": 4.938272
+ },
+ {
+   "X Point": 2,
+   "Y Point": 7.329166,
+   "Heading": 3.141593,
+   "Velocity": 0.000636,
+   "Acceleration": -0.148911,
+   "Jerk": 4.938272
+ },
+ {
+   "X Point": 2,
+   "Y Point": 7.329166,
+   "Heading": 3.141593,
+   "Velocity": 0,
+   "Acceleration": -0.012727,
+   "Jerk": 2.723681
+ }
+]
