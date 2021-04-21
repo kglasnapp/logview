@@ -1,5 +1,6 @@
 
 # Update a Google Sheet from Python
+# Needs the lastest version of chromedrive.exe which is located at c:/
 # https://gspread.readthedocs.io/en/latest/user-guide.html#formatting
 # https://github.com/microsoft/playwright-python to automate web
 
@@ -29,7 +30,7 @@ def wait_for_page_load(browser, timeout=30):
     )
     
 def getDataFromEdwardJones(file, userID, passCode):
-    chromedriver = 'c:\\temp\\testSelium\\chromedriver.exe'
+    chromedriver = 'c:\\temp\\chromedriver.exe'
     userProfile = "C:\\Users\\kglas\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\"
     options = webdriver.ChromeOptions()
     options.add_argument("user-data-dir="+userProfile)

@@ -6,13 +6,16 @@ import tkinter
 import csv
 from plotter import *
 
+
 def distancePT(ptA, ptB):
+    # get the distance between two points in a path
     lx = ptA['X'] - ptB["X"]
     ly = ptA['Y'] - ptB["Y"]
     return math.sqrt(lx*lx + ly*ly)
 
 
 def compress(path):
+    # compress a path i.e. if distance less than .4 meters ignore point
     lastPT = None
     lastAngle = 0
     dist = 0
@@ -34,10 +37,9 @@ def compress(path):
         i += 1
     return newPath
 
-# Test program to make a path for an S curve
-
 
 def makeSCurvePath():
+    # Test program to make a path for an S curve
     # pose = List.of(new Pose2d(0, 0, Rotation2d.fromDegrees(0)), new Pose2d(2, 0, Rotation2d.fromDegrees(45)),
     #       new Pose2d(2, 1.5, Rotation2d.fromDegrees(90)), new Pose2d(3, 1.5, Rotation2d.fromDegrees(-90)),
     #       new Pose2d(3, 0, Rotation2d.fromDegrees(-180)), new Pose2d(0.0, 0.0, Rotation2d.fromDegrees(-180)));
@@ -50,8 +52,8 @@ def makeSCurvePath():
     return path
 
 
-# Data in path is in meter - convert to feet for graph
-def drawGraph(master, path, clear=True):
+def drawGraph(master, path, clear=True, line="black"):
+    # Data in path is in meter - convert to feet for graph
     if clear:
         gw.delete("all")
         drawGridForFeet(gw)
@@ -69,10 +71,12 @@ def drawGraph(master, path, clear=True):
             p = Point(metersToFeet(pt['X']),  metersToFeet(
                 pt['Y']), .5, "red", str(i))
             pts.append(p)
+            # draw a black line to represent the path
             if lastP != None:
-                Line(lastP, p, 4, "black", "Bar")
+                Line(lastP, p, 4, line, "Bar")
             lastP = p
         i += 1
+
 
 def drawGridForFeet(p):
     offset = 1
@@ -98,12 +102,56 @@ def drawGridForFeet(p):
             Point(col * 2.5, row * 2.5, .2, "black", "")
 
 
-def makeCode(path, fileName):
-    print("Makecodes for results to file:" +
+def drawGridForMeters(p):
+    offset = 10
+    i = 0
+    while i < feetToCent(ah):
+        if(i % 100 == 0):
+            width = 3
+        else:
+            width = 1
+        j = metersToFeet(i/100)
+        p.create_line(rx(-aw), ry(j), rx(aw), ry(j),
+                      width=width, fill="light gray")
+        i += offset
+    i = 0
+    while i < feetToCent(aw):
+        if(i % 100 == 0):
+            width = 3
+        else:
+            width = 1
+        j = metersToFeet(i/100)
+        p.create_line(rx(j), ry(-ah), rx(j), ry(ah),
+                      width=width, fill="light gray")
+        i += offset
+        # Draw Line at the bottom of the graph
+    gw.create_line(rx(-aw), ry(-ah), rx(aw), ry(-ah), width=2, fill="black")
+    # Draw the field points points on the graph
+    for col in range(1, 12):
+        for row in range(1, 6):
+            Point(col * 2.5, row * 2.5, .2, "black", "")
+
+
+def makePoseCode(path, fileName):
+    print("Make pose code for file:" +
           fileName + " length:" + str(len(path)))
+    s = "pose = List.of(new Pose2d(0, 0, Rotation2d.fromDegrees(0)),\n"
     for point in path:
-        print("new Pose2d(%.2f, %.2f, Rotation2d.fromDegrees(%.1f))," %
-              (point['X'], point['Y'], point['Angle']))
+        l = "new Pose2d(%.2f, %.2f, Rotation2d.fromDegrees(%.1f))," % (
+            point['X'], point['Y'], point['Angle'])
+        s += l + '\n'
+        if debug:
+            print(l)
+    file = open(fileName, "w")
+    file.write(s)
+    file.close()
+
+
+def makeJSONCode(path, fileName):
+    print("Make json file for path:" +
+          fileName + " length:" + str(len(path)))
+    with open(fileName, 'w') as outfile:
+        json.dump(path, outfile, indent=2)
 
 
 def distanceJSON(point):
@@ -122,7 +170,8 @@ def parseMPXML(fileName):
         path = []
         # path.append({'X': 0, 'Y': 0, 'Angle': 0})
         for itm in p:
-            print(itm['X'], itm['Y'], itm['Angle'])
+            if debug:
+                print(itm['X'], itm['Y'], itm['Angle'])
             path.append({'X': feetToMeters(itm['X']), 'Y': feetToMeters(
                 itm['Y']), 'Angle': float(itm['Angle'])})
         return path
@@ -134,9 +183,42 @@ def parsePathPlannerCSV(fileName):
     with open(fileName, newline='') as csvfile:
         data = csv.reader(csvfile, delimiter=',', quotechar='|')
         for row in data:
-            print(row)
+            if debug:
+                print(row)
             path.append({"X": float(
                 row[0]), "Y":   7.5 * 12 * 0.0254 - float(row[1]), "Angle": float(row[2])})
+    return path
+
+
+def parseWPIJSON(fileName):
+    path = []
+    print("Read and Parse WPI Path Data from File:" + fileName)
+    fileID = open(fileName, 'r')
+    p = json.load(fileID)
+    x = []
+    y = []
+    for point in p:
+        tr = point['pose']['translation']
+        x.append(tr['x'])
+        y.append(tr['y'])
+    #  Largest size (width or height) of trajectory
+    width = max(x) - min(x)
+    height = max(y) - min(y)
+    print("Point 0 x:%.2f y:%.2f Avg x:%.2f y:%.2f Min x:%.2f y:%.2f Max x:%.2f y:%.2f width:%.2f height:%.2f" % (
+        x[0], y[0], sum(x)/len(p), sum(y)/len(p), min(x), min(y), max(x), max(y), width, height))
+
+    for point in p:
+        pose = point['pose']
+        angle = pose['rotation']['radians'] * 180 / 3.14159
+        tr = pose['translation']
+        path.append({'X':  tr['x'] - min(x), 'Y': -min(y) +
+                     float(tr['y']), 'Angle': angle})
+    # Point 0 x:2.50 y:2.97 Avg x:14.61 y:5.31
+        #path.append({'X':  tr['x'] / 3.5, 'Y':float(tr['y'] /3.5 ), 'Angle': angle})
+    # path = []
+    # path.append({'X':  0, 'Y': 0, 'Angle':0})
+    # path.append({'X':  1, 'Y': 1, 'Angle':0})
+    # path.append({'X':  2, 'Y': 1, 'Angle':0})
     return path
 
 
@@ -166,16 +248,56 @@ def parsePathPlannerJSON(fileName):
         if(i != 30):
             angle2 = angle(points[i], points[i+1])
             angle3 = angle(points[i-1], points[i+1])
-        print("i:%d x:%.2f y:%.2f delta dist:%.2f total:%.2f a1:%.1f a2:%.1f a3:%.1f" %
-              (i, a[0], a[1], dist-lastDist, totalDist, angle1, angle2, angle3))
+        if debug:
+            print("i:%d x:%.2f y:%.2f delta dist:%.2f total:%.2f a1:%.1f a2:%.1f a3:%.1f" %
+                  (i, a[0], a[1], dist-lastDist, totalDist, angle1, angle2, angle3))
         lastDist = dist
         path.append({'X':  a[0], 'Y': feetToMeters(
             15) - a[1], 'Angle': angle1})
     return path
 
 
+# Auto Barrel
+# Poses
+# Pose 2 0.2 0
+# Pose 3.6 -0.8 -90
+# Pose 3 -1.4 -180
+# Pose 2.3 -0.8 90
+# Pose 4.2 0 10
+# Pose 6 0.8 90
+# Pose 5.2 1.35 -180
+# Pose 4.6 0.8 -90
+# Pose 7 -1.3 0
+# Pose 7.5 -0.6 90
+# Pose 7 0 -180
+# End 0 0 -180
+
+def barrel():
+    p = []
+    p.append({'X':0.0,'Y':0, 'Angle':0})
+    p.append({'X':2.0,'Y':0.2, 'Angle':0})
+    p.append({'X':3.6,'Y':-0.8, 'Angle':-90})
+    p.append({'X':3.0,'Y':-1.4, 'Angle':-180})
+    p.append({'X':2.3,'Y':-0.8, 'Angle':90})
+    p.append({'X':4.2,'Y':0, 'Angle':10})
+    p.append({'X':6.0,'Y':.8, 'Angle':90})
+    p.append({'X':5.2,'Y':1.35, 'Angle':-180})
+    p.append({'X':4.6,'Y':0.8, 'Angle':-90})
+    p.append({'X':7.0,'Y':-1.3, 'Angle':0})
+    p.append({'X':7.5,'Y':-0.6, 'Angle':90})
+    p.append({'X':7.0,'Y':0, 'Angle':-180})
+    p.append({'X':0.0,'Y':0, 'Angle':-180})
+    for pt in p:
+        pt['Y'] = pt['Y'] + 2.5
+        pt['X'] = pt['X'] + feetToMeters(2.5)
+    return p
+
 def feetToMeters(f):
     return float(f) * 12 * 2.54 / 100
+
+
+def feetToCent(f):
+    return float(f) * 12 * 2.54
 
 
 def metersToFeet(m):
@@ -192,27 +314,53 @@ def parseMPJSON(fileName):
             row['Y Point']), 'Angle': row['Heading']})
     return path
 
+def getValue(s, start, next):
+    first = s.find(start)
+    if first < 0:
+        return 0.0
+    last = s.find(next, first)
+    r = s[first+len(start):last]
+    return float(r)
+
+
+def  parseProgJSON(fileName):
+    print("Read and Parse Prog Log from File:" + fileName)
+    fileID = open(fileName, 'r')
+    p = json.load(fileID)
+    path = []
+    for row in p:
+        if 'line' in row and row['line'].startswith('State'):
+            print(row['line'])
+            x = getValue(row['line'],'X:', ',') + feetToMeters(0)
+            y = getValue(row['line'],'Y:', ')') + feetToMeters(2.5)
+            angle = getValue(row['line'],'Deg:', ')')
+            path.append({'X': x, 'Y': y, 'Angle':angle})
+    return path
+
 
 def makeSCurveButton():
+    global path, fileName
     print("Make S Curve Path")
     path = makeSCurvePath()
-    makeCode(path, "S_Curve.java")
+    #makeCode(path, "S_Curve.java")
     drawGraph(master, path)
 
 
 def openPPPath():
+    global path, fileName
     print("Open PathPlanner Path file")
     fileName = "Barrel.path"
     path = parsePathPlannerJSON(fileName)
-    makeCode(path, fileName + ".java")
+    #makeCode(path, fileName + ".java")
     drawGraph(master, path)
 
 
 def openPPCSV():
+    global path, fileName
     print("Open PathPlanner CSV file")
     fileName = "Barrel.csv"
     path = parsePathPlannerCSV(fileName)
-    makeCode(path, fileName + ".java")
+    #makeCode(path, fileName + ".java")
     drawGraph(master, path)
 
 
@@ -221,33 +369,60 @@ def openMPXML():
     print("Open Motion Profile XML file")
     fileName = "BarrelRacePath.xml"
     path = parseMPXML(fileName)
-    makeCode(path, fileName + ".java")
+    #makeCode(path, fileName + ".java")
     drawGraph(master, path)
 
 
 def openMPJSON():
+    global path, fileName
     print("Open Motion Profile JSON file")
     fileName = 'SLALOM_PATH_right.json'
     path = parseMPJSON(fileName)
     drawGraph(master, path)
     fileName = 'SLALOM_PATH_left.json'
     path = parseMPJSON(fileName)
-    makeCode(path, fileName + ".java")
-    drawGraph(master, path, clear=False)
+    drawGraph(master, path, clear=False, line="yellow")
+
+
+def makeWPIJSONButton():
+    global path, fileName
+    # fileName = 'Unnamed.wpilib.json' # Seems to be in feet
+    fileName = 'Loop.wpilib.json'
+    fileName = 'SLALOM_PATH_left.json'  # Seems to be in feet
+    path = parseWPIJSON(fileName)
+    drawGraph(master, path, clear=False, line="yellow")
+
+def makeBarrelButton():
+    global path, fileName
+    path = barrel()
+    drawGraph(master, path, clear=False, line="yellow")
+
+def makeProgLogJson():
+    global path, fileName
+    fileName = 'BarrelPathLog.json'
+    fileName = 'SlalomPathLog.json'
+    path = parseProgJSON(fileName)
+    drawGraph(master, path)
 
 
 def compressButton():
     global path, fileName
     print("Compress Button")
     path = compress(path)
-    makeCode(path, fileName + "_compressed.java")
+    #makeCode(path, fileName + "_compressed.java")
     drawGraph(master, path)
 
 
-def saveButton():
-    print("Save Button")
-    makeCode(pathA, "test.java")
-    drawGraph(master, pathA)
+def saveJsonButton():
+    global path, fileName
+    print("Save Button JSON fileName:" + fileName)
+    makeJSONCode(path,  fileName + ".json")
+
+
+def savePoseButton():
+    global path, fileName
+    print("Save Button Pose fileName:" + fileName)
+    makePoseCode(path, fileName + ".java")
 
 
 print("Python version", sys.version)
@@ -263,8 +438,8 @@ master.title("Path Drawing Tool")
 gw = tkinter.Canvas(master, width=tw, height=th)  # set gw to graph window
 gw.pack()
 setPlotterParms(gw, tw, th, aw, ah)  # inform the plotter of parameters
-drawGridForFeet(gw)
-
+# drawGridForFeet(gw)
+drawGridForMeters(gw)
 # put points on screen mainly for debug
 Point(0, 0, .5, "red", "Orig", textOff=[4, -4])
 Point(30, 0, .5, "green", "(30,0)",  textOff=[-4, -4])
@@ -274,29 +449,38 @@ Point(30, 0, .5, "green", "(30,0)",  textOff=[-4, -4])
 row = 1
 col = 0
 bf = tkinter.Frame(master)  # Create the frame for buttons
-tkinter.Button(bf, text="Open PathPlanner File (*.path)", command=openPPPath).grid(
+tkinter.Button(bf, text="PathPlanner File (*.path)", command=openPPPath).grid(
     row=row, column=col, sticky="W", padx=2, pady=5)
 col += 1
-tkinter.Button(bf, text="Open PathPlanner File (*.csv)", command=openPPCSV).grid(
+tkinter.Button(bf, text="PathPlanner File (*.csv)", command=openPPCSV).grid(
     row=row, column=col, sticky="W", padx=2, pady=5)
 col += 1
-tkinter.Button(bf, text="Open Motion Profile File (*.xml)", command=openMPXML).grid(
+tkinter.Button(bf, text="Motion Profile File (*.xml)", command=openMPXML).grid(
     row=row, column=col, sticky="W", padx=2, pady=5)
 col += 1
-tkinter.Button(bf, text="Open PathPlanner File (*.json)", command=openMPJSON).grid(
+tkinter.Button(bf, text="Motion Profile File (*.json)", command=openMPJSON).grid(
     row=row, column=col, sticky="W", padx=2, pady=5)
 col += 1
-tkinter.Button(bf, text="Make S Curve", command=makeSCurveButton).grid(
+tkinter.Button(bf, text="S Curve", command=makeSCurveButton).grid(
     row=row, column=col, sticky="W", padx=2, pady=5)
 col += 1
-tkinter.Button(bf, text="Compress Path Data", command=compressButton).grid(
+tkinter.Button(bf, text="WPI RAMSET", command=makeWPIJSONButton).grid(
+    row=row, column=col, sticky="W", padx=2, pady=5)
+col += 1
+tkinter.Button(bf, text="Barrel", command=makeBarrelButton).grid(
+    row=row, column=col, sticky="W", padx=2, pady=5)
+col += 1
+tkinter.Button(bf, text="ProgLog", command=makeProgLogJson).grid(
     row=row, column=col, sticky="W", padx=2, pady=5)
 col = 0
 row += 1
-tkinter.Button(bf, text="Save Path Data (pose)    ", command=saveButton).grid(
+tkinter.Button(bf, text="Compress Path Data", command=compressButton).grid(
     row=row, column=col, sticky="W", padx=2, pady=5)
 col += 1
-tkinter.Button(bf, text="Save Path Data (json)    ", command=saveButton).grid(
+tkinter.Button(bf, text="Save Path Data (pose)    ", command=savePoseButton).grid(
+    row=row, column=col, sticky="W", padx=2, pady=5)
+col += 1
+tkinter.Button(bf, text="Save Path Data (json)    ", command=saveJsonButton).grid(
     row=row, column=col, sticky="W", padx=2, pady=5)
 
 # put the data on the screen
