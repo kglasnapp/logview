@@ -1,6 +1,6 @@
 
 # Update a Google Sheet from Python
-# Needs the lastest version of chromedrive.exe which is located at c:/
+# Needs the lastest version of chromedrive.exe which is located at ps 'c:\\temp\\chromedriver.exe'
 # https://gspread.readthedocs.io/en/latest/user-guide.html#formatting
 # https://github.com/microsoft/playwright-python to automate web
 
