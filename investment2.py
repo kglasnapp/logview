@@ -52,7 +52,7 @@ def getDataFromEdwardJones(file, userID, passCode):
     wait_for_page_load(driver) 
     
     print("Start Sleep")
-    time.sleep(10)
+    time.sleep(15)
     print("Complete Sleep")
     with open(file, 'w+', encoding="utf-8") as f:
         f.write(driver.page_source)
