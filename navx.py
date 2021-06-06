@@ -1,5 +1,9 @@
 import serial
 import time
+from datetime import datetime
+import matplotlib.pyplot as plt
+import numpy as np
+
 
 # Take an angle and convert it to -180 to 180
 
@@ -60,17 +64,60 @@ def readBNO055():
                         float(s.split('(')[1].split(',')[0]))
                     return angle
 
+if False:
+    for i in range(-380, 380, 20):
+        print("Norm", i, normalizeAngle(i))
+
+
+    for i in range(-380, 380, 20):
+        print("UnNorm", i, unNormalilzeAngle(i))
+
+
 
 debug = False
-serBNO = serial.Serial("COM10", 115200)
+serBNO = serial.Serial("COM8", 115200)
 serNavx = serial.Serial('COM7', 9600)  # open serial port
-bno = 0
+# Open a file with access mode 'a'
+file_object = open('yawData.txt', 'a')
+i = 0
+navxA = []
+bnoA = []
+x = []
+startTime = time.time()
+graphFN = datetime.now().strftime("yawVariance_%m-%d-%y_%H_%M.png")
+print(graphFN)
 while True:
-    navx = readNavx()
-    bno = readBNO055()
-    time.sleep(.5)
-
-    print("Navx:%.2f BNO:%.2f Diff:%.2f" % (navx, bno, abs(navx - bno)))
+    navx = normalizeAngle(readNavx())
+    bno = normalizeAngle(readBNO055())
+    navxA.append(navx)
+    bnoA.append(bno)
+    x.append(int(time.time() - startTime))
+    time.sleep(.1)
+    t = datetime.now().strftime("%H:%M:%S")
+    data = "I:%d Seconds:%d Time:%s Navx:%.2f BNO:%.2f Diff:%.2f" % (
+        i, int(time.time() - startTime), t, navx, bno, abs(navx - bno))
+    file_object.write(data + '\n')
+    if(i % 5 == 0):
+        file_object.flush()
+    print(data)
+    i += 1
+    if i % 10 == 0:
+        plt.ylim([0, 90])
+        plt.yticks(np.arange(0, 91, 5))
+        plt.plot(x, navxA, label='NavX')
+        plt.plot(x, bnoA, label="BNO")
+        plt.xlabel('Seconds')
+        plt.ylabel('Angle')
+        if i == 10:
+            legend = plt.legend(loc='best', shadow=True)
+        plt.show(block=False)
+        plt.pause(1)
+        plt.savefig(graphFN)
+        #time.sleep(2)
+        #plt.close()
+    if i == 1000:
+        break
 print("Done")
 serNavx.close()
 serBNO.close
+file_object.close()
