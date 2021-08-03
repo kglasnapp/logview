@@ -24,3 +24,4 @@ for l in s['values']:
     project = l['links']['self'][0]['href']
     #print("** project ** ", project)
     getRepos(project)
+S
