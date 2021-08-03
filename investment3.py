@@ -22,6 +22,10 @@ import time
 from selenium.webdriver.support.expected_conditions import staleness_of
 from selenium.webdriver.support.wait import WebDriverWait
 
+import requests
+from bs4 import BeautifulSoup
+
+
 def wait_for_page_load(browser, timeout=30):
     old_page = browser.find_element_by_tag_name('html')
     yield
@@ -180,13 +184,27 @@ def prepareDataForUpdate(file):
     print(paste)
     return data
 
+def getBS(uid, passCode):
+   login_url = 'http://accountaccess.edwardjones.com//ca-logon//logon.action'
+   #r = requests.get(login_url, auth=(uid, passCode))
+   r = requests.get(login_url)
+   print(r.text)
+   data = {"userNa": uid, 'passwd': passCode}
+   with requests.Session() as s:
+          response = requests.post(login_url , data)
+          print(response.text)
+          index_page= s.get('http://example.com')
+          soup = BeautifulSoup(index_page.text, 'html.parser')
+          print(soup.title)
+
+
 # Start of program to get our stock data from Edward Jones
-# file = "c:\\temp\\page.html"
-file = "z:\\Edward Jones\Snapshot _ Edward Jones.html"
+file = "c:\\temp\\EdwardJones\\Snapshot _ Edward Jones.html"
 userID = "kglasnapp"
 # Get passcode from file on local PC
 passFile = "c:\\Users\\kglas\\Documents\\edjones.txt"
-# passCode = open(passFile, 'r').readlines()[0]
-# getDataFromEdwardJones(file, userID, passCode)
+passCode = open(passFile, 'r').readlines()[0]
+#getDataFromEdwardJones(file, userID, passCode)
+getBS(userID, passCode)
 data = prepareDataForUpdate(file)
 updateSheet(data)

@@ -11,8 +11,9 @@ def getRepos(repro):
         for t in l['links']['clone']:
             if t['name'] == 'http':
                 print("git clone ", t['href'])
-        
-auth = ('kglasnapp', 'Kag227314[]')
+pw = 'Kag...' 
+
+auth = ('kglasnapp', pw)
 projectLink = "https://thedirtymechanics.com/bitbucket/rest/api/1.0/projects"
 reprosLink = "https://thedirtymechanics.com/bitbucket/rest/api/1.0/projects/****/repos"
 agent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64)"

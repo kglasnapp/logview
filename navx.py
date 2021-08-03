@@ -83,6 +83,7 @@ i = 0
 navxA = []
 bnoA = []
 x = []
+delta = []
 startTime = time.time()
 graphFN = datetime.now().strftime("yawVariance_%m-%d-%y_%H_%M.png")
 print(graphFN)
@@ -91,6 +92,7 @@ while True:
     bno = normalizeAngle(readBNO055())
     navxA.append(navx)
     bnoA.append(bno)
+    delta.append(navx-bno)
     x.append(int(time.time() - startTime))
     time.sleep(.1)
     t = datetime.now().strftime("%H:%M:%S")
@@ -102,14 +104,23 @@ while True:
     print(data)
     i += 1
     if i % 10 == 0:
+        #fig, (plt1, plt2) = plt.subplots(2, 1)
+        #fig.suptitle('Comparison BNO055 and Navx')
+        plt.subplot(2, 1, 1)
         plt.ylim([0, 90])
-        plt.yticks(np.arange(0, 91, 5))
+        #plt1.yticks(np.arange(0, 91, 5))
         plt.plot(x, navxA, label='NavX')
         plt.plot(x, bnoA, label="BNO")
-        plt.xlabel('Seconds')
+        #plt.xlabel('Seconds')
         plt.ylabel('Angle')
         if i == 10:
             legend = plt.legend(loc='best', shadow=True)
+        plt.subplot(2, 1, 2)
+        plt.plot(x, delta)
+        plt.xlabel('Seconds')
+        plt.ylabel('Delta')
+
+
         plt.show(block=False)
         plt.pause(1)
         plt.savefig(graphFN)
