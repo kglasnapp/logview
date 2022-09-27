@@ -6,6 +6,7 @@ import flags
 import parseDSEvents
 import parseDSLogs
 import filehash
+from tkinter import Text, Tk, INSERT, END, RAISED, SUNKEN, Button, messagebox
 
 
 def doAllDSEvents(path, fileType):
@@ -59,14 +60,24 @@ def getRegularExpressionD(dict):
         
 
 def getRegularExpression(year, month, day, monthEntered, dayEntered, fileType):
-    ar = day.split('-')
-    dayLow = int(ar[0])
-    dayHigh = dayLow
-    if(len(ar) == 2):
-        dayHigh = int(ar[1])
-    if len(month) == 1:
+    try:
+      ar = day.split('-')
+      dayLow = int(ar[0])
+      dayHigh = dayLow
+      if(len(ar) == 2):
+         dayHigh = int(ar[1])
+      if len(month) == 1:
         month = "0" + month
     # ".*2020_03_(10|09).*dsevents"
+    except:
+          print("Error converting month day data")
+          messagebox.showerror(
+                "Error", "converting month day data")
+    
+          month = "1"
+          dayHigh = 0
+          dayLow = 0
+
     if dayEntered:
         exp = ".*" + year + "_" + month + "_("
         for day in range(dayLow, dayHigh + 1):

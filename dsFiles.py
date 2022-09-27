@@ -20,9 +20,9 @@ class dsFiles():
         
         # declare varaibles used on the form
         self.monthV = StringVar()
-        self.monthV.set("3")
+        self.monthV.set("8")
         self.dayV = StringVar()
-        self.dayV.set("8-10")
+        self.dayV.set("18")
         self.dslogV = BooleanVar()
         self.dslogV.set(False)
         self.dseventsV = BooleanVar()
@@ -134,6 +134,7 @@ class dsFiles():
             cur.execute("SELECT fileName FROM files order by filename;")
             data = cur.fetchall()
         exp = utils.getRegularExpressionD(self.getValues())
+        exp = exp.replace("2020", "2022")
         print("Regular Exp:", exp)
         reg = re.compile(exp)
         files = []

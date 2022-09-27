@@ -152,6 +152,7 @@ class dsevents():
         self.updateStatus()
 
     def updateStatus(self):
+        self.lineCount = 0
         self.statusBarV.set("Files:%d Lines:%d Selected:%d" %
                             (self.fileCount, self.lineCount,  len(self.listBox.curselection())))
 

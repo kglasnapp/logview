@@ -77,6 +77,9 @@ class parseDSLogs:
             # Check for end of file
             if len(hdr) == 0:
                 break
+            if len(hdr) != 35:
+                print("Lenght in Error HDR:", len(hdr))
+                break
             # Get trace or the robot status data
             trace = self.getTrace(hdr[5])
             # Get the values for the PDP currents

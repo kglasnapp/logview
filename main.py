@@ -11,6 +11,8 @@ import db
 import sys
 import editPDPConfigTKSheet
 
+dirForLogs = "c:\\Users\\Public\\Documents\\FRC\\Log Files\\*"
+
 
 def createMenu(tab):
     menubar = tk.Menu()
@@ -18,11 +20,11 @@ def createMenu(tab):
     fileMenu = tk.Menu(menubar, tearoff=0)
     menubar.add_cascade(label="File", menu=fileMenu)
     fileMenu.add_command(label="Import Selected Files", command=fileImport)
-    fileMenu.add_command(label="Import dsevent (Robot Logs) Files in Directory",
-                         command=lambda: directoryImport(".*dsevents"))
-    fileMenu.add_command(label="Import dslog (Robot Status) Files in Directory",
-                         command=lambda: directoryImport(".*dslog"))
-    fileMenu.add_command(label="Import all Files in Directory",
+    fileMenu.add_command(label="Import dsevent (Robot Event Logs) Files",
+                         command=lambda: directoryImport("*.dsevents"))
+    fileMenu.add_command(label="Import dslog (Robot Power Status) Files",
+                         command=lambda: directoryImport("*.dslog"))
+    fileMenu.add_command(label="Import Files in Directory",
                          command=lambda: directoryImport(".*dslog|.*dsevents"))
     fileMenu.add_command(label="Save")
     fileMenu.add_separator()
@@ -36,16 +38,11 @@ def createMenu(tab):
     menubar.add_cascade(label="Help", menu=helpMenu)
     helpMenu.add_command(label="About Us")
 
-# Test only method to help understand how frames work
-
-
-
-
 def fileImport():
     types = [("Robot log files", "*.dslog *.dsevents"), ("dsevents",
                                                          "*.dsevents"), ("dslog", "*.dslog"), ("All files", "*.*")]
     fileNames = tk.filedialog.askopenfilename(
-        initialdir=".", title="Select file", multiple=True, filetypes=types)
+        initialdir=dirForLogs , title="Select file", multiple=True, filetypes=types)
     if flags.debug:
         print("Files to Import", fileNames)
     flags.makeDB = True
@@ -56,12 +53,11 @@ def fileImport():
 
 
 def directoryImport(reg):
-    dirName = tk.filedialog.askdirectory(
-        initialdir=".", title="Select Directory")
-    if flags.debug:
-        print("Files to Import", dirName)
+    types = [("", reg),  ("All files", "*.*")]
+    files = tk.filedialog.askopenfilename(
+        initialdir=dirForLogs, title="Select Directory", multiple=True,filetypes=types )
     flags.makeDB = True
-    files = utils.getListOfFiles(dirName, reg)
+    #files = utils.getListOfFiles(dirName, reg)
     if len(files) > 10:
         msg = "You have requestd to import %d files into the data base\ndo you want to continue" % (
             len(files))
