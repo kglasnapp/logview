@@ -1,26 +1,25 @@
 import tkinter as tk
 import tkinter.messagebox
-from tkinter import (Button, Checkbutton, Entry, Label, Menu, Text, Toplevel, Listbox,
-                     Scrollbar, Frame, END, ttk)
+from tkinter import (Button, Checkbutton, Label,
+                     Listbox, Scrollbar, Frame, END, ttk)
+from turtle import clear
 import tksheet as ts
 import db as db
 import re
 import flags
+import masterParms
+import showSomeLines
 
 
 class dsevents():
-
     dsfiles = None
     dataStale = True
-    # fileCount = 0
-    # lingCount = 0
+    ids = []
 
     def __init__(self, tab, f0):
-
         self.frame = Frame(tab)
         topFrame = Frame(self.frame)
         self.dsfiles = f0
-
         # Define variables used in the widget
         self.search1V = tk.StringVar()
         self.search1V.set("")
@@ -34,9 +33,8 @@ class dsevents():
         self.reg2.set(False)
         self.statusBarV = tk.StringVar()
         self.statusBarV.set("File:?")
-
         # Create the various widgets for the frame
-        label1 = Label(topFrame, text="Seach1:")
+        label1 = Label(topFrame, text="Search1:")
         search1 = ttk.Entry(topFrame, width=40, textvariable=self.search1V)
         label2 = Label(topFrame, text="Search2:")
         cb1 = Checkbutton(topFrame, text="RegEx", command=self.onChanged,
@@ -47,6 +45,12 @@ class dsevents():
                             variable=self.andOrV, onvalue=True, offvalue=False)
         search2 = ttk.Entry(topFrame, width=40, textvariable=self.search2V)
         refreshBtn = Button(topFrame, text="Refresh", command=self.refresh)
+        saveSearchBtn = Button(
+            topFrame, text="Save Search", command=self.saveSearch)
+        restoreSearchBtn = Button(
+            topFrame, text="Restore Search", command=self.restoreSearch)
+        clearBtn = Button(topFrame, text="Clear Search",
+                          command=self.clearSearch)
         #ignoresBtn = Button(topFrame, text="Ignores", command=self.ignoreBtn)
         scrollbar = Scrollbar(self.frame, orient=tk.VERTICAL)
         listBox = Listbox(self.frame, selectmode=tk.EXTENDED,
@@ -66,6 +70,9 @@ class dsevents():
         search2.grid(row=1, column=1, padx=5, pady=5, sticky='W')
         cb2.grid(row=1, column=2, padx=5, pady=5)
         refreshBtn.grid(row=1, column=3)
+        clearBtn.grid(row=0, column=5)
+        saveSearchBtn.grid(row=0, column=4)
+        restoreSearchBtn.grid(row=1, column=4)
         listBox.grid(row=2, column=0, columnspan=4, sticky=tk.NSEW)
         scrollbar.grid(row=2, column=4, sticky=tk.NSEW)
         statusBar.grid(row=3, column=0, columnspan=4, sticky='ws')
@@ -76,10 +83,14 @@ class dsevents():
         search2.bind('<Key-Return>', self.onChanged1)
         search2.bind('<FocusOut>', self.onChanged1)
         listBox.bind('<<ListboxSelect>>', self.onChangeLB)
+        listBox.bind('<Button-3>',  self.onLBRightClick) 
 
         self.frame.grid_rowconfigure(2, weight=1)
         self.frame.grid_columnconfigure(0, weight=1)
         self.fileCount = 0
+
+    def clickListbox(self):
+        print("Clicked")
 
     def ignoreBtn(self):
         tkinter.messagebox.showinfo(title="Ignores", message="Show Ignores")
@@ -87,6 +98,20 @@ class dsevents():
     def refresh(self):
         # Fill in the data
         self.getData()
+
+    def clearSearch(self):
+        self.search1V.set("")
+        self.search2V.set("")
+        self.getData()
+
+    def saveSearch(self):
+        masterParms.set("search1", self.search1V.get())
+        masterParms.set("search2", self.search2V.get())
+        masterParms.saveMaster()
+
+    def restoreSearch(self):
+        self.search1V.set(masterParms.get("search1", ""))
+        self.search2V.set(masterParms.get("search2", "'"))
 
     def onChanged1(self, resp):
         if flags.debug:
@@ -96,10 +121,22 @@ class dsevents():
 
     def onChanged(self):
         self.onChanged1("")
+        
+    def onLBRightClick(self, resp):
+        sel = self.listBox.curselection()
+        if len(sel) == 0:
+            return
+        s = self.listBox.get(sel[0])
+        dbIndex = self.ids[sel[0]]
+        data = self.getDataForIndex(dbIndex)
+        fileName = data[0][6]
+        print("LB Change file:%s id:%d s:%s" % (fileName, dbIndex, s))
+        showSomeLines.showForm(dbIndex, fileName)
+        self.updateStatus()
 
     def onChangeLB(self, resp):
-        #print("LB Changed")
-        self.updateStatus()
+        sel = self.listBox.curselection()
+        print(sel)
 
     def getFrame(self):
         return self.frame
@@ -118,13 +155,13 @@ class dsevents():
         #frame.grid_rowconfigure(0, weight=1)
         return fLB
 
-    # Get Selected item f
-    def updateListbox(self):
-        sel = listBox.curselection()
-        files = []
-        for x in sel:
-            print(self.listBox.get(x))
-            files.append(listBox.get(x))
+    def getDataForIndex(self, idx):
+        db.db.createConnection("data.db")
+        cur = db.db.connection.cursor()
+        cur.execute(
+            "SELECT * FROM allData_dsevents where id = %d;" % (idx))
+        data = cur.fetchall()
+        return data
 
     def getData(self):
         db.db.createConnection("data.db")
@@ -133,6 +170,7 @@ class dsevents():
         fileNums = []
         self.fileCount = 0
         self.lineCount = 0
+        self.ids = []
         for file in files:
             cur.execute("Select id from files where fileName = '%s';" % (file))
             data = cur.fetchall()
@@ -142,19 +180,24 @@ class dsevents():
         reg = self.getRegExp()
         for fileNum in fileNums:
             cur.execute(
-                "SELECT logData FROM allData_dsevents where fileNum = %d;" % (fileNum))
+                "SELECT logData,id FROM allData_dsevents where fileNum = %d;" % (fileNum))
             data = cur.fetchall()
             for r in data:
                 d = r[0]
                 if reg.match(d):
+                    if(r[1] == 53624):
+                        print("53624", len(self.ids))
+                    self.ids.append(r[1])  # Append the index of the element
                     self.listBox.insert(END, d)
                     self.lineCount += 1
         self.updateStatus()
-
+ 
     def updateStatus(self):
-        self.lineCount = 0
         self.statusBarV.set("Files:%d Lines:%d Selected:%d" %
                             (self.fileCount, self.lineCount,  len(self.listBox.curselection())))
+
+    def getListBox(self):
+        return self.listBox
 
     def getRegExp(self):
         s1 = self.search1V.get()

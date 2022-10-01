@@ -16,7 +16,7 @@
             //"args": [ "-d1-10", "-D", "-pl", "-cemydseventdata.csv", "..//AllLogs"]
             //"args": [ "-d8",  "-D", "-clcurrents.csv",  "-ceevents.csv", "../AllLogs"]
             //"args":["-D", "-Pl"]
-            "args":["c:\\Temp\\2020-competition\\src\\main\\java\\frc\\robot\\",]
+            "args":["",]
         }
     ]
 }

@@ -10,8 +10,11 @@ import utils
 import db
 import sys
 import editPDPConfigTKSheet
+import masterParms
+import makeCSV
 
 dirForLogs = "c:\\Users\\Public\\Documents\\FRC\\Log Files\\*"
+dirForLogs = "..\\Sibling\\"
 
 
 def createMenu(tab):
@@ -34,15 +37,26 @@ def createMenu(tab):
     editMenu.add_command(label="Edit Ignores", command=editIgnores.showForm)
     editMenu.add_command(label="Edit PDP Configs",
                          command=editPDPConfigTKSheet.showForm)
+    csvMenu = tk.Menu(menubar, tearoff=0)
+    menubar.add_cascade(label="CSV Actions", menu=csvMenu)
+    csvMenu.add_command(label="Make CSV All Files",
+                        command=lambda: makeCSV.makeAllFiles(files))
+    csvMenu.add_command(label="Make CSV Selected Files",
+                        command=lambda: makeCSV.makeSelectedFiles(files))
+    csvMenu.add_command(label="Make CSV Displayed Data",
+                        command=lambda: makeCSV.makeData(events))
+    csvMenu.add_command(label="Make CSV Selected Data",
+                        command=lambda: makeCSV.makeSelectedData(events))
     helpMenu = tk.Menu(menubar, tearoff=0)
     menubar.add_cascade(label="Help", menu=helpMenu)
     helpMenu.add_command(label="About Us")
+
 
 def fileImport():
     types = [("Robot log files", "*.dslog *.dsevents"), ("dsevents",
                                                          "*.dsevents"), ("dslog", "*.dslog"), ("All files", "*.*")]
     fileNames = tk.filedialog.askopenfilename(
-        initialdir=dirForLogs , title="Select file", multiple=True, filetypes=types)
+        initialdir=dirForLogs, title="Select file", multiple=True, filetypes=types)
     if flags.debug:
         print("Files to Import", fileNames)
     flags.makeDB = True
@@ -55,7 +69,7 @@ def fileImport():
 def directoryImport(reg):
     types = [("", reg),  ("All files", "*.*")]
     files = tk.filedialog.askopenfilename(
-        initialdir=dirForLogs, title="Select Directory", multiple=True,filetypes=types )
+        initialdir=dirForLogs, title="Select Directory", multiple=True, filetypes=types)
     flags.makeDB = True
     #files = utils.getListOfFiles(dirName, reg)
     if len(files) > 10:
@@ -72,8 +86,11 @@ def refreshEvents():
 
 
 global files, events
+master = {}
+masterParms.restoreMaster()
 
 window = tk.Tk()
+
 window.geometry("880x550")
 window.title("Team 3932 Log File Viewer")
 window.configure(background="white")

@@ -3,10 +3,15 @@ import re
 from tkinter import (Button, Checkbutton, Entry, Frame, Label, Listbox, Menu,
                      Scrollbar, Text, Toplevel, ttk, StringVar, BooleanVar, VERTICAL, EXTENDED, END, MULTIPLE )
 
+from sympy import li
+
 import db as db
 import utils
 import flags
-import datetime 
+import datetime
+import masterParms
+
+
 
 class dsFiles():
     lastTime = datetime.datetime.now()
@@ -17,12 +22,12 @@ class dsFiles():
         frame = Frame(tab)
         self.frame = frame
         self.refreshEvents = refreshEvents
-        
         # declare varaibles used on the form
         self.monthV = StringVar()
-        self.monthV.set("8")
+        v = masterParms.get("Month", self.lastTime.strftime("%m"))
+        self.monthV.set(masterParms.get("Month", self.lastTime.strftime("%m")))
         self.dayV = StringVar()
-        self.dayV.set("18")
+        self.dayV.set(masterParms.get("Day",self.lastTime.strftime("%d")))
         self.dslogV = BooleanVar()
         self.dslogV.set(False)
         self.dseventsV = BooleanVar()
@@ -105,6 +110,8 @@ class dsFiles():
 
     def statusChanged(self, response):
         print("---  Something Changed ---", response)
+        masterParms.set("Day",  self.dayV.get())
+        masterParms.set("Month",  self.monthV.get())
         self.inData = self.getFiles()
         print("Found %d files to display" % (len(self.inData)))
         self.listBox.delete(0, END)
@@ -152,6 +159,10 @@ class dsFiles():
         for x in sel:
             files.append(self.listBox.get(x))
         return files
+    
+    def getFilesList(self):
+        return self.listBox.get(0,END)
+        
     
     def refresh(self):
         self.statusChanged("Refresh")
