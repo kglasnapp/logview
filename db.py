@@ -5,6 +5,7 @@ import sqlite3
 from sqlite3 import Error
 import sys
 import flags
+from tkinter import (END,  messagebox)
 
 class DB:
     connection = None
@@ -235,6 +236,5 @@ class DB:
             #     return False
             return True
         return False
-
 
 db = DB()

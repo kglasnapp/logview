@@ -2,6 +2,8 @@ import datetime
 import os
 import re
 import sys
+
+from sentry_sdk import last_event_id
 from db import db
 import utils
 import flags
@@ -11,6 +13,7 @@ class parseDSEvents:
     fileName = ''
     fileNum = 0
     csvFileID = None
+    lastElementDate = None
 
     def __init__(self, file):
         self.fileName = os.path.basename(file)
@@ -40,6 +43,7 @@ class parseDSEvents:
             return
         fileDate = datetime.datetime.strptime(
             ar[0] + ar[1], "%Y_%m_%d%H_%M_%S")
+        self.lastElementDate = fileDate
         hdr = stream.read(20)
         # Return if hit end of file
         if len(hdr) == 0:
@@ -101,6 +105,7 @@ class parseDSEvents:
         # Get each of the elements for a tag line
         ar = x.split('<TagVersion>')
         typePattern = re.compile(r'\[.*?\]')
+        datePattern = re.compile(r'\d{2}:\d{2}:\d{2}-')
         ar.sort()
         deltaTime = ''
         if (len(ar) > 0):
@@ -109,13 +114,22 @@ class parseDSEvents:
                     l = re.sub(r'^1 <time>.*<message> ',  '', l)
                     l = re.sub(r'^1 <time>.*<details> ',  '', l)
                     l = re.sub(r'^Warning at.*\): ',  '', l)
+                    l = re.sub(r'^\\t',  '', l)
                     deltaTime = ""
+                    lineHasDate = datePattern.match(l)
+                    if not lineHasDate:
+                        l = l.strip()
+                        if len(l) == 0:
+                            break
+                        l = self.lastElementDate.strftime('%H:%M:%S.%f')[0:12] + ' ' + l
                     lineType = typePattern.match(l)
+             
                     if(lineType != None):
                         lineType = lineType.group()[1:-1].replace(' ', '')
                         if l[8:9].isnumeric():
                             elementDate = datetime.datetime.strptime("{:%y_%m_%d}".format(
                                 lineDate) + " " + l[8:20], '%y_%m_%d %H:%M:%S.%f')
+                            self.lastElementDate = elementDate
                         else:
                             elementDate = lineDate
                         deltaTime = str(
@@ -128,6 +142,7 @@ class parseDSEvents:
                         print(d + "** " + l)
                     self.getFileInfo(self.fileName, l)
                     self.lineCount += 1
+                    self.lastElementDate = lineDate
                     if self.myMakeDB and len(l) > 0:
                         db.addEventData(lineDate, deltaTime,
                                            lineType, "{:%m/%d }".format(lineDate) + l, self.fileNum, self.fileName)

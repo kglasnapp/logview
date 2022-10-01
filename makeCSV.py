@@ -2,7 +2,8 @@ import dsFiles
 import dseventsF
 import db as db
 import time
-from tkinter import (END)
+from tkinter import (END,  messagebox)
+import os
 
 lines = 0
 def makeAllFiles(files):
@@ -12,6 +13,8 @@ def makeAllFiles(files):
     numFiles = 0
     filesLB = files.getFilesList()
     saveFile = getSaveFile(filesLB[0])
+    if os.path.exists(saveFile):
+       os.remove(saveFile)
     for f in filesLB:
        lines += makeCSV(f,saveFile)
        numFiles += 1
@@ -26,8 +29,11 @@ def makeSelectedFiles(files):
     filesLB = files.getSelected()
     if len(filesLB) == 0:
         print("No Files are selected")
+        messagebox.showerror("Error", "No Files are selected")
         return
     saveFile = getSaveFile(filesLB[0])
+    if os.path.exists(saveFile):
+       os.remove(saveFile)
     for f in filesLB:
        lines += makeCSV(f,saveFile)
        numFiles += 1
@@ -41,6 +47,7 @@ def makeData(events):
     data = dataLB.get(0,END)
     if len(data) == 0:
         print("No data is displayed")
+        messagebox.showerror("Error", "No data is displayed")
         return
     saveFile = getSaveFile("")
     f = open(saveFile, "w")
@@ -58,7 +65,8 @@ def makeSelectedData(events):
     dataLB = events.getListBox()
     sel = dataLB.curselection()
     if len(sel) == 0:
-        print("No data is delected")
+        print("No data is selected")
+        messagebox.showerror("Error", "No data is selected")
         return
     saveFile = getSaveFile("")
     f = open(saveFile, "w")

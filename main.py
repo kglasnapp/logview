@@ -9,7 +9,7 @@ import flags
 import utils
 import db
 import sys
-import editPDPConfigTKSheet
+import editPDPConfig
 import masterParms
 import makeCSV
 
@@ -29,14 +29,14 @@ def createMenu(tab):
                          command=lambda: directoryImport("*.dslog"))
     fileMenu.add_command(label="Import Files in Directory",
                          command=lambda: directoryImport(".*dslog|.*dsevents"))
-    fileMenu.add_command(label="Save")
+    fileMenu.add_command(label="Delete Data Base", command=lambda:deleteData())
     fileMenu.add_separator()
     fileMenu.add_command(label="Exit", command=lambda: sys.exit(0))
     editMenu = tk.Menu(menubar, tearoff=0)
     menubar.add_cascade(label="Edit", menu=editMenu)
     editMenu.add_command(label="Edit Ignores", command=editIgnores.showForm)
     editMenu.add_command(label="Edit PDP Configs",
-                         command=editPDPConfigTKSheet.showForm)
+                         command=editPDPConfig.showForm)    
     csvMenu = tk.Menu(menubar, tearoff=0)
     menubar.add_cascade(label="CSV Actions", menu=csvMenu)
     csvMenu.add_command(label="Make CSV All Files",
@@ -68,18 +68,26 @@ def fileImport():
 
 def directoryImport(reg):
     types = [("", reg),  ("All files", "*.*")]
-    files = tk.filedialog.askopenfilename(
+    filesToImport = tk.filedialog.askopenfilename(
         initialdir=dirForLogs, title="Select Directory", multiple=True, filetypes=types)
     flags.makeDB = True
-    #files = utils.getListOfFiles(dirName, reg)
-    if len(files) > 10:
+    if len(filesToImport) > 10:
         msg = "You have requestd to import %d files into the data base\ndo you want to continue" % (
-            len(files))
+            len(filesToImport))
         result = tk.messagebox.askokcancel(title="Import Files", message=msg)
         if not result:
             return
-    utils.processListOfFiles(files)
+    utils.processListOfFiles(filesToImport)
+    files.refresh()
 
+def deleteData():
+        msg = "Do you want to delete the data in the data base"
+        msg += "-- you can rerun an import to refill the database"
+        result = tk.messagebox.askokcancel(title="Import Files", message=msg)
+        if not result:
+            return
+        db.db.createDB(True)
+        files.refresh()
 
 def refreshEvents():
     events.refresh()

@@ -4,4 +4,4 @@ Watchdog not fed within
 .LiveWindow.updateValues
 .disablePeriodic
 .SmartDashboard.updateValues
-DS Disable <location> Driver Station <stack>
+DS Disable .location. Driver Station .stack.

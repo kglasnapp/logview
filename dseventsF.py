@@ -3,7 +3,6 @@ import tkinter.messagebox
 from tkinter import (Button, Checkbutton, Label,
                      Listbox, Scrollbar, Frame, END, ttk)
 from turtle import clear
-import tksheet as ts
 import db as db
 import re
 import flags
